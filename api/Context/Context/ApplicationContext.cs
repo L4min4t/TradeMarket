@@ -25,7 +25,7 @@ public class ApplicationContext : DbContext
     {
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.UserId);
+            entity.HasKey(e => e.Id);
             
             entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
             
@@ -47,7 +47,7 @@ public class ApplicationContext : DbContext
     {
         modelBuilder.Entity<City>(entity =>
         {
-            entity.HasKey(e => e.CityId);
+            entity.HasKey(e => e.Id);
             
             entity.Property(e => e.Name).IsRequired().HasMaxLength(255);
             entity.Property(e => e.Region).IsRequired().HasMaxLength(255);
@@ -60,7 +60,7 @@ public class ApplicationContext : DbContext
         
         modelBuilder.Entity<Poster>(entity =>
         {
-            entity.HasKey(e => e.PosterId);
+            entity.HasKey(e => e.Id);
             
             entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
             entity.Property(e => e.Description).IsRequired().HasMaxLength(5000);

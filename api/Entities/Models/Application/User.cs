@@ -1,6 +1,6 @@
 ﻿namespace Entities.Models.Application;
 
-public class User
+public class User : IEntity
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 

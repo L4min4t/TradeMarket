@@ -2,7 +2,7 @@
 
 public class User
 {
-    public Guid UserId { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     public string Name { get; set; } = null!;
     public string? AvatarUrl { get; set; }

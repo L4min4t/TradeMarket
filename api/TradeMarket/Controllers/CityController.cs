@@ -14,15 +14,15 @@ public class CityController : ControllerBase
         _cityRepository = cityRepository;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetAll()
-    {
-        var result = await _cityRepository.FindAllAsync();
-        if (result.IsSuccess)
-        {
-            return Ok(result.Value);
-        }
-
-        return BadRequest();
-    }
+    // [HttpGet]
+    // public async Task<IActionResult> GetById([FromRoute] Guid id)
+    // {
+    //     var result = await _cityRepository.FindByIdAsync(id);
+    //     if (result.IsSuccess)
+    //     {
+    //         return Ok(result.Value);
+    //     }
+    //
+    //     return BadRequest();
+    // }
 }

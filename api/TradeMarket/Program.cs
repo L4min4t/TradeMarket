@@ -3,6 +3,8 @@ using Context.Seeders;
 using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces;
 using Repositories.Repositories;
+using Services.Interfaces;
+using Services.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +14,10 @@ builder.Services.AddDbContext<ApplicationContext>(options =>
 builder.Services.AddScoped<IPosterRepository, PosterRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICityRepository, CityRepository>();
+
+builder.Services.AddScoped<IPosterService, PosterService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<ICityService, CityService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

@@ -2,9 +2,9 @@
 
 namespace Entities.Models.Application;
 
-public class Poster
+public class Poster : IEntity
 {
-    public Guid PosterId { get; set; } = Guid.NewGuid();
+    public Guid Id { get; set; } = Guid.NewGuid();
 
     public string Title { get; set; } = null!;
     public string Description { get; set; } = null!;

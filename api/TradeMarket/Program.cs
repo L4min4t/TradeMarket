@@ -1,11 +1,17 @@
 using Context.Context;
 using Context.Seeders;
 using Microsoft.EntityFrameworkCore;
+using Repositories.Interfaces;
+using Repositories.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<ApplicationContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("ApplicationConnection")));
+
+builder.Services.AddScoped<IPosterRepository, PosterRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICityRepository, CityRepository>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

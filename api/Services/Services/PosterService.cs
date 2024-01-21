@@ -6,7 +6,7 @@ namespace Services.Services;
 
 public class PosterService : BaseService<Poster>, IPosterService
 {
-    public PosterService(IBaseRepository<Poster> repository) : base(repository)
+    public PosterService(IPosterRepository repository) : base(repository)
     {
     }
 }

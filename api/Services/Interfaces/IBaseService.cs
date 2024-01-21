@@ -5,10 +5,10 @@ namespace Services.Interfaces;
 
 public interface IBaseService<TDto> where TDto : class
 {
-    Task<Result> FindAllAsync();
-    Task<Result> FindByIdAsync(Guid id);
-    Task<Result> FindByConditionAsync(Expression<Func<TDto, bool>> expression);
-    Task<Result> CreateAsync(TDto entity);
-    Task<Result> UpdateAsync(TDto entity);
-    Task<Result>  DeleteAsync(Guid id);
+    Task<Result<List<TDto>?>> FindAllAsync();
+    Task<Result<TDto?>> FindByIdAsync(Guid id);
+    Task<Result<List<TDto>?>> FindByConditionAsync(Expression<Func<TDto, bool>> expression);
+    Task<Result<bool>> CreateAsync(TDto entity);
+    Task<Result<bool>> UpdateAsync(TDto entity);
+    Task<Result<bool>>  DeleteAsync(Guid id);
 }

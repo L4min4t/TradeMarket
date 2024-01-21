@@ -6,7 +6,7 @@ namespace Services.Services;
 
 public class CityService : BaseService<City>, ICityService
 {
-    public CityService(IBaseRepository<City> repository) : base(repository)
+    public CityService(ICityRepository repository) : base(repository)
     {
     }
 }

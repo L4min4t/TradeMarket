@@ -6,7 +6,7 @@ namespace Services.Services;
 
 public class UserService : BaseService<User>, IUserService
 {
-    public UserService(IBaseRepository<User> repository) : base(repository)
+    public UserService(IUserRepository repository) : base(repository)
     {
     }
 }

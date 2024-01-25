@@ -1,8 +1,9 @@
-﻿using Entities.Models.Application;
+﻿using Entities.Dtos.Poster;
+using Entities.Models.Application;
 
 namespace Services.Interfaces;
 
-public interface IPosterService : IBaseService<Poster>
+public interface IPosterService : IBaseService<Poster, PosterBaseDto>
 {
     
 }

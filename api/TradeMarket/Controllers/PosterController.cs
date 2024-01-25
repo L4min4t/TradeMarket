@@ -1,17 +1,16 @@
-﻿using Entities.Dtos.City;
-using Entities.Models.Application;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using Repositories.Interfaces;
 using Services.Interfaces;
 
 namespace TradeMarket.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class CityController : ControllerBase
+public class PosterController : ControllerBase
 {
-    private readonly ICityService _service;
+    private readonly IPosterService _service;
 
-    public CityController(ICityService service)
+    public PosterController(IPosterService service)
     {
         _service = service;
     }
@@ -36,18 +35,4 @@ public class CityController : ControllerBase
         var result = await _service.DeleteAsync(id);
         return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
     }
-
-    [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CityCreateDto entity)
-    {
-        var result = await _service.CreateAsync(entity);
-        return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
-    }
-    
-    // [HttpPut]
-    // public async Task<IActionResult> Update([FromBody] City entity)
-    // {
-    //     var result = await _service.UpdateAsync(entity);
-    //     return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
-    // }
 }

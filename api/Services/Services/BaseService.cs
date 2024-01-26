@@ -86,7 +86,9 @@ public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
         try
         {
             var entity = Mapper.Map<TEntity>(dto);
+            
             await Repository.CreateAsync(entity);
+            
             return Result.Ok<bool>(true, $"Entity ({typeof(TEntity).Name}:{entity.Id.ToString()}) added successfully.");
         }
         catch (Exception ex)
@@ -102,7 +104,12 @@ public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
     {
         try
         {
-            // await Repository.UpdateAsync(dto);
+            var entity = await Repository.FindByIdAsync(dto.Id);
+            
+            Mapper.Map(dto, entity);
+            
+            await Repository.UpdateAsync(entity);
+            
             return Result.Ok<bool>(true, $"Entity ({typeof(TEntity).Name}:{dto.Id.ToString()}) updated successfully.");
         }
         catch (Exception ex)

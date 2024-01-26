@@ -38,14 +38,14 @@ public class CityController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CityCreateDto createDto)
+    public async Task<IActionResult> Create([FromBody] CityDto createDto)
     {
         var result = await _service.CreateAsync(createDto);
         return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
     }
     
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody] CityUpdateDto createDto)
+    public async Task<IActionResult> Update([FromBody] CityDto createDto)
     {
         var result = await _service.UpdateAsync(createDto);
         return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);

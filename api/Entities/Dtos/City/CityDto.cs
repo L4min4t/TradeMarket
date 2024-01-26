@@ -1,11 +1,7 @@
-﻿using System.Text.Json.Serialization;
+﻿namespace Entities.Dtos.City;
 
-namespace Entities.Dtos.City;
-
-public class CityCreateDto : CityBaseDto
+public class CityDto : CityBaseDto
 {
-    [JsonIgnore]
-    public new Guid Id { get; set; } 
     public required string Name { get; set; } = null!;
     public required string Region { get; set; } = null!;
     public required string Status { get; set; } = null!;

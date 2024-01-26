@@ -1,4 +1,5 @@
-﻿using Entities.Models.Application;
+﻿using Entities.Dtos.User;
+using Entities.Models.Application;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 
@@ -36,10 +37,17 @@ public class UserController : ControllerBase
         return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
     }
     
-    // [HttpPost]
-    // public async Task<IActionResult> Create([FromBody] User entity)
-    // {
-    //     var result = await _service.CreateAsync(entity);
-    //     return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
-    // }
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] UserDto dto)
+    {
+        var result = await _service.CreateAsync(dto);
+        return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> Update([FromBody] UserDto dto)
+    {
+        var result = await _service.UpdateAsync(dto);
+        return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
+    }
 }

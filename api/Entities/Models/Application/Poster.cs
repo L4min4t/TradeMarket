@@ -28,8 +28,4 @@ public class Poster : IEntity
     public uint NumberLiked { get; set; } = 0;
     
     public Category Category { get; set; }
-
-    public string? Email { get; set; }
-    public string? Phone { get; set; }
-    public string? Telegram { get; set; }
 }

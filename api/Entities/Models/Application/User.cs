@@ -7,7 +7,7 @@ public class User : IEntity
     public string Name { get; set; } = null!;
     public string? AvatarId { get; set; }
     
-    public string? Email { get; set; }
+    public string Email { get; set; }
     public string? Phone { get; set; }
     public string? Telegram { get; set; }
     

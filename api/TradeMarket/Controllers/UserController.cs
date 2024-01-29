@@ -38,16 +38,16 @@ public class UserController : ControllerBase
     }
     
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] UserDto dto)
+    public async Task<IActionResult> Create([FromBody] UserCreateDto createDto)
     {
-        var result = await _service.CreateAsync(dto);
-        return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
+        var result = await _service.CreateAsync(createDto);
+        return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody] UserDto dto)
+    public async Task<IActionResult> Update([FromBody] UserUpdateDto createDto)
     {
-        var result = await _service.UpdateAsync(dto);
-        return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
+        var result = await _service.UpdateAsync(createDto);
+        return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);
     }
 }

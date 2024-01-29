@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Entities.Dtos.Poster;
+using Microsoft.AspNetCore.Mvc;
 using Repositories.Interfaces;
 using Services.Interfaces;
 
@@ -34,5 +35,19 @@ public class PosterController : ControllerBase
     {
         var result = await _service.DeleteAsync(id);
         return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] PosterCreateDto dto)
+    {
+        var result = await _service.CreateAsync(dto);
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
+    }
+    
+    [HttpPut]
+    public async Task<IActionResult> Update([FromBody] PosterUpdateDto dto)
+    {
+        var result = await _service.UpdateAsync(dto);
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
     }
 }

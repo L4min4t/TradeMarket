@@ -9,7 +9,7 @@ public class Poster : IEntity
     public string Title { get; set; } = null!;
     public string Description { get; set; } = null!;
 
-    public ulong Price { get; set; } = 0;
+    public decimal Price { get; set; } = -1;
     public bool IsSharing { get; set; } = false;
     public bool IsNew { get; set; } = true;
     

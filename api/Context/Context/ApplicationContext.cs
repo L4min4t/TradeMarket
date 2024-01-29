@@ -29,7 +29,7 @@ public class ApplicationContext : DbContext
             
             entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
             
-            entity.Property(e => e.Email).HasMaxLength(255);
+            entity.Property(e => e.Email).IsRequired().HasMaxLength(255);
             entity.Property(e => e.Phone).HasMaxLength(255);
             entity.Property(e => e.Telegram).HasMaxLength(255);
             
@@ -65,7 +65,7 @@ public class ApplicationContext : DbContext
             entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
             entity.Property(e => e.Description).IsRequired().HasMaxLength(5000);
             
-            entity.Property(e => e.Price).IsRequired();
+            entity.Property(e => e.Price).IsRequired().HasColumnType("decimal(18, 2)");
             entity.Property(e => e.IsSharing).IsRequired();
             entity.Property(e => e.IsNew).IsRequired();
             
@@ -79,9 +79,9 @@ public class ApplicationContext : DbContext
             
             entity.Property(e => e.Category).IsRequired();
             
-            // One-to-one: User-City
+            // One-to-Many: Poster-User
             entity.HasOne(p => p.Creator)
-                .WithOne()
+                .WithMany()
                 .OnDelete(DeleteBehavior.Cascade);
         });
     }

@@ -9,7 +9,7 @@ using TradeMarket.Models.ResultPattern;
 namespace Services.Services;
 
 public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
-    where TEntity : class, IEntity
+    where TEntity : class, IEntity, new()
     where TDto : BaseDto
 {
     protected readonly IBaseRepository<TEntity> Repository;
@@ -81,26 +81,29 @@ public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
 
     }
 
-    public virtual async Task<Result<bool>> CreateAsync(TDto dto)
+    public virtual async Task<Result<TEntity>> CreateAsync(TDto dto)
     {
         try
         {
-            var entity = Mapper.Map<TEntity>(dto);
+            var entity = new TEntity();
+            Mapper.Map(dto, entity);
+            dto.Id = entity.Id;
             
             await Repository.CreateAsync(entity);
             
-            return Result.Ok<bool>(true, $"Entity ({typeof(TEntity).Name}:{entity.Id.ToString()}) added successfully.");
+            return Result.Ok<TEntity>(await Repository.FindByIdAsync(entity.Id),
+                $"Entity ({typeof(TEntity).Name}:{entity.Id.ToString()}) added successfully.");
         }
         catch (Exception ex)
         {
-            return Result.Fail<bool>(
+            return Result.Fail<TEntity>(
                 $"Service.CreateAsync ({typeof(TEntity).Name}:{dto.Id.ToString()})\n" +
                 $"An exception occurred: {ex.Message}"
             );
         }
     }
 
-    public virtual async Task<Result<bool>> UpdateAsync(TDto dto)
+    public virtual async Task<Result<TEntity>> UpdateAsync(TDto dto)
     {
         try
         {
@@ -110,11 +113,12 @@ public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
             
             await Repository.UpdateAsync(entity);
             
-            return Result.Ok<bool>(true, $"Entity ({typeof(TEntity).Name}:{dto.Id.ToString()}) updated successfully.");
+            return Result.Ok<TEntity>(await Repository.FindByIdAsync(entity.Id),
+                $"Entity ({typeof(TEntity).Name}:{dto.Id.ToString()}) updated successfully.");
         }
         catch (Exception ex)
         {
-            return Result.Fail<bool>(
+            return Result.Fail<TEntity>(
                 $"Service.UpdateAsync ({typeof(TEntity).Name}:{dto.Id.ToString()})\n" +
                 $"An exception occurred: {ex.Message}");
         }

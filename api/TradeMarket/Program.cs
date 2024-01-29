@@ -21,8 +21,10 @@ builder.Services.AddScoped<ICityRepository, CityRepository>();
 builder.Services.AddScoped<IPosterService, PosterService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICityService, CityService>();
+builder.Services.AddScoped<IImageService, ImageService>();
 
 builder.Services.AddControllers();
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
 );
@@ -53,5 +55,6 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseStaticFiles();
 
 app.Run();

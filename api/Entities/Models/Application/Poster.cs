@@ -13,7 +13,7 @@ public class Poster : IEntity
     public bool IsSharing { get; set; } = false;
     public bool IsNew { get; set; } = true;
     
-    public string? ImageUrl { get; set; }
+    public string? ImageId { get; set; }
 
     public bool IsActive { get; set; } = false;
     public bool IsModerated { get; set; } = false;

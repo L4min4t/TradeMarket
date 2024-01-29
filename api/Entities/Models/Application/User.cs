@@ -5,7 +5,7 @@ public class User : IEntity
     public Guid Id { get; set; } = Guid.NewGuid();
 
     public string Name { get; set; } = null!;
-    public string? AvatarUrl { get; set; }
+    public string? AvatarId { get; set; }
     
     public string? Email { get; set; }
     public string? Phone { get; set; }

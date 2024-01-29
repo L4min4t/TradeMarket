@@ -33,7 +33,7 @@ public class ApplicationContext : DbContext
             entity.Property(e => e.Phone).HasMaxLength(255);
             entity.Property(e => e.Telegram).HasMaxLength(255);
             
-            entity.Property(e => e.AvatarUrl).HasMaxLength(511);
+            entity.Property(e => e.AvatarId).HasMaxLength(511);
             
             // One-to-many: User-City
             entity.HasOne(u => u.City)

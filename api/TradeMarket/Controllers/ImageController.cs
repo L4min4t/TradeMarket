@@ -16,9 +16,9 @@ public class ImageController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> UploadImage([FromForm] ImageDto dto)
+    public async Task<IActionResult> UploadImage([FromForm] UploadImageModel model)
     {
-        var result = await _service.UploadAsync(dto);
+        var result = await _service.UploadAsync(model);
         return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
     }
     

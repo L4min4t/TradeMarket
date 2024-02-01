@@ -1,4 +1,5 @@
 ﻿using Entities.Dtos.Poster;
+using Entities.Models.Poster;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Interfaces;
 using Services.Interfaces;
@@ -49,5 +50,41 @@ public class PosterController : ControllerBase
     {
         var result = await _service.UpdateAsync(dto);
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
+    }
+
+    [HttpGet("published")]
+    public async Task<IActionResult> GetPubliched()
+    {
+        var result = await _service.FindByConditionAsync(p => p.IsActive == true && p.IsModerated == true);
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
+    }
+
+    [HttpGet("to-moderate")]
+    public async Task<IActionResult> GetPostersToModerate()
+    {
+        var result = await _service.FindByConditionAsync(p => p.IsModerated == false && p.IsActive == true);
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
+    }
+
+    [HttpPut("moderate")]
+    public async Task<IActionResult> Moderate([FromBody] ModeratePosterModel model)
+
+    {
+        var result = await _service.ModerateAsync(model);
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
+    }
+
+    [HttpPut("change-status")]
+    public async Task<IActionResult> ChangeStatus([FromBody] ActivateDeactivatePosterModel model)
+    {
+        var result = await _service.ChangeStatusAsync(model);
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
+    }
+
+    [HttpPut("like")]
+    public async Task<IActionResult> Like([FromBody] LikePosterModel model)
+    {
+        var result = await _service.LikeAsync(model);
+        return result.IsSuccess ? Ok(result.Message) : BadRequest(result.Message);
     }
 }

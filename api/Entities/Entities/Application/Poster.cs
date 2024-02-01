@@ -15,7 +15,7 @@ public class Poster : IEntity
     
     public string? ImageId { get; set; }
 
-    public bool IsActive { get; set; } = false;
+    public bool IsActive { get; set; } = true;
     public bool IsModerated { get; set; } = false;
 
     public Guid CreatorId { get; set; }
@@ -28,4 +28,6 @@ public class Poster : IEntity
     public uint NumberLiked { get; set; } = 0;
     
     public Category Category { get; set; }
+    
+    public List<UserLikedPoster>? Users { get; set; }
 }

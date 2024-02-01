@@ -13,4 +13,6 @@ public class User : IEntity
     
     public Guid? CityId { get; set; }
     public City? City { get; set; }
+
+    public List<UserLikedPoster>? LikedPosters { get; set; }
 }

@@ -6,7 +6,7 @@ namespace Services.Interfaces;
 
 public interface IImageService
 {
-    Task<Result<bool>> UploadAsync(ImageDto dto);
+    Task<Result<bool>> UploadAsync(UploadImageModel model);
     Task<Result<FileStreamResult>> GetImageAsync(string fileName);
     Task<Result<bool>> DeleteImageAsync(string id);
 }

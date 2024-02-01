@@ -27,7 +27,7 @@ public class PosterUpdateDto : PosterBaseDto
     public string? ImageId { get; set; }
 
     [JsonIgnore]
-    public bool IsActive { get; set; } = false;
+    public bool IsActive { get; set; } = true;
     [JsonIgnore]
     public bool IsModerated { get; set; } = false;
 

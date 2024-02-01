@@ -122,7 +122,6 @@ public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
                 $"Service.UpdateAsync ({typeof(TEntity).Name}:{dto.Id.ToString()})\n" +
                 $"An exception occurred: {ex.Message}");
         }
-        
     }
 
     public virtual async Task<Result<bool>> DeleteAsync(Guid id)

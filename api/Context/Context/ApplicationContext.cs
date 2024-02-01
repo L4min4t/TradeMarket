@@ -11,6 +11,7 @@ public class ApplicationContext : DbContext
     public DbSet<Poster> Posters { get; set; }
     public DbSet<City> Cities { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<UserLikedPoster> LikedPosters { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -19,6 +20,7 @@ public class ApplicationContext : DbContext
         ConfigureUser(modelBuilder);
         ConfigureCity(modelBuilder);
         ConfigurePoster(modelBuilder);
+        ConfigureLikedPosters(modelBuilder);
     }
 
     private void ConfigureUser(ModelBuilder modelBuilder)
@@ -40,6 +42,9 @@ public class ApplicationContext : DbContext
                 .WithMany(c => c.Users)
                 .HasForeignKey(u => u.CityId)
                 .OnDelete(DeleteBehavior.SetNull);
+            
+            // Many-to-many: User-Posters
+            entity.HasMany(u => u.LikedPosters);
         });
     }
 
@@ -84,5 +89,25 @@ public class ApplicationContext : DbContext
                 .WithMany()
                 .OnDelete(DeleteBehavior.Cascade);
         });
+    }
+    private void ConfigureLikedPosters(ModelBuilder modelBuilder)
+    {
+        
+        modelBuilder.Entity<UserLikedPoster>(entity =>
+        {
+            entity.HasKey(e => new { e.UserId, e.PosterId });
+
+            // Many-to-Many: Poster-User
+            entity.HasOne(e => e.User)
+                .WithMany(u => u.LikedPosters)
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(e => e.Poster)
+                .WithMany(p => p.Users)
+                .HasForeignKey(e => e.PosterId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
     }
 }

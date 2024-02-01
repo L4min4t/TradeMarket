@@ -22,6 +22,7 @@ builder.Services.AddScoped<IPosterService, PosterService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICityService, CityService>();
 builder.Services.AddScoped<IImageService, ImageService>();
+builder.Services.AddScoped<ILikedPosterRepository, LikedPosterRepository>();
 
 builder.Services.AddControllers();
 builder.Services.AddHttpContextAccessor();

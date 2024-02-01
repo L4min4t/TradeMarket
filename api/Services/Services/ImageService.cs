@@ -10,24 +10,24 @@ namespace Services.Services;
 
 public class ImageService : IImageService
 {
-    public async Task<Result<bool>> UploadAsync(ImageDto dto)
+    public async Task<Result<bool>> UploadAsync(UploadImageModel model)
     {
         try
         {
-            if (dto.ImageFile != null && dto.ImageFile.Length > 0)
+            if (model.ImageFile != null && model.ImageFile.Length > 0)
             {
-                if (!dto.ImageFile.ContentType.StartsWith("image/"))
+                if (!model.ImageFile.ContentType.StartsWith("image/"))
                 {
                     return Result.Fail<bool>(
-                        $"ImageService.UploadAsync ({dto.GetType().Name}:{dto.Id.ToString()})\n" +
+                        $"ImageService.UploadAsync ({model.GetType().Name}:{model.Id.ToString()})\n" +
                         $"Invalid image file"
                     );
                 }
             
-                using (var inputStream = dto.ImageFile.OpenReadStream())
+                using (var inputStream = model.ImageFile.OpenReadStream())
                 using (var originalImage = Image.FromStream(inputStream))
                 {
-                    var jpegFileName = dto.Id + ".jpg";
+                    var jpegFileName = model.Id + ".jpg";
                     var jpegFilePath = Path.Combine("wwwroot/images", jpegFileName);
                     
                     using (var bitmapWithWhiteBg = new Bitmap(originalImage.Width, originalImage.Height))
@@ -46,14 +46,14 @@ public class ImageService : IImageService
 
             }
             return Result.Fail<bool>(
-                $"ImageService.UploadAsync ({dto.GetType().Name}:{dto.Id.ToString()})\n" +
+                $"ImageService.UploadAsync ({model.GetType().Name}:{model.Id.ToString()})\n" +
                 $"Invalid image file"
             );
         }
         catch (Exception ex)
         {
             return Result.Fail<bool>(
-                $"ImageService.UploadAsync ({dto.GetType().Name}:{dto.Id.ToString()})\n" +
+                $"ImageService.UploadAsync ({model.GetType().Name}:{model.Id.ToString()})\n" +
                 $"An exception occurred: {ex.Message}"
             );
         }

@@ -4,6 +4,7 @@ using Context.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Context.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240129185723_ChangedFieldOptionsOfEmailInUserEntity")]
+    partial class ChangedFieldOptionsOfEmailInUserEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,21 +148,6 @@ namespace Context.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Entities.Models.Application.UserLikedPoster", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PosterId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("UserId", "PosterId");
-
-                    b.HasIndex("PosterId");
-
-                    b.ToTable("LikedPosters");
-                });
-
             modelBuilder.Entity("Entities.Models.Application.Poster", b =>
                 {
                     b.HasOne("Entities.Models.Application.User", "Creator")
@@ -181,38 +169,9 @@ namespace Context.Migrations
                     b.Navigation("City");
                 });
 
-            modelBuilder.Entity("Entities.Models.Application.UserLikedPoster", b =>
-                {
-                    b.HasOne("Entities.Models.Application.Poster", "Poster")
-                        .WithMany("Users")
-                        .HasForeignKey("PosterId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Models.Application.User", "User")
-                        .WithMany("LikedPosters")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Poster");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Entities.Models.Application.City", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Entities.Models.Application.Poster", b =>
-                {
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Entities.Models.Application.User", b =>
-                {
-                    b.Navigation("LikedPosters");
                 });
 #pragma warning restore 612, 618
         }

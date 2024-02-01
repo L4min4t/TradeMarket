@@ -9,13 +9,13 @@ public class Poster : IEntity
     public string Title { get; set; } = null!;
     public string Description { get; set; } = null!;
 
-    public ulong Price { get; set; } = 0;
+    public decimal Price { get; set; } = -1;
     public bool IsSharing { get; set; } = false;
     public bool IsNew { get; set; } = true;
     
-    public string? ImageUrl { get; set; }
+    public string? ImageId { get; set; }
 
-    public bool IsActive { get; set; } = false;
+    public bool IsActive { get; set; } = true;
     public bool IsModerated { get; set; } = false;
 
     public Guid CreatorId { get; set; }
@@ -28,8 +28,6 @@ public class Poster : IEntity
     public uint NumberLiked { get; set; } = 0;
     
     public Category Category { get; set; }
-
-    public string? Email { get; set; }
-    public string? Phone { get; set; }
-    public string? Telegram { get; set; }
+    
+    public List<UserLikedPoster>? Users { get; set; }
 }

@@ -11,6 +11,7 @@ public class ApplicationContext : DbContext
     public DbSet<Poster> Posters { get; set; }
     public DbSet<City> Cities { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<UserLikedPoster> LikedPosters { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -19,6 +20,7 @@ public class ApplicationContext : DbContext
         ConfigureUser(modelBuilder);
         ConfigureCity(modelBuilder);
         ConfigurePoster(modelBuilder);
+        ConfigureLikedPosters(modelBuilder);
     }
 
     private void ConfigureUser(ModelBuilder modelBuilder)
@@ -29,17 +31,20 @@ public class ApplicationContext : DbContext
             
             entity.Property(e => e.Name).IsRequired().HasMaxLength(100);
             
-            entity.Property(e => e.Email).HasMaxLength(255);
+            entity.Property(e => e.Email).IsRequired().HasMaxLength(255);
             entity.Property(e => e.Phone).HasMaxLength(255);
             entity.Property(e => e.Telegram).HasMaxLength(255);
             
-            entity.Property(e => e.AvatarUrl).HasMaxLength(511);
+            entity.Property(e => e.AvatarId).HasMaxLength(511);
             
             // One-to-many: User-City
             entity.HasOne(u => u.City)
                 .WithMany(c => c.Users)
                 .HasForeignKey(u => u.CityId)
                 .OnDelete(DeleteBehavior.SetNull);
+            
+            // Many-to-many: User-Posters
+            entity.HasMany(u => u.LikedPosters);
         });
     }
 
@@ -65,7 +70,7 @@ public class ApplicationContext : DbContext
             entity.Property(e => e.Title).IsRequired().HasMaxLength(200);
             entity.Property(e => e.Description).IsRequired().HasMaxLength(5000);
             
-            entity.Property(e => e.Price).IsRequired();
+            entity.Property(e => e.Price).IsRequired().HasColumnType("decimal(18, 2)");
             entity.Property(e => e.IsSharing).IsRequired();
             entity.Property(e => e.IsNew).IsRequired();
             
@@ -79,10 +84,30 @@ public class ApplicationContext : DbContext
             
             entity.Property(e => e.Category).IsRequired();
             
-            // One-to-one: User-City
+            // One-to-Many: Poster-User
             entity.HasOne(p => p.Creator)
-                .WithOne()
+                .WithMany()
                 .OnDelete(DeleteBehavior.Cascade);
         });
+    }
+    private void ConfigureLikedPosters(ModelBuilder modelBuilder)
+    {
+        
+        modelBuilder.Entity<UserLikedPoster>(entity =>
+        {
+            entity.HasKey(e => new { e.UserId, e.PosterId });
+
+            // Many-to-Many: Poster-User
+            entity.HasOne(e => e.User)
+                .WithMany(u => u.LikedPosters)
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            entity.HasOne(e => e.Poster)
+                .WithMany(p => p.Users)
+                .HasForeignKey(e => e.PosterId)
+                .OnDelete(DeleteBehavior.Restrict);
+        });
+
     }
 }

@@ -4,6 +4,7 @@ using Context.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Context.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240127150756_ExtraFieldInPosterRemoved")]
+    partial class ExtraFieldInPosterRemoved
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,7 +71,7 @@ namespace Context.Migrations
                         .HasMaxLength(5000)
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("ImageId")
+                    b.Property<string>("ImageUrl")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsActive")
@@ -90,7 +93,7 @@ namespace Context.Migrations
                         .HasColumnType("bigint");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("decimal(20,0)");
 
                     b.Property<DateTime?>("PublishedAt")
                         .HasColumnType("datetime2");
@@ -102,7 +105,8 @@ namespace Context.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CreatorId");
+                    b.HasIndex("CreatorId")
+                        .IsUnique();
 
                     b.ToTable("Posters");
                 });
@@ -113,7 +117,7 @@ namespace Context.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("AvatarId")
+                    b.Property<string>("AvatarUrl")
                         .HasMaxLength(511)
                         .HasColumnType("nvarchar(511)");
 
@@ -121,7 +125,6 @@ namespace Context.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
@@ -145,26 +148,11 @@ namespace Context.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Entities.Models.Application.UserLikedPoster", b =>
-                {
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("PosterId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("UserId", "PosterId");
-
-                    b.HasIndex("PosterId");
-
-                    b.ToTable("LikedPosters");
-                });
-
             modelBuilder.Entity("Entities.Models.Application.Poster", b =>
                 {
                     b.HasOne("Entities.Models.Application.User", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatorId")
+                        .WithOne()
+                        .HasForeignKey("Entities.Models.Application.Poster", "CreatorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -181,38 +169,9 @@ namespace Context.Migrations
                     b.Navigation("City");
                 });
 
-            modelBuilder.Entity("Entities.Models.Application.UserLikedPoster", b =>
-                {
-                    b.HasOne("Entities.Models.Application.Poster", "Poster")
-                        .WithMany("Users")
-                        .HasForeignKey("PosterId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Entities.Models.Application.User", "User")
-                        .WithMany("LikedPosters")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Poster");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Entities.Models.Application.City", b =>
                 {
                     b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Entities.Models.Application.Poster", b =>
-                {
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("Entities.Models.Application.User", b =>
-                {
-                    b.Navigation("LikedPosters");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,4 @@
-﻿using Entities.Dtos.City;
+﻿using Entities.Dtos.User;
 using Entities.Models.Application;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
@@ -7,11 +7,11 @@ namespace TradeMarket.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class CityController : ControllerBase
+public class UserController : ControllerBase
 {
-    private readonly ICityService _service;
+    private readonly IUserService _service;
 
-    public CityController(ICityService service)
+    public UserController(IUserService service)
     {
         _service = service;
     }
@@ -36,18 +36,18 @@ public class CityController : ControllerBase
         var result = await _service.DeleteAsync(id);
         return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
     }
-
+    
     [HttpPost]
-    public async Task<IActionResult> Create([FromBody] CityCreateDto createCreateDto)
+    public async Task<IActionResult> Create([FromBody] UserCreateDto createDto)
     {
-        var result = await _service.CreateAsync(createCreateDto);
+        var result = await _service.CreateAsync(createDto);
         return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);
     }
-    
+
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody] CityUpdateDto createCreateDto)
+    public async Task<IActionResult> Update([FromBody] UserUpdateDto createDto)
     {
-        var result = await _service.UpdateAsync(createCreateDto);
+        var result = await _service.UpdateAsync(createDto);
         return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);
     }
 }

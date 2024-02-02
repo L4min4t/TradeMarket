@@ -1,5 +1,6 @@
 ﻿using Entities.Dtos.User;
 using Entities.Models.Application;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 
@@ -17,6 +18,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<IActionResult> Get()
     {
         var result = await _service.FindAllAsync();
@@ -35,13 +37,6 @@ public class UserController : ControllerBase
     {
         var result = await _service.DeleteAsync(id);
         return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
-    }
-    
-    [HttpPost]
-    public async Task<IActionResult> Create([FromBody] UserCreateDto createDto)
-    {
-        var result = await _service.CreateAsync(createDto);
-        return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);
     }
 
     [HttpPut]

@@ -4,6 +4,7 @@ using Context.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Context.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20240201232324_MakeUsersEmailUniqueField")]
+    partial class MakeUsersEmailUniqueField
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,7 +48,7 @@ namespace Context.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cities", (string)null);
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("Entities.Models.Application.Poster", b =>
@@ -104,7 +107,7 @@ namespace Context.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("Posters", (string)null);
+                    b.ToTable("Posters");
                 });
 
             modelBuilder.Entity("Entities.Models.Application.User", b =>
@@ -146,7 +149,7 @@ namespace Context.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Entities.Models.Application.UserLikedPoster", b =>
@@ -161,7 +164,7 @@ namespace Context.Migrations
 
                     b.HasIndex("PosterId");
 
-                    b.ToTable("LikedPosters", (string)null);
+                    b.ToTable("LikedPosters");
                 });
 
             modelBuilder.Entity("Entities.Models.Application.Poster", b =>

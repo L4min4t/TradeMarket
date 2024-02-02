@@ -56,14 +56,14 @@ public class PosterController : ControllerBase
     public async Task<IActionResult> GetPubliched()
     {
         var result = await _service.FindByConditionAsync(p => p.IsActive == true && p.IsModerated == true);
-        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
+        return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);
     }
 
     [HttpGet("to-moderate")]
     public async Task<IActionResult> GetPostersToModerate()
     {
         var result = await _service.FindByConditionAsync(p => p.IsModerated == false && p.IsActive == true);
-        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
+        return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);
     }
 
     [HttpPut("moderate")]

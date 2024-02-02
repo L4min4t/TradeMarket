@@ -41,13 +41,13 @@ public class CityController : ControllerBase
     public async Task<IActionResult> Create([FromBody] CityCreateDto createCreateDto)
     {
         var result = await _service.CreateAsync(createCreateDto);
-        return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
     }
     
     [HttpPut]
     public async Task<IActionResult> Update([FromBody] CityUpdateDto createCreateDto)
     {
         var result = await _service.UpdateAsync(createCreateDto);
-        return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
     }
 }

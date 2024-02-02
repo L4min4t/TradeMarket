@@ -28,10 +28,10 @@ public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
             var entities = await Repository.FindAllAsync();
             if (!entities.Any())
             {
-                return Result.Ok<List<TEntity>?>(entities, $"There aren't any {typeof(TEntity).Name} entities");
+                return Result.Ok<List<TEntity>?>(entities);
             }
 
-            return Result.Ok<List<TEntity>?>(entities, $"{typeof(TEntity).Name} retrieved successfully.");
+            return Result.Ok<List<TEntity>?>(entities);
         }
         catch (Exception ex)
         {
@@ -50,7 +50,7 @@ public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
             {
                 return Result.Fail<TEntity?>($"{typeof(TEntity).Name} with id {id} not found.");
             }
-            return Result.Ok<TEntity?>(entity, $"{typeof(TEntity).Name} retrieved successfully.");
+            return Result.Ok<TEntity?>(entity);
         }
         catch (Exception ex)
         {
@@ -67,10 +67,10 @@ public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
             var entities = await Repository.FindByConditionAsync(expression);
             if (!entities.Any())
             {
-                return Result.Ok<List<TEntity>?>(entities, $"There aren't any {typeof(TEntity).Name} entities");
+                return Result.Ok<List<TEntity>?>(entities);
             }
 
-            return Result.Ok<List<TEntity>?>(entities, $"{typeof(TEntity).Name} retrieved successfully.");
+            return Result.Ok<List<TEntity>?>(entities);
         }
         catch (Exception ex)
         {
@@ -91,8 +91,7 @@ public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
             
             await Repository.CreateAsync(entity);
             
-            return Result.Ok<TEntity>(await Repository.FindByIdAsync(entity.Id),
-                $"Entity ({typeof(TEntity).Name}:{entity.Id.ToString()}) added successfully.");
+            return Result.Ok<TEntity>(await Repository.FindByIdAsync(entity.Id));
         }
         catch (Exception ex)
         {
@@ -113,8 +112,7 @@ public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
             
             await Repository.UpdateAsync(entity);
             
-            return Result.Ok<TEntity>(await Repository.FindByIdAsync(entity.Id),
-                $"Entity ({typeof(TEntity).Name}:{dto.Id.ToString()}) updated successfully.");
+            return Result.Ok<TEntity>(await Repository.FindByIdAsync(entity.Id));
         }
         catch (Exception ex)
         {
@@ -124,7 +122,7 @@ public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
         }
     }
 
-    public virtual async Task<Result<bool>> DeleteAsync(Guid id)
+    public virtual async Task<Result> DeleteAsync(Guid id)
     {
         try
         {
@@ -132,16 +130,16 @@ public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
             if (entity != null)
             {
                 await Repository.DeleteAsync(entity);
-                return Result.Ok<bool>(true, $"({typeof(TEntity).Name}:{entity.Id.ToString()}) deleted successfully.");  
+                return Result.Ok($"({typeof(TEntity).Name}:{entity.Id.ToString()}) deleted successfully.");  
             } else
             {
-                return Result.Fail<bool>($"Service.DeleteAsync ({typeof(TEntity).Name}:{id.ToString()}) not found.");
+                return Result.Fail($"Service.DeleteAsync ({typeof(TEntity).Name}:{id.ToString()}) not found.");
             }
             
         }
         catch (Exception ex)
         {
-            return Result.Fail<bool>(
+            return Result.Fail(
                 $"Service.DeleteAsync ({typeof(TEntity).Name}:{id.ToString()})\n" +
                 $"An exception occurred: {ex.Message}"
             );

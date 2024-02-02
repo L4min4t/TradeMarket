@@ -13,5 +13,5 @@ public interface IBaseService<TEntity, TDto>
     Task<Result<List<TEntity>?>> FindByConditionAsync(Expression<Func<TEntity, bool>> expression);
     Task<Result<TEntity>> CreateAsync(TDto dto);
     Task<Result<TEntity>> UpdateAsync(TDto dto);
-    Task<Result<bool>>  DeleteAsync(Guid id);
+    Task<Result>  DeleteAsync(Guid id);
 }

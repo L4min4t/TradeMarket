@@ -19,7 +19,7 @@ public class ImageController : ControllerBase
     public async Task<IActionResult> UploadImage([FromForm] UploadImageModel model)
     {
         var result = await _service.UploadAsync(model);
-        return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
+        return result.IsSuccess ? Ok(result.Message) : BadRequest(result.Message);
     }
     
     [HttpGet("{id}")]

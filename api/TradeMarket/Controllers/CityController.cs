@@ -1,5 +1,6 @@
 ﻿using Entities.Dtos.City;
 using Entities.Models.Application;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 
@@ -7,6 +8,7 @@ namespace TradeMarket.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class CityController : ControllerBase
 {
     private readonly ICityService _service;
@@ -31,6 +33,7 @@ public class CityController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         var result = await _service.DeleteAsync(id);
@@ -38,6 +41,7 @@ public class CityController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create([FromBody] CityCreateDto createCreateDto)
     {
         var result = await _service.CreateAsync(createCreateDto);
@@ -45,6 +49,7 @@ public class CityController : ControllerBase
     }
     
     [HttpPut]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update([FromBody] CityUpdateDto createCreateDto)
     {
         var result = await _service.UpdateAsync(createCreateDto);

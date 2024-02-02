@@ -1,5 +1,6 @@
 ﻿using Entities.Dtos.Poster;
 using Entities.Models.Poster;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Interfaces;
 using Services.Interfaces;
@@ -8,6 +9,7 @@ namespace TradeMarket.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class PosterController : ControllerBase
 {
     private readonly IPosterService _service;
@@ -60,6 +62,7 @@ public class PosterController : ControllerBase
     }
 
     [HttpGet("to-moderate")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> GetPostersToModerate()
     {
         var result = await _service.FindByConditionAsync(p => p.IsModerated == false && p.IsActive == true);
@@ -67,6 +70,7 @@ public class PosterController : ControllerBase
     }
 
     [HttpPut("moderate")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Moderate([FromBody] ModeratePosterModel model)
 
     {

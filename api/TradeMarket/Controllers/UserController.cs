@@ -8,6 +8,7 @@ namespace TradeMarket.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class UserController : ControllerBase
 {
     private readonly IUserService _service;
@@ -18,7 +19,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Get()
     {
         var result = await _service.FindAllAsync();

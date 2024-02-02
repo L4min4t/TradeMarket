@@ -1,4 +1,5 @@
 ﻿using Entities.Dtos.Image;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 
@@ -6,6 +7,7 @@ namespace TradeMarket.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class ImageController : ControllerBase
 {
     private readonly IImageService _service;

@@ -1,4 +1,5 @@
 ﻿using Entities.Models.Auth;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
 
@@ -6,6 +7,7 @@ namespace TradeMarket.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class AuthController : ControllerBase
 {
     private readonly IAuthService _service;
@@ -16,6 +18,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("[action]")]
+    [AllowAnonymous]
     public async Task<IActionResult> Register([FromBody] RegisterModel model)
     {
         var result = await _service.RegisterUserAsync(model);
@@ -23,6 +26,7 @@ public class AuthController : ControllerBase
     }
 
     [HttpPost("[action]")]
+    [AllowAnonymous]
     public async Task<IActionResult> Login([FromBody] LoginModel model)
     {
         var result = await _service.LoginUserAsync(model);

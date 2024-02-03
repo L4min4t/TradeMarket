@@ -17,9 +17,9 @@ public class JwtController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenModel model)
+    public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenModel param)
     {
-        var result = await _service.RefreshTokenAsync(model);
+        var result = await _service.RefreshTokenAsync(param);
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
     }
 }

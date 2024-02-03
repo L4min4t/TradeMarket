@@ -3,6 +3,7 @@ using Entities.Models.Application;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
+using TradeMarket.Attributes;
 
 namespace TradeMarket.Controllers;
 
@@ -34,6 +35,7 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [CustomCheckAccess("manage-user")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         var result = await _service.DeleteAsync(id);
@@ -41,9 +43,10 @@ public class UserController : ControllerBase
     }
 
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody] UserUpdateDto createDto)
+    [CustomCheckAccess("manage-user")]
+    public async Task<IActionResult> Update([FromBody] UserUpdateDto param)
     {
-        var result = await _service.UpdateAsync(createDto);
+        var result = await _service.UpdateAsync(param);
         return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);
     }
 }

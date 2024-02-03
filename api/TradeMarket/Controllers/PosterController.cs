@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositories.Interfaces;
 using Services.Interfaces;
+using TradeMarket.Attributes;
 
 namespace TradeMarket.Controllers;
 
@@ -34,23 +35,33 @@ public class PosterController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [CustomCheckAccess("manage-poster")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         var result = await _service.DeleteAsync(id);
         return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
     }
-
-    [HttpPost]
-    public async Task<IActionResult> Create([FromBody] PosterCreateDto dto)
+    
+    [HttpPut]
+    [CustomCheckAccess("manage-poster")]
+    public async Task<IActionResult> Update([FromBody] PosterUpdateDto param)
     {
-        var result = await _service.CreateAsync(dto);
+        var result = await _service.UpdateAsync(param);
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
     }
     
-    [HttpPut]
-    public async Task<IActionResult> Update([FromBody] PosterUpdateDto dto)
+    [HttpPut("change-status")]
+    [CustomCheckAccess("manage-poster")]
+    public async Task<IActionResult> ChangeStatus([FromBody] ActivateDeactivatePosterModel param)
     {
-        var result = await _service.UpdateAsync(dto);
+        var result = await _service.ChangeStatusAsync(param);
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> Create([FromBody] PosterCreateDto param)
+    {
+        var result = await _service.CreateAsync(param);
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
     }
 
@@ -71,24 +82,17 @@ public class PosterController : ControllerBase
 
     [HttpPut("moderate")]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Moderate([FromBody] ModeratePosterModel model)
+    public async Task<IActionResult> Moderate([FromBody] ModeratePosterModel param)
 
     {
-        var result = await _service.ModerateAsync(model);
-        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
-    }
-
-    [HttpPut("change-status")]
-    public async Task<IActionResult> ChangeStatus([FromBody] ActivateDeactivatePosterModel model)
-    {
-        var result = await _service.ChangeStatusAsync(model);
+        var result = await _service.ModerateAsync(param);
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
     }
 
     [HttpPut("like")]
-    public async Task<IActionResult> Like([FromBody] LikePosterModel model)
+    public async Task<IActionResult> Like([FromBody] LikePosterModel param)
     {
-        var result = await _service.LikeAsync(model);
+        var result = await _service.LikeAsync(param);
         return result.IsSuccess ? Ok(result.Message) : BadRequest(result.Message);
     }
 }

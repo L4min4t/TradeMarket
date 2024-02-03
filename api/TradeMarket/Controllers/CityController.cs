@@ -42,17 +42,17 @@ public class CityController : ControllerBase
 
     [HttpPost]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Create([FromBody] CityCreateDto createCreateDto)
+    public async Task<IActionResult> Create([FromBody] CityCreateDto param)
     {
-        var result = await _service.CreateAsync(createCreateDto);
+        var result = await _service.CreateAsync(param);
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
     }
     
     [HttpPut]
     [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> Update([FromBody] CityUpdateDto createCreateDto)
+    public async Task<IActionResult> Update([FromBody] CityUpdateDto param)
     {
-        var result = await _service.UpdateAsync(createCreateDto);
+        var result = await _service.UpdateAsync(param);
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
     }
 }

@@ -4,6 +4,8 @@ public class User : IEntity
 {
     public Guid Id { get; set; } = Guid.NewGuid();
 
+    public string IdentityId { get; set; }
+
     public string Name { get; set; } = null!;
     public string? AvatarId { get; set; }
     

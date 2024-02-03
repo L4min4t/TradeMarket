@@ -1,12 +1,15 @@
 ﻿using Entities.Dtos.User;
 using Entities.Models.Application;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
+using TradeMarket.Attributes;
 
 namespace TradeMarket.Controllers;
 
 [ApiController]
 [Route("[controller]")]
+[Authorize]
 public class UserController : ControllerBase
 {
     private readonly IUserService _service;
@@ -17,6 +20,7 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Get()
     {
         var result = await _service.FindAllAsync();
@@ -31,23 +35,18 @@ public class UserController : ControllerBase
     }
 
     [HttpDelete("{id}")]
+    [CustomCheckAccess("manage-user")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         var result = await _service.DeleteAsync(id);
         return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
     }
-    
-    [HttpPost]
-    public async Task<IActionResult> Create([FromBody] UserCreateDto createDto)
-    {
-        var result = await _service.CreateAsync(createDto);
-        return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);
-    }
 
     [HttpPut]
-    public async Task<IActionResult> Update([FromBody] UserUpdateDto createDto)
+    [CustomCheckAccess("manage-user")]
+    public async Task<IActionResult> Update([FromBody] UserUpdateDto param)
     {
-        var result = await _service.UpdateAsync(createDto);
+        var result = await _service.UpdateAsync(param);
         return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);
     }
 }

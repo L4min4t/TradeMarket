@@ -95,11 +95,11 @@ public class ImageService : IImageService
         }
     }
     
-    public async Task<Result<bool>> DeleteImageAsync(string id)
+    public async Task<Result<bool>> DeleteImageAsync(Guid id)
     {
         try
         {
-            var fileName = id.ToLower() + ".jpg";
+            var fileName = id.ToString().ToLower() + ".jpg";
             var filePath = Path.Combine("wwwroot/images", fileName.ToLower());
 
             if (System.IO.File.Exists(filePath))

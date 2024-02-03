@@ -1,7 +1,9 @@
-﻿namespace Entities.Models.Poster;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Entities.Models.Poster;
 
 public class LikePosterModel
 {
-    public Guid UserId { get; set; }
-    public Guid PosterId { get; set; }
+    [Required] public Guid UserId { get; set; }
+    [Required] public Guid PosterId { get; set; }
 }

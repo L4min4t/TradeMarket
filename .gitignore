@@ -8,3 +8,5 @@ ProjectEvaluation/
 api/.vs/api/config/applicationhost.config
 .vscode/settings.json
 .vscode/extensions.json
+web/.env
+web/.env

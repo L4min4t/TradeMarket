@@ -2,7 +2,7 @@
 import {Category} from "../constants/enums";
 
 export interface PosterPreviewDto {
-    id: string; 
+    id: string;
     title: string;
     description: string;
     price: bigint;
@@ -12,5 +12,24 @@ export interface PosterPreviewDto {
     creator: User;
     publishedAt: Date;
     numberViewed: number;
+    category: Category;
+}
+
+export interface PosterDto {
+    id: string;
+    title: string;
+    description: string;
+    price: number;
+    isSharing: boolean;
+    isNew: boolean;
+    imageId?: string;
+    isActive: boolean;
+    isModerated: boolean;
+    creatorId: string;
+    creator: User;
+    createdAt: Date;
+    publishedAt: Date;
+    numberViewed: number;
+    numberLiked: number;
     category: Category;
 }

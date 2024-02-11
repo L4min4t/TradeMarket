@@ -1,29 +1,23 @@
 ﻿import useAuthContext from "../../context/hooks";
-import {cssValues, FlexContainer, StyledLinkButton, StyledSubTitle} from "../GlobalStyles";
-import {StyledLogo} from "./style";
+import {Greeting, HeaderContainer, Logo, UserName} from "./styles";
 import {useNavigate} from "react-router-dom";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
 
 const Header = () => {
-    const {user, logoutUser} = useAuthContext();
+    const {user, jwtTokens, logoutUser} = useAuthContext();
     const navigate = useNavigate();
-    
-    if (user == null) {
-        toast.error("User login error!");
+
+    if (user == null || jwtTokens == null) {
+        toast.error("User auth error!");
         console.log(user);
         logoutUser();
         navigate("/login");
     }
-    
+
     return (
-        <FlexContainer padding={"0 10vw"} justifyContent={"space-between"} alignItems={"center"} width={"calc(100% -" +
-            " 20vw)"} background={cssValues.mainColor}>
-            <StyledLogo>Trade Market</StyledLogo>
-            <StyledSubTitle>
-                Hello, <StyledLinkButton fontSize={cssValues.subTitleFontSize}
-                                         fontWeight={"bold"}
-                                         onClick={() => navigate("/user")}>{user?.name}</StyledLinkButton>!
-            </StyledSubTitle>
-        </FlexContainer>);
+        <HeaderContainer>
+            <Logo onClick={() => navigate("/")}>TradeMarket</Logo>
+            <Greeting>Hello, <UserName onClick={logoutUser}>{user?.name}</UserName>!</Greeting>
+        </HeaderContainer>);
 }
 export default Header;

@@ -14,16 +14,19 @@ export const defaultFetch = async <T>(
 
     try {
         const response = await axios(url, defaultConfig);
-        return {data: response.data};
+        return {data: response.data, status: response.status};
     } catch (error: any) {
-        let problemDetails: ProblemDetails = {};
+        let problemDetails: ProblemDetails = {status: 0};
 
         if (axios.isAxiosError(error) && error.response) {
-            problemDetails = error.response.data;
+            problemDetails = {
+                ...error.response.data,
+                status: error.response.status
+            };
         } else {
             problemDetails = {
                 title: "Unknown Error",
-                status: 0,
+                status: problemDetails.status,
                 errors: [
                     {
                         code: "UnknownError",
@@ -33,7 +36,7 @@ export const defaultFetch = async <T>(
             };
         }
 
-        return {problemDetails};
+        return {problemDetails, status: problemDetails.status};
     }
 };
 

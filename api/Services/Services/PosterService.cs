@@ -25,6 +25,7 @@ public class PosterService : BaseService<Poster, PosterBaseDto>, IPosterService
 
             entity.IsModerated = model.ModerateResult;
             entity.IsActive = model.IsActivated;
+            entity.PublishedAt = model.ModerateResult ?  DateTime.Now : null;
             
             await Repository.UpdateAsync(entity);
             
@@ -46,6 +47,7 @@ public class PosterService : BaseService<Poster, PosterBaseDto>, IPosterService
             var entity = await Repository.FindByIdAsync(model.PosterId);
 
             entity.IsActive = model.Status;
+            entity.PublishedAt = model.Status ?  DateTime.Now : null;
             
             await Repository.UpdateAsync(entity);
             

@@ -1,216 +1,216 @@
-Kyiv,Kyivska,admin
-Kharkiv,Kharkivska,admin
-Odesa,Odeska,admin
-Dnipro,Dnipropetrovska,admin
-Donetsk,Donetska,admin
-Zaporizhzhia,Zaporizka,admin
-Lviv,Lvivska,admin
-Kryvyi Rih,Dnipropetrovska,minor
+Kyiv,Kyivska oblast,admin
+Kharkiv,Kharkivska oblast,admin
+Odesa,Odeska oblast,admin
+Dnipro,Dnipropetrovska oblast,admin
+Donetsk,Donetska oblast,admin
+Zaporizhzhia,Zaporizka oblast,admin
+Lviv,Lvivska oblast,admin
+Kryvyi Rih,Dnipropetrovska oblast,minor
 Sevastopol,Krym,admin
-Mykolaiv,Mykolaivska,admin
-Mariupol,Donetska,minor
-Luhansk,Luhanska,admin
-Vinnytsia,Vinnytska,admin
-Makiivka,Donetska,minor
+Mykolaiv,Mykolaivska oblast,admin
+Mariupol,Donetska oblast,minor
+Luhansk,Luhanska oblast,admin
+Vinnytsia,Vinnytska oblast,admin
+Makiivka,Donetska oblast,minor
 Simferopol,Krym,admin
-Poltava,Poltavska,admin
-Chernihiv,Chernihivska,admin
-Kherson,Khersonska,admin
-Cherkasy,Cherkaska,admin
-Khmelnytskyi,Khmelnytska,admin
-Chernivtsi,Chernivetska,admin
-Sumy,Sumska,admin
-Zhytomyr,Zhytomyrska,admin
-Horlivka,Donetska,minor
-Rivne,Rivnenska,admin
-Ivano-Frankivsk,Ivano-Frankivska,admin
-Kamianske,Dnipropetrovska,minor
-Kropyvnytskyi,Kirovohradska,admin
-Ternopil,Ternopilska,admin
-Kremenchuk,Poltavska,minor
-Lutsk,Volynska,admin
-Bila Tserkva,Kyivska,minor
-Kramatorsk,Donetska,minor
-Melitopol,Zaporizka,minor
-Sievierodonetsk,Luhanska,minor
+Poltava,Poltavska oblast,admin
+Chernihiv,Chernihivska oblast,admin
+Kherson,Khersonska oblast,admin
+Cherkasy,Cherkaska oblast,admin
+Khmelnytskyi,Khmelnytska oblast,admin
+Chernivtsi,Chernivetska oblast,admin
+Sumy,Sumska oblast,admin
+Zhytomyr,Zhytomyrska oblast,admin
+Horlivka,Donetska oblast,minor
+Rivne,Rivnenska oblast,admin
+Ivano-Frankivsk,Ivano-Frankivska oblast,admin
+Kamianske,Dnipropetrovska oblast,minor
+Kropyvnytskyi,Kirovohradska oblast,admin
+Ternopil,Ternopilska oblast,admin
+Kremenchuk,Poltavska oblast,minor
+Lutsk,Volynska oblast,admin
+Bila Tserkva,Kyivska oblast,minor
+Kramatorsk,Donetska oblast,minor
+Melitopol,Zaporizka oblast,minor
+Sievierodonetsk,Luhanska oblast,minor
 Kerch,Krym,minor
-Drohobych,Lvivska,minor
-Khrustalnyi,Luhanska,minor
-Uzhhorod,Zakarpatska,admin
-Berdiansk,Zaporizka,minor
-Sloviansk,Donetska,minor
-Nikopol,Dnipropetrovska,minor
-Brovary,Kyivska,minor
+Drohobych,Lvivska oblast,minor
+Khrustalnyi,Luhanska oblast,minor
+Uzhhorod,Zakarpatska oblast,admin
+Berdiansk,Zaporizka oblast,minor
+Sloviansk,Donetska oblast,minor
+Nikopol,Dnipropetrovska oblast,minor
+Brovary,Kyivska oblast,minor
 Yevpatoriia,Krym,minor
-Pavlohrad,Dnipropetrovska,minor
-Alchevsk,Luhanska,minor
-Konotop,Sumska,minor
-Kamianets-Podilskyi,Khmelnytska,minor
-Lysychansk,Luhanska,minor
-Dovzhansk,Luhanska,minor
-Mukacheve,Zakarpatska,minor
-Uman,Cherkaska,minor
-Chervonohrad,Lvivska,minor
+Pavlohrad,Dnipropetrovska oblast,minor
+Alchevsk,Luhanska oblast,minor
+Konotop,Sumska oblast,minor
+Kamianets-Podilskyi,Khmelnytska oblast,minor
+Lysychansk,Luhanska oblast,minor
+Dovzhansk,Luhanska oblast,minor
+Mukacheve,Zakarpatska oblast,minor
+Uman,Cherkaska oblast,minor
+Chervonohrad,Lvivska oblast,minor
 Yalta,Krym,minor
-Yenakiieve,Donetska,minor
-Bakhmut,Donetska,minor
-Stakhanov,Luhanska,minor
-Nizhyn,Chernihivska,minor
-Kostiantynivka,Donetska,minor
+Yenakiieve,Donetska oblast,minor
+Bakhmut,Donetska oblast,minor
+Stakhanov,Luhanska oblast,minor
+Nizhyn,Chernihivska oblast,minor
+Kostiantynivka,Donetska oblast,minor
 Fedosiia,Krym,minor
-Kovel,Volynska,minor
-Smila,Cherkaska,minor
-Korosten,Zhytomyrska,minor
-Pokrovsk,Donetska,minor
-Pervomaisk,Mykolaivska,minor
-Kolomyia,Ivano-Frankivska,minor
-Rubizhne,Luhanska,minor
-Chornomorsk,Odeska,minor
-Khartsyzk,Donetska,minor
-Druzhkivka,Donetska,minor
-Stryi,Lvivska,minor
-Bilhorod-Dnistrovskyi,Odeska,minor
-Irpin,Kyivska,minor
-Novohrad-Volynskyi,Zhytomyrska,minor
-Lozova,Kharkivska,minor
-Antratsyt,Luhanska,minor
-Chystiakove,Donetska,minor
-Horishni Plavni,Poltavska,minor
-Myrnohrad,Donetska,minor
-Shakhtarsk,Donetska,minor
-Okhtyrka,Sumska,minor
-Brianka,Luhanska,minor
-Snizhne,Donetska,minor
-Rovenky,Luhanska,minor
-Fastiv,Kyivska,minor
-Lubny,Poltavska,minor
-Krasnodon,Luhanska,minor
-Shepetivka,Khmelnytska,minor
-Romny,Sumska,minor
-Myrhorod,Poltavska,minor
-Podilsk,Odeska,minor
-Vyshneve,Kyivska,minor
-Vasylkiv,Kyivska,minor
-Dubno,Rivnenska,minor
-Boryslav,Lvivska,minor
-Holubivske,Luhanska,minor
-Boyarka,Kyivska,minor
-Yasynuvata,Donetska,minor
-Bucha,Kyivska,minor
-Avdiivka,Donetska,minor
-Sambir,Lvivska,minor
-Toretsk,Donetska,minor
-Zhmerynka,Vinnytska,minor
-Chuhuiv,Kharkivska,minor
-Mohyliv-Podilskyi,Vinnytska,minor
-Truskavets,Lvivska,minor
-Khmilnyk,Vinnytska,minor
-Kupiansk,Kharkivska,minor
-Pereyaslav-Khmelnytskyy,Kyivska,minor
-Sofiyivska Borshchahivka,Kyivska,minor
-Perevalsk,Luhanska,minor
-Vynohradiv,Zakarpatska,minor
+Kovel,Volynska oblast,minor
+Smila,Cherkaska oblast,minor
+Korosten,Zhytomyrska oblast,minor
+Pokrovsk,Donetska oblast,minor
+Pervomaisk,Mykolaivska oblast,minor
+Kolomyia,Ivano-Frankivska oblast,minor
+Rubizhne,Luhanska oblast,minor
+Chornomorsk,Odeska oblast,minor
+Khartsyzk,Donetska oblast,minor
+Druzhkivka,Donetska oblast,minor
+Stryi,Lvivska oblast,minor
+Bilhorod-Dnistrovskyi,Odeska oblast,minor
+Irpin,Kyivska oblast,minor
+Novohrad-Volynskyi,Zhytomyrska oblast,minor
+Lozova,Kharkivska oblast,minor
+Antratsyt,Luhanska oblast,minor
+Chystiakove,Donetska oblast,minor
+Horishni Plavni,Poltavska oblast,minor
+Myrnohrad,Donetska oblast,minor
+Shakhtarsk,Donetska oblast,minor
+Okhtyrka,Sumska oblast,minor
+Brianka,Luhanska oblast,minor
+Snizhne,Donetska oblast,minor
+Rovenky,Luhanska oblast,minor
+Fastiv,Kyivska oblast,minor
+Lubny,Poltavska oblast,minor
+Krasnodon,Luhanska oblast,minor
+Shepetivka,Khmelnytska oblast,minor
+Romny,Sumska oblast,minor
+Myrhorod,Poltavska oblast,minor
+Podilsk,Odeska oblast,minor
+Vyshneve,Kyivska oblast,minor
+Vasylkiv,Kyivska oblast,minor
+Dubno,Rivnenska oblast,minor
+Boryslav,Lvivska oblast,minor
+Holubivske,Luhanska oblast,minor
+Boyarka,Kyivska oblast,minor
+Yasynuvata,Donetska oblast,minor
+Bucha,Kyivska oblast,minor
+Avdiivka,Donetska oblast,minor
+Sambir,Lvivska oblast,minor
+Toretsk,Donetska oblast,minor
+Zhmerynka,Vinnytska oblast,minor
+Chuhuiv,Kharkivska oblast,minor
+Mohyliv-Podilskyi,Vinnytska oblast,minor
+Truskavets,Lvivska oblast,minor
+Khmilnyk,Vinnytska oblast,minor
+Kupiansk,Kharkivska oblast,minor
+Pereyaslav-Khmelnytskyy,Kyivska oblast,minor
+Sofiyivska Borshchahivka,Kyivska oblast,minor
+Perevalsk,Luhanska oblast,minor
+Vynohradiv,Zakarpatska oblast,minor
 Saky,Krym,minor
-Selydove,Donetska,minor
-Pesochin,Kharkivska,minor
-Molodohvardiisk,Luhanska,minor
-Merefa,Kharkivska,minor
-Bilohorodka,Kyivska,minor
-Sukhodilsk,Luhanska,minor
-Liubotyn,Kharkivska,minor
+Selydove,Donetska oblast,minor
+Pesochin,Kharkivska oblast,minor
+Molodohvardiisk,Luhanska oblast,minor
+Merefa,Kharkivska oblast,minor
+Bilohorodka,Kyivska oblast,minor
+Sukhodilsk,Luhanska oblast,minor
+Liubotyn,Kharkivska oblast,minor
 Kotsyubynske,"Kyiv, Misto",minor
-Hostomel,Kyivska,minor
-Taromske,Dnipropetrovska,minor
-Vynnyky,Lvivska,minor
-Chervonopartyzansk,Luhanska,minor
-Nyzhnia Krynka,Donetska,minor
-Petrovske,Luhanska,minor
-Antonivka,Khersonska,minor
-Zhdanivka,Donetska,minor
-Vakhrusheve,Luhanska,minor
-Hirnyk,Donetska,minor
-Sartana,Donetska,minor
+Hostomel,Kyivska oblast,minor
+Taromske,Dnipropetrovska oblast,minor
+Vynnyky,Lvivska oblast,minor
+Chervonopartyzansk,Luhanska oblast,minor
+Nyzhnia Krynka,Donetska oblast,minor
+Petrovske,Luhanska oblast,minor
+Antonivka,Khersonska oblast,minor
+Zhdanivka,Donetska oblast,minor
+Vakhrusheve,Luhanska oblast,minor
+Hirnyk,Donetska oblast,minor
+Sartana,Donetska oblast,minor
 Haspra,Krym,minor
-Novgorodskoye,Donetska,minor
+Novgorodskoye,Donetska oblast,minor
 Inkerman,Krym,minor
-Korolevo,Zakarpatska,minor
-Sniatyn,Ivano-Frankivska,minor
-Sofiivka,Donetska,minor
-Bezliudivka,Kharkivska,minor
-Bilenke,Donetska,minor
+Korolevo,Zakarpatska oblast,minor
+Sniatyn,Ivano-Frankivska oblast,minor
+Sofiivka,Donetska oblast,minor
+Bezliudivka,Kharkivska oblast,minor
+Bilenke,Donetska oblast,minor
 Hurzuf,Krym,minor
-Horodenka,Ivano-Frankivska,minor
+Horodenka,Ivano-Frankivska oblast,minor
 Masandra,Krym,minor
-Yasnohirka,Donetska,minor
-Pochaiv,Ternopilska,minor
-Vuhlehirsk,Donetska,minor
-Zorynsk,Luhanska,minor
-Komyshany,Khersonska,minor
-Piskivka,Kyivska,minor
-Karnaukhivka,Dnipropetrovska,minor
-Rozkishne,Luhanska,minor
-Vorzel,Kyivska,minor
-Halych,Ivano-Frankivska,minor
-Petropavlivska Borshchahivka,Kyivska,minor
-Balabyne,Zaporizka,minor
-Zelenivka,Khersonska,minor
-Chornukhyne,Luhanska,minor
+Yasnohirka,Donetska oblast,minor
+Pochaiv,Ternopilska oblast,minor
+Vuhlehirsk,Donetska oblast,minor
+Zorynsk,Luhanska oblast,minor
+Komyshany,Khersonska oblast,minor
+Piskivka,Kyivska oblast,minor
+Karnaukhivka,Dnipropetrovska oblast,minor
+Rozkishne,Luhanska oblast,minor
+Vorzel,Kyivska oblast,minor
+Halych,Ivano-Frankivska oblast,minor
+Petropavlivska Borshchahivka,Kyivska oblast,minor
+Balabyne,Zaporizka oblast,minor
+Zelenivka,Khersonska oblast,minor
+Chornukhyne,Luhanska oblast,minor
 Koreiz,Krym,minor
-Bryukhovychi,Lvivska,minor
-Horenka,Kyivska,minor
-Zalizne,Donetska,minor
-Khotiv,Kyivska,minor
-Chabany,Kyivska,minor
-Novooleksandrivka,Dnipropetrovska,minor
-Almazna,Luhanska,minor
-Shabelkivka,Donetska,minor
-Obroshino,Lvivska,minor
-Novopillia,Dnipropetrovska,minor
+Bryukhovychi,Lvivska oblast,minor
+Horenka,Kyivska oblast,minor
+Zalizne,Donetska oblast,minor
+Khotiv,Kyivska oblast,minor
+Chabany,Kyivska oblast,minor
+Novooleksandrivka,Dnipropetrovska oblast,minor
+Almazna,Luhanska oblast,minor
+Shabelkivka,Donetska oblast,minor
+Obroshino,Lvivska oblast,minor
+Novopillia,Dnipropetrovska oblast,minor
 Simeiz,Krym,minor
 Novosilky,"Kyiv, Misto",minor
-Duliby,Lvivska,minor
-Kryukivshchyna,Kyivska,minor
-Rohan,Kharkivska,minor
-Mykhaylivka-Rubezhivka,Kyivska,minor
-Valianivske,Luhanska,minor
-Malokaterynivka,Zaporizka,minor
-Vylok,Zakarpatska,minor
-Kulynychi,Kharkivska,minor
-Sadky,Poltavska,minor
-Pervomaiskyi,Donetska,minor
-Brytivka,Odeska,minor
+Duliby,Lvivska oblast,minor
+Kryukivshchyna,Kyivska oblast,minor
+Rohan,Kharkivska oblast,minor
+Mykhaylivka-Rubezhivka,Kyivska oblast,minor
+Valianivske,Luhanska oblast,minor
+Malokaterynivka,Zaporizka oblast,minor
+Vylok,Zakarpatska oblast,minor
+Kulynychi,Kharkivska oblast,minor
+Sadky,Poltavska oblast,minor
+Pervomaiskyi,Donetska oblast,minor
+Brytivka,Odeska oblast,minor
 Blyzhnie,Krym,minor
-Lyubymivka,Dnipropetrovska,minor
-Mala Rohan,Kharkivska,minor
+Lyubymivka,Dnipropetrovska oblast,minor
+Mala Rohan,Kharkivska oblast,minor
 Kaihador,Krym,minor
 Nikita,Krym,minor
-Tereshky,Poltavska,minor
-Zarichany,Zhytomyrska,minor
-Aviatorske,Dnipropetrovska,minor
-Mykhailivka,Luhanska,minor
+Tereshky,Poltavska oblast,minor
+Zarichany,Zhytomyrska oblast,minor
+Aviatorske,Dnipropetrovska oblast,minor
+Mykhailivka,Luhanska oblast,minor
 Verkhnosadove,Krym,minor
 Aeroflotskyi,Krym,minor
-Chornotysiv,Zakarpatska,minor
-Borki,Lvivska,minor
-Piilo,Ivano-Frankivska,minor
-Yablunytsia,Ivano-Frankivska,minor
-Dobrovlyany,Ternopilska,minor
-Bilshivtsi,Ivano-Frankivska,minor
-Ruski Tyshky,Kharkivska,minor
-Shcherbani,Poltavska,minor
-Stari Kodaky,Dnipropetrovska,minor
-Berezivka,Kharkivska,minor
+Chornotysiv,Zakarpatska oblast,minor
+Borki,Lvivska oblast,minor
+Piilo,Ivano-Frankivska oblast,minor
+Yablunytsia,Ivano-Frankivska oblast,minor
+Dobrovlyany,Ternopilska oblast,minor
+Bilshivtsi,Ivano-Frankivska oblast,minor
+Ruski Tyshky,Kharkivska oblast,minor
+Shcherbani,Poltavska oblast,minor
+Stari Kodaky,Dnipropetrovska oblast,minor
+Berezivka,Kharkivska oblast,minor
 Nasypne,Krym,minor
-Lisnyky,Kyivska,minor
+Lisnyky,Kyivska oblast,minor
 Andriivka,Krym,minor
-Iverske,Donetska,minor
-Chukaluvka,Ivano-Frankivska,minor
-Pokrovske,Donetska,minor
-Solomonovo,Zakarpatska,minor
-Lavky,Zakarpatska,minor
-Slobozhanske,Kharkivska,minor
-Shevchenkivske,Dnipropetrovska,minor
+Iverske,Donetska oblast,minor
+Chukaluvka,Ivano-Frankivska oblast,minor
+Pokrovske,Donetska oblast,minor
+Solomonovo,Zakarpatska oblast,minor
+Lavky,Zakarpatska oblast,minor
+Slobozhanske,Kharkivska oblast,minor
+Shevchenkivske,Dnipropetrovska oblast,minor
 Krasnokamianka,Krym,minor
-Bairachky,Luhanska,minor
-Marianivka,Dnipropetrovska,minor
-Volodymyr-Volynskyi,Volynska,minor
+Bairachky,Luhanska oblast,minor
+Marianivka,Dnipropetrovska oblast,minor
+Volodymyr-Volynskyi,Volynska oblast,minor

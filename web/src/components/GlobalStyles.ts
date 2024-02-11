@@ -1,28 +1,32 @@
-﻿import styled, {createGlobalStyle } from "styled-components";
+﻿import styled, {createGlobalStyle} from "styled-components";
 
-export const cssValues  = {
+export const cssValues = {
     textColor: "#000505",
     backgroundColor: "#FEFCFD",
     hoverBackgroundColor: "#BFCDE0",
     mainColor: "#3B3355",
     interactiveColor: "#4A3254",
-    
-    commonFontSize: "14pt",
-    titleFontSize: "26pt",
-    subTitleFontSize: "20pt",
+
+    commonFontSize: "20px",
+    titleFontSize: "36px",
+    subTitleFontSize: "28px",
     fontFamily: "'Arial', sans-serif",
-    
+
     borderRadius: "5px",
     border: "2px solid #3B3355",
-    
-    padding: "3%",
-    rectPadding: "1.5% 4%",
-    
+
     itemsGap: "12px",
     blocksGap: "45px",
+
+    widthAuthForm: "400px",
+
+    headerHeight: "70px",
+    footerHeight: "55px",
     
-    widthAuthForm : "500px",
-    
+    boxShadow: "rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0," +
+        " 0, 0, 0.3) 0px 30px 60px -30px;",
+    hoverBoxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px;",
+
 }
 
 const GlobalStyles = createGlobalStyle`
@@ -30,120 +34,76 @@ const GlobalStyles = createGlobalStyle`
         font-family: ${cssValues.fontFamily};
         color: ${cssValues.textColor};
         font-size: ${cssValues.commonFontSize};
+        font-weight: normal;
         text-decoration: none;
         padding: 0;
         margin: 0;
     }
 
+    #root {
+        min-height: 100vh;
+    }
+
     html, body {
-        height: 100vh;
+        min-height: 100vh;
+        min-width: 100%;
     }
 `;
 
-  
+export const PageContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+    min-height: 100vh;
+`;
+
+export const PageContentContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+
+    padding: 0 6%;
+
+    width: calc(100% - 6% * 2);
+    min-height: calc(100vh - ${cssValues.headerHeight} - ${cssValues.footerHeight});
+`;
+
 
 interface FlexContainerProps {
     display?: string;
-    flexDirection?: string;
-    justifyContent?: string;
-    alignItems?: string;
+    flexdirection?: string;
+    justifycontent?: string;
+    alignitems?: string;
     gap?: string;
     padding?: string;
     width?: string;
     background?: string;
+    paddingtop?: string;
 }
 
 export const FlexContainer = styled.div<FlexContainerProps>`
     display: ${props => props.display || 'flex'};
-    flex-direction: ${props => props.flexDirection || 'row'};
-    justify-content: ${props => props.justifyContent || 'flex-start'};
-    align-items: ${props => props.alignItems || 'flex-start'};
+    flex-direction: ${props => props.flexdirection || 'row'};
+    justify-content: ${props => props.justifycontent || 'flex-start'};
+    align-items: ${props => props.alignitems || 'flex-start'};
     ${props => props.gap && `gap: ${props.gap};`};
     ${props => props.padding && `padding: ${props.padding};`};
     ${props => props.width && `width: ${props.width};`};
     ${props => props.background && `background: ${props.background};`};
+    ${props => props.paddingtop && `padding-top: ${props.paddingtop};`};
 `;
 
-interface StyledButtonProps {
+
+interface StyledTitleProps {
+    textoverflow?: string;
     width?: string;
-    height?: string;
-    background?: string;
-    color?: string;
-    borderRadius?: string;
-    border?: string;
-    padding?: string;
 }
 
-export const StyledButton = styled.button<StyledButtonProps> `
-    width: ${props => props.width || 'fit-content'};
-    height: ${props => props.height || 'fit-content'};
-    background: ${props => props.background || cssValues.hoverBackgroundColor};
-    color: ${props => props.color || cssValues.textColor};
-    border-radius: ${props => props.borderRadius || cssValues.borderRadius};
-    border: ${props => props.border || cssValues.border};
-    padding: ${props => props.padding || cssValues.rectPadding};
-    align-items: center;
-    align-content: center;
-    
-    &:hover {
-        background: ${cssValues.interactiveColor};
-    }
-`;
+export const StyledTitle = styled.h1<StyledTitleProps>`
+    ${props => props.textoverflow && `text-overflow: ${props.textoverflow};`};
+    ${props => props.width && `width: ${props.width};`};
 
-interface StyledLinkButtonProps {
-    fontWeight?: string;
-    fontSize?: string;
-    color?: string;
-}
-
-export const StyledLinkButton = styled.button<StyledLinkButtonProps> `
-    ${props => props.fontWeight && `font-weight: ${props.fontWeight};`};
-    ${props => props.fontSize && `font-size: ${props.fontSize};`};
-    color: ${props => props.color || cssValues.textColor};
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-`;
-
-export const StyledForm = styled.form `
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    row-gap: 10px;
-`;
-
-
-// Create a styled input with an animated gradient border
-export const StyledInput = styled.input`
-    width: calc(100% - ${cssValues.padding} * 2);
-    border: ${cssValues.border};
-    border-radius: ${cssValues.borderRadius};
-    padding: ${cssValues.padding};
-    
-    &:hover {
-        border-color: ${cssValues.interactiveColor};
-    }
-    
-    &:focus {
-        outline-color: ${cssValues.interactiveColor};
-    }
-`;
-
-export const StyledTitle = styled.h1 `
     font-size: ${cssValues.titleFontSize};
     color: ${cssValues.textColor};
-`;
-
-export const StyledSubTitle = styled.h2 `
-    font-size: ${cssValues.subTitleFontSize};
-    color: ${cssValues.textColor};
-`;
-
-export const LoginRegisterContainer = styled(FlexContainer) `
-    margin: 20vh auto;
-    width: ${cssValues.widthAuthForm};
 `;
 export default GlobalStyles;

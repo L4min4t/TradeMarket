@@ -2,7 +2,7 @@
 
 import {Jwts} from "./interfaces";
 
-import {defaultFetch, protectedFetch, processResponse} from "../common";
+import {defaultFetch, processResponse, protectedFetch} from "../common";
 
 export const login = async (
     email: string,

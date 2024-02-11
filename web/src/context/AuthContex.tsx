@@ -1,6 +1,5 @@
-﻿import { createContext } from "react";
-import { Jwts } from "../api/auth";
-import { User } from "../api/auth";
+﻿import {createContext} from "react";
+import {Jwts, User} from "../api/auth";
 
 export interface IAuthContext {
     user: User | null;

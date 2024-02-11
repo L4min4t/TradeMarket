@@ -1,10 +1,9 @@
-﻿import { defaultFetch, protectedFetch } from "../common/http";
-import {processResponse} from "../common";
+﻿import {protectedFetch} from "../common/http";
 
-import { GET_IMAGE_URL } from "./urls";
+import {GET_IMAGE_URL} from "./urls";
 import {AxiosRequestConfig} from "axios";
 
-export const getImage = async ( id: string, token: string ) => {
+export const getImage = async (id: string, token: string) => {
     const config: AxiosRequestConfig = {
         responseType: 'blob',
     };

@@ -5,4 +5,4 @@ const PUT_IMAGE_URL = `${BASE_URL}/Image`;
 const DELETE_IMAGE_URL = (id: string) => `${BASE_URL}/Image/${id}`;
 
 
-export { GET_IMAGE_URL, PUT_IMAGE_URL, DELETE_IMAGE_URL };
+export {GET_IMAGE_URL, PUT_IMAGE_URL, DELETE_IMAGE_URL};

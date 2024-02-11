@@ -1,15 +1,9 @@
-﻿import React, { ReactNode, useState, useEffect, useCallback } from "react";
-import { jwtDecode } from "jwt-decode";
-import { useNavigate } from "react-router-dom";
+﻿import React, {ReactNode, useCallback, useEffect, useState} from "react";
+import {jwtDecode} from "jwt-decode";
+import {useNavigate} from "react-router-dom";
 
-import AuthContext, { IAuthContext } from "./AuthContex";
-import {
-    login,
-    register,
-    refreshToken as refreshTokenAsync,
-    Jwts,
-    User,
-} from "../api/auth/";
+import AuthContext, {IAuthContext} from "./AuthContex";
+import {Jwts, login, refreshToken as refreshTokenAsync, register, User,} from "../api/auth/";
 
 interface Props {
     children: ReactNode;
@@ -17,7 +11,7 @@ interface Props {
 
 const AUTH_TOKENS = `JwtTokens`;
 
-export const AuthProvider = ({ children }: Props) => {
+export const AuthProvider = ({children}: Props) => {
     const [user, setUser] = useState<User | null>(null);
     const [jwtTokens, setJwtTokens] = useState<Jwts | null>(null);
     const [loading, setLoading] = useState(true);

@@ -10,6 +10,7 @@ import LoginPage from "./pages/Auth/Login";
 import NotFound from "./pages/NotFound";
 import PostersPreviewListPage from "./pages/PostersPreviewList";
 import PosterPage from "./pages/Poster";
+import UserPostersPage from "./pages/UserPostersPage";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -25,6 +26,7 @@ root.render(
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/register" element={<RegisterPage/>}/>
                 <Route path="/posters/:id" element={<PosterPage/>}/>
+                <Route path="/user-posters/:id" element={<UserPostersPage/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Route>
         </Routes>

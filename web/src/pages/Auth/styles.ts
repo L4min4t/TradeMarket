@@ -47,7 +47,7 @@ export const SubmitButton = styled.button`
     align-self: center;
 
     padding: 8px 20px;
-        
+
     border-radius: ${cssValues.borderRadius};
 
     background: ${cssValues.mainColor};

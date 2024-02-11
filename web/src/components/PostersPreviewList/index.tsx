@@ -57,10 +57,11 @@ const PosterPreview = ({poster, navigate}: GetPosterProps) => {
 interface PostersPreviewListProps {
     number?: number;
     category?: Category;
-    id?: string;
+    excludePosterId?: string;
+    creatorId?: string;
 }
 
-const PostersPreviewList = ({number, category, id}: PostersPreviewListProps) => {
+const PostersPreviewList = ({number, category, excludePosterId, creatorId}: PostersPreviewListProps) => {
     const {jwtTokens} = useAuthContext();
     const navigate = useNavigate();
     const [posters, setPosters] = useState<PosterPreviewDto[]>([]);
@@ -72,9 +73,14 @@ const PostersPreviewList = ({number, category, id}: PostersPreviewListProps) => 
                 const result = await getPosters(jwtTokens.accessToken);
                 if (result) {
                     setPosters(result);
-                    const filteredPosters = category
-                        ? shuffleArray(result.filter(poster => poster.category === category && poster.id !== id))
-                        : result;
+                    let filteredPosters: PosterPreviewDto[];
+                    if (category) {
+                        filteredPosters = shuffleArray(result.filter(poster => poster.category === category && poster.id !== excludePosterId));
+                    } else if (creatorId) {
+                        filteredPosters = result.filter(poster => poster.creatorId === creatorId);
+                    } else {
+                        filteredPosters = result;
+                    }
                     setDisplayedPosters(number ? filteredPosters.slice(0, number) : filteredPosters);
                 }
             } else {
@@ -83,7 +89,7 @@ const PostersPreviewList = ({number, category, id}: PostersPreviewListProps) => 
         }
 
         getResponse();
-    }, [jwtTokens, navigate, category, number]);
+    }, [jwtTokens, navigate, category, number, excludePosterId, creatorId]);
 
     return (
         <Container>

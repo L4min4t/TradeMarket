@@ -47,7 +47,8 @@ const PosterDetail = (props: PosterDetailProps) => {
                             {props.poster.isSharing && <Sharing>trade-off</Sharing>}
                         </PriceContainer>
 
-                        <Link onClick={() => navigate('/user-posters')}>{props.poster.creator.name}</Link>
+                        <Link
+                            onClick={() => navigate(`/user-posters/${props.poster.creatorId}`)}>{props.poster.creator.name}</Link>
 
                         {
                             props.poster.creator.city &&
@@ -80,8 +81,8 @@ const PosterDetail = (props: PosterDetailProps) => {
                 </MainInfoContainer>
                 <PosterTagsContainer>
                     <Tag>
-                        <CustomIcon src="category.png" width="26px"/><TagLink
-                        onClick={() => navigate('/')}>{Category[props.poster.category]}</TagLink>
+                        <CustomIcon src="category.png" width="26px"/>
+                        <TagLink onClick={() => navigate('/')}>{Category[props.poster.category]}</TagLink>
                     </Tag>
                     <Tag>
                         <CustomIcon src="secondHand.png" width="26px"/> {props.poster.isNew ? "New" : "Used"}
@@ -94,12 +95,19 @@ const PosterDetail = (props: PosterDetailProps) => {
                     </Tag>
                 </PosterTagsContainer>
 
-                <Description> desc {props.poster.description}</Description>
+                <Description>
+                    {props.poster.description.split("\n").map((line, index, array) => (
+                        <p key={index}>
+                            {line}
+                            {index < array.length - 1 && <br/>}
+                        </p>
+                    ))}
+                </Description>
 
 
             </PosterContainer>
             <SuggestedPostersContainer>
-                <PostersPreviewList category={props.poster.category} number={3} id={props.poster.id}/>
+                <PostersPreviewList category={props.poster.category} number={3} excludePosterId={props.poster.id}/>
             </SuggestedPostersContainer>
         </Container>
     );

@@ -93,7 +93,7 @@ export const Tag = styled.div`
 `;
 
 export const TagLink = styled.a`
-
+    cursor: pointer;
 `;
 
 export const Description = styled.p`
@@ -107,5 +107,4 @@ export const Description = styled.p`
 export const SuggestedPostersContainer = styled.div`
     position: relative;
     width: 100%;
-
 `;

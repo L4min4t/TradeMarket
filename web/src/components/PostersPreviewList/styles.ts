@@ -4,10 +4,10 @@ import {cssValues} from "../GlobalStyles";
 export const Container = styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 2%;
 
-    padding: ${cssValues.blocksGap} 0 0 0;
     width: 100%;
 `;
 
@@ -23,10 +23,14 @@ export const PreviewContainer = styled.div`
     box-shadow: ${cssValues.boxShadow};
     cursor: pointer;
 
+    * {
+        cursor: pointer;
+    }
+
     &:hover {
         box-shadow: ${cssValues.hoverBoxShadow};
     }
-`; 
+`;
 
 export const PreviewImage = styled.img`
     width: 100%;
@@ -36,7 +40,7 @@ export const PreviewImage = styled.img`
     border-radius: ${cssValues.borderRadius};
 `;
 
-export const PreviewInfoContainer = styled.div `
+export const PreviewInfoContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -47,6 +51,7 @@ export const PreviewInfoContainer = styled.div `
 `;
 
 export const PreviewPosterTitle = styled.h2`
+    font-weight: 600;
     width: 100%;
     white-space: nowrap;
     overflow: hidden;
@@ -59,7 +64,7 @@ export const PreviewPosterInfo = styled.p`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: clip;
-    font-weight: lighter;
+    font-weight: 300;
 `;
 
 export const Price = styled.p`
@@ -67,5 +72,5 @@ export const Price = styled.p`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: clip;
-    font-weight: bold;
+    font-weight: 600;
 `;

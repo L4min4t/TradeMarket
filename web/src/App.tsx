@@ -14,7 +14,6 @@ const App = () => {
     const noHeaderFooterPaths = ["/login", "/register", "*"];
     const showHeaderFooter = !noHeaderFooterPaths.includes(location.pathname);
 
-
     return (
         <>
             <GlobalStyles/>

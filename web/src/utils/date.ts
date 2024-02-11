@@ -4,8 +4,7 @@
     return createdDate.toLocaleDateString("ua-UK", {
         day: "numeric",
         month: "long",
-
-        hour: "2-digit",
-        minute: "2-digit",
+        hour: "numeric",
+        minute: "numeric"
     });
 };

@@ -1,10 +1,13 @@
 ﻿import React from "react";
 import PostersPreviewList from "../../components/PostersPreviewList";
+import {PostersPreviewListPageContainer} from "./styles";
 
 
 const PostersPreviewListPage = () => {
     return (
-        <PostersPreviewList/>
+        <PostersPreviewListPageContainer>
+            <PostersPreviewList/>
+        </PostersPreviewListPageContainer>
     );
 };
 

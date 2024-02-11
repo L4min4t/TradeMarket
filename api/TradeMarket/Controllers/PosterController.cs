@@ -66,7 +66,7 @@ public class PosterController : ControllerBase
     }
 
     [HttpGet("published")]
-    public async Task<IActionResult> GetPubliched()
+    public async Task<IActionResult> GetPublished()
     {
         var result = await _service.FindByConditionAsync(p => p.IsActive == true && p.IsModerated == true);
         return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);

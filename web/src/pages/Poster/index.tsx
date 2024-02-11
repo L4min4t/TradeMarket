@@ -3,12 +3,13 @@ import {useEffect, useState} from "react";
 import {getPoster, PosterDto} from "../../api/posters";
 import PosterDetail from "../../components/PosterDetail";
 import {StyledTitle} from "../../components/GlobalStyles";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 
 const PosterPage = () => {
     const {user, jwtTokens} = useAuthContext();
     const [poster, setPoster] = useState<PosterDto | null>(null);
     const {id} = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function getResponse() {
@@ -21,8 +22,13 @@ const PosterPage = () => {
             } else setPoster(null);
         }
 
-        getResponse();
-    }, [id]);
+        if (jwtTokens) {
+            getResponse();
+        } else {
+            navigate("/login");
+        }
+
+    }, [id, jwtTokens]);
     if (poster !== null) {
         return (
             <PosterDetail poster={poster!}/>

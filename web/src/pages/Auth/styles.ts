@@ -13,8 +13,8 @@ export const Container = styled.div`
 export const Label = styled.h1`
     align-self: center;
     color: ${cssValues.mainColor};
-    font-size: ${cssValues.subTitleFontSize};
-    font-weight: bold;
+    font-size: ${cssValues.titleFontSize};
+    font-weight: 700;
 `;
 
 export const Form = styled.form`
@@ -31,12 +31,12 @@ export const Input = styled.input`
     border-radius: ${cssValues.borderRadius};
     padding: 6px 8px;
 
-    &:hover {
-        border-color: ${cssValues.interactiveColor};
-    }
+    transition: transform ease-out 0.2s;
 
-    &:focus {
-        outline-color: ${cssValues.interactiveColor};
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.01);
+        border: ${cssValues.borderInteractive};
     }
 `;
 
@@ -46,32 +46,44 @@ export const SubmitButton = styled.button`
 
     align-self: center;
 
-    padding: 8px 12px;
-
-    border: ${cssValues.border};
+    padding: 8px 20px;
+        
     border-radius: ${cssValues.borderRadius};
 
     background: ${cssValues.mainColor};
 
+    transition: transform ease-out 0.2s;
+
     &:hover {
-        background: ${cssValues.hoverBackgroundColor};
+        cursor: pointer;
+        transform: scale(1.04);
+        background: ${cssValues.interactiveColor};
     }
+`;
+
+export const SuggestContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    align-items: center;
 `;
 
 export const SuggestText = styled.p`
-
 `;
 
 export const AuthLink = styled.a`
+    font-weight: 600;
     background: none;
     border: none;
-
     color: ${cssValues.mainColor};
-
     width: fit-content;
     height: fit-content;
+    transition: transform 0.2s ease-out, color 0.2s ease-out;
 
-    &:visited {
-        color: ${cssValues.hoverBackgroundColor};
+    &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+        color: ${cssValues.interactiveColor};
     }
 `;
+

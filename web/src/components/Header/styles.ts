@@ -17,6 +17,12 @@ export const HeaderContainer = styled.header`
 export const Logo = styled.a`
     color: ${cssValues.textColor};
     font-size: ${cssValues.titleFontSize};
+    font-weight: 600;
+
+    &:hover {
+        cursor: pointer;
+        color: ${cssValues.interactivaOnMainColor};
+    }
 `;
 
 export const Greeting = styled.h2`
@@ -25,4 +31,10 @@ export const Greeting = styled.h2`
 
 export const UserName = styled.a`
     font-size: ${cssValues.subTitleFontSize};
+    font-weight: 600;
+
+    &:hover {
+        cursor: pointer;
+        color: ${cssValues.interactivaOnMainColor};
+    }
 `;

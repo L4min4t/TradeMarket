@@ -1,18 +1,10 @@
 ﻿import useAuthContext from "../../context/hooks";
 import {Greeting, HeaderContainer, Logo, UserName} from "./styles";
 import {useNavigate} from "react-router-dom";
-import {toast} from "react-toastify";
 
 const Header = () => {
-    const {user, jwtTokens, logoutUser} = useAuthContext();
+    const {user, logoutUser} = useAuthContext();
     const navigate = useNavigate();
-
-    if (user == null || jwtTokens == null) {
-        toast.error("User auth error!");
-        console.log(user);
-        logoutUser();
-        navigate("/login");
-    }
 
     return (
         <HeaderContainer>

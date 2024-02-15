@@ -97,14 +97,33 @@ export const TagLink = styled.a`
 `;
 
 export const Description = styled.p`
-    width: calc(100% - 21px * 2);
+    width: 100%;
     height: fit-content;
-    padding: 20px;
-    border-radius: ${cssValues.borderRadius};
-    border: 1px solid ${cssValues.mainColor};
+    padding: 20px 0;
+    border-top: 1px solid ${cssValues.mainColor};
+    border-bottom: 1px solid ${cssValues.mainColor};
 `;
 
 export const SuggestedPostersContainer = styled.div`
     position: relative;
     width: 100%;
+`;
+
+export const Like = styled.a`
+    cursor: pointer;
+    width: fit-content;
+    height: 40px;
+    cursor: pointer;
+    
+    * {
+        cursor: pointer;
+    }
+`;
+
+export const TitleContainer = styled.div`
+display: flex;
+    flex-direction: row;
+    column-gap: 4px;
+    align-items: center;
+    justify-content: flex-start;
 `;

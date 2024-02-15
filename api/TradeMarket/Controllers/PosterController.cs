@@ -89,10 +89,24 @@ public class PosterController : ControllerBase
         return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
     }
 
-    [HttpPut("like")]
-    public async Task<IActionResult> Like([FromBody] LikePosterModel param)
+    [HttpPut("like/{id}")]
+    public async Task<IActionResult> Like([FromRoute] Guid id)
     {
-        var result = await _service.LikeAsync(param);
-        return result.IsSuccess ? Ok(result.Message) : BadRequest(result.Message);
+        var result = await _service.LikeAsync(id);
+        return result.IsSuccess ? Ok() : BadRequest(result.Message);
+    }
+    
+    [HttpPut("view/{id}")]
+    public async Task<IActionResult> View([FromRoute] Guid id)
+    {
+        var result = await _service.ViewAsync(id);
+        return result.IsSuccess ? Ok() : BadRequest(result.Message);
+    }
+    
+    [HttpGet("liked/{id}")]
+    public async Task<IActionResult> GetLiked([FromRoute] Guid id)
+    {
+        var result = await _service.GetLikedAsync();
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
     }
 }

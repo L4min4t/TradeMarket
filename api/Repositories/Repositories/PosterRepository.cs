@@ -13,11 +13,11 @@ public class PosterRepository : BaseRepository<Poster>, IPosterRepository
     }
     
     public override async Task<Poster?> FindByIdAsync(Guid id) 
-        => await DbSet.Include(u => u.Creator.City).FirstOrDefaultAsync(u => u.Id == id);
+        => await DbSet.Include(p => p.Creator.City).FirstOrDefaultAsync(p => p.Id == id);
     
     public override async Task<List<Poster>?> FindAllAsync() 
-        => await DbSet.Include(u => u.Creator.City).ToListAsync();
+        => await DbSet.Include(p => p.Creator.City).ToListAsync();
 
     public override async Task<List<Poster>?> FindByConditionAsync(Expression<Func<Poster, bool>> expression) =>
-        await DbSet.Include(u => u.Creator.City).AsNoTracking().Where(expression).ToListAsync();
+        await DbSet.Include(p => p.Creator.City).AsNoTracking().Where(expression).ToListAsync();
 }

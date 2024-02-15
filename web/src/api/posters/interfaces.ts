@@ -1,5 +1,5 @@
-﻿import {User} from "../interfaces/interfaces";
-import {Category} from "../constants/enums";
+﻿import {Category} from "../constants/enums";
+import {User} from "../user/interfaces";
 
 export interface PosterPreviewDto {
     id: string;

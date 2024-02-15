@@ -1,100 +1,55 @@
 ﻿import React, {useEffect, useState} from "react";
-import {NavigateFunction, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
-import {getPosters, PosterPreviewDto} from "../../api/posters";
+import {getLikedPosters, getPosters, PosterPreviewDto} from "../../api/posters";
 import useAuthContext from "../../context/hooks";
 
-import {
-    Container,
-    PreviewContainer,
-    PreviewImage,
-    PreviewInfoContainer,
-    PreviewPosterInfo,
-    PreviewPosterTitle,
-    Price
-} from "./styles";
-import CustomIcon from "../CustomIcon";
-import {getFormattedDate} from "../../utils/date";
-import {Category} from "../../api/constants/enums";
-import {shuffleArray} from "../../utils/shufler";
-
-interface GetPosterProps {
-    poster: PosterPreviewDto;
-    navigate: NavigateFunction;
-}
-
-const PosterPreview = ({poster, navigate}: GetPosterProps) => {
-    const imgUrl = `${process.env.REACT_APP_BASE_URL}/Images/${(poster.imageId || "basket")}.jpg`;
-
-    return (
-        <PreviewContainer onClick={() => navigate(`/posters/${poster.id}`)} key={`poster-${poster.id}`}>
-            <PreviewImage src={imgUrl}/>
-            <PreviewInfoContainer>
-
-                <PreviewPosterTitle>{poster.title}</PreviewPosterTitle>
-                <Price>
-                    <CustomIcon src={"uah.png"} width={"20px"}/> {poster.price.toString()}
-                </Price>
-                {
-                    poster.creator.city ? (
-                        <PreviewPosterInfo>
-                            <CustomIcon src="spot.png" width="18px"/>
-                            {poster.creator.city.name}, {poster.creator.city.region}
-                        </PreviewPosterInfo>
-                    ) : (
-                        <PreviewPosterInfo>
-                            <CustomIcon src="spot.png" width="18px"/> Unknown city
-                        </PreviewPosterInfo>
-                    )
-                }
-                <PreviewPosterInfo>{getFormattedDate(poster.publishedAt)}</PreviewPosterInfo>
-
-            </PreviewInfoContainer>
-        </PreviewContainer>
-    );
-};
+import {Container} from "./styles";
+import PosterPreview from "../PosterPreview";
 
 interface PostersPreviewListProps {
-    number?: number;
-    category?: Category;
-    excludePosterId?: string;
     creatorId?: string;
+    showLiked?: boolean;
 }
 
-const PostersPreviewList = ({number, category, excludePosterId, creatorId}: PostersPreviewListProps) => {
-    const {jwtTokens} = useAuthContext();
+const PostersPreviewList = ({creatorId, showLiked}: PostersPreviewListProps) => {
+    const {user, jwtTokens} = useAuthContext();
     const navigate = useNavigate();
     const [posters, setPosters] = useState<PosterPreviewDto[]>([]);
     const [displayedPosters, setDisplayedPosters] = useState<PosterPreviewDto[]>([]);
+    const [likedPosterIds, setLikedPosterIds] = useState<string[]>([]);
 
     useEffect(() => {
-        async function getResponse() {
-            if (jwtTokens) {
-                const result = await getPosters(jwtTokens.accessToken);
-                if (result) {
-                    setPosters(result);
-                    let filteredPosters: PosterPreviewDto[];
-                    if (category) {
-                        filteredPosters = shuffleArray(result.filter(poster => poster.category === category && poster.id !== excludePosterId));
-                    } else if (creatorId) {
-                        filteredPosters = result.filter(poster => poster.creatorId === creatorId);
-                    } else {
-                        filteredPosters = result;
+            async function getResponse() {
+                if (jwtTokens && user) {
+                    const likeResult = (await getLikedPosters(jwtTokens.accessToken, user.id))?.map((poster) => poster.id);
+                    if (likeResult) setLikedPosterIds(likeResult);
+                    const result = await getPosters(jwtTokens.accessToken);
+                    if (result) {
+                        setPosters(result);
+                        let filteredPosters: PosterPreviewDto[];
+                        if (creatorId) {
+                            filteredPosters = result.filter(poster => poster.creatorId === creatorId);
+                        } else if (showLiked) {
+                            filteredPosters = result.filter(poster => likedPosterIds.includes(poster.id));
+                        } else {
+                            filteredPosters = result;
+                        }
+                        setDisplayedPosters(filteredPosters);
                     }
-                    setDisplayedPosters(number ? filteredPosters.slice(0, number) : filteredPosters);
+                } else {
+                    navigate("/login");
                 }
-            } else {
-                navigate("/login");
             }
-        }
 
-        getResponse();
-    }, [jwtTokens, navigate, category, number, excludePosterId, creatorId]);
+            getResponse();
+        }, [jwtTokens, navigate, creatorId, user, showLiked]
+    );
 
     return (
         <Container>
             {displayedPosters.map((poster) => (
-                <PosterPreview key={poster.id} poster={poster} navigate={navigate}/>
+                <PosterPreview key={poster.id} poster={poster} isLiked={likedPosterIds.includes(poster.id)}/>
             ))}
         </Container>
     );

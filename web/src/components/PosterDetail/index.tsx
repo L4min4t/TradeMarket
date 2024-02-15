@@ -1,7 +1,8 @@
-﻿import {PosterDto} from "../../api/posters";
+﻿import {likePoster, PosterDto} from "../../api/posters";
 import {
     Container,
     Description,
+    Like,
     Link,
     MainInfoContainer,
     PosterContainer,
@@ -15,28 +16,42 @@ import {
     SuggestedPostersContainer,
     Tag,
     TagLink,
-    Title
+    Title,
+    TitleContainer
 } from "./styles";
 import {getFormattedDate} from "../../utils/date";
 import CustomIcon from "../CustomIcon";
-import React from "react";
+import React, {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Category} from "../../api/constants/enums";
-import PostersPreviewList from "../PostersPreviewList";
+import useAuthContext from "../../context/hooks";
+import SuggestedPosters from "../SuggestedPosters";
 
 interface PosterDetailProps {
     poster: PosterDto;
+    isLiked: boolean;
 }
 
 const PosterDetail = (props: PosterDetailProps) => {
+    const {jwtTokens} = useAuthContext();
     const navigate = useNavigate();
+    const [liked, setLiked] = useState(props.isLiked);
 
     const imageUrl = process.env.REACT_APP_BASE_URL + "/Images/" + (props.poster.imageId || "basket") + ".jpg";
 
     return (
         <Container>
             <PosterContainer>
-                <Title>{props.poster.title}</Title>
+                <TitleContainer>
+                    <Like onClick={() => {
+                        setLiked(!liked);
+                        likePoster(props.poster.id, jwtTokens!.accessToken);
+                    }}>
+                        <CustomIcon src={liked ? "liked.png" : "like.png"} width="40px"/>
+                    </Like>
+                    <Title>{props.poster.title}</Title>
+                </TitleContainer>
+
                 <MainInfoContainer>
                     <PosterDetailImage src={imageUrl}/>
                     <PosterMainInfo>
@@ -107,7 +122,7 @@ const PosterDetail = (props: PosterDetailProps) => {
 
             </PosterContainer>
             <SuggestedPostersContainer>
-                <PostersPreviewList category={props.poster.category} number={3} excludePosterId={props.poster.id}/>
+                <SuggestedPosters category={props.poster.category} number={3} excludePosterId={props.poster.id}/>
             </SuggestedPostersContainer>
         </Container>
     );

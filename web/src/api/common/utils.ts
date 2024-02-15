@@ -4,9 +4,6 @@ import {ApiResponse} from "./interfaces";
 export const processResponse = <T>(
     response: ApiResponse<T>
 ): T | null => {
-    console.log(response);
-
-    // Handle successful response with data
     if (response.status === 200 && "data" in response) {
         return response.data !== undefined ? response.data : null;
     } else {
@@ -20,17 +17,19 @@ export const processResponse = <T>(
 
         const errorMessage = errorMessages[response.status] || "An error occurred.";
 
-        if ("problemDetails" in response && response.problemDetails !== undefined) {
-            console.log(response.problemDetails.errors);
-            const error = response.problemDetails.errors?.at(0);
-            console.log("asdkfjhasldjkfhasdf");
+        if ("problemDetails" in response && response.problemDetails !== undefined && response.status !== 401) {
+            const error = response.problemDetails
+                ? response.problemDetails
+                : null;
             const message = error
-                ? `${error.code}: ${error.description}`
+                ? `${error.status}: ` + Object.entries(error)
+                .filter(([key, _]) => !isNaN(Number(key)))
+                .map(([_, value]) => value)
+                .join("")
                 : errorMessage;
 
             toast.error(message);
         } else {
-            // Handle unknown errors
             toast.error(errorMessage);
         }
 

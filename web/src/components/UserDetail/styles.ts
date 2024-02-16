@@ -74,7 +74,7 @@ export const Title = styled.h1`
 `;
 
 export const PostersContaienr = styled.div`
-display: flex;
+    display: flex;
     flex-direction: column;
     row-gap: ${cssValues.itemsGap};
     margin-bottom: ${cssValues.blocksGap};

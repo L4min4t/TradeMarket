@@ -1,15 +1,12 @@
 ﻿import useAuthContext from "../../context/hooks";
 import {useEffect, useState} from "react";
-import {useNavigate} from "react-router-dom";
 import {getUser, User} from "../../api/user";
 import UserDetail from "../../components/UserDetail";
 
 const UserPage = () => {
     const {user} = useAuthContext();
-
     const {jwtTokens} = useAuthContext();
     const [userInfo, setUserInfo] = useState<User | null>(null);
-    const navigate = useNavigate();
 
     useEffect(() => {
         async function getResponse() {

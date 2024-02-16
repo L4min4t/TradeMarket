@@ -1,4 +1,4 @@
-﻿import {updateUser, User} from "../../api/user";
+﻿import {updateUser, User, UserUpdateDto} from "../../api/user";
 import CustomIcon from "../CustomIcon";
 import {
     Avatar,
@@ -20,6 +20,8 @@ import AvatarUploadForm from "../AvatarUploadForm";
 import React, {useState} from "react";
 import {deleteImage} from "../../api/image";
 import UserPosters from "../UserPosters";
+import Modal from "../Modal";
+import EditUserForm from "../EditUserForm";
 
 
 interface UserDetailProps {
@@ -27,14 +29,26 @@ interface UserDetailProps {
 }
 
 const UserDetail = ({user}: UserDetailProps) => {
+    const [isEditing, setIsEditing] = useState(false);
     const {jwtTokens, logoutUser} = useAuthContext();
     const [avatarId, setAvatarId] = useState<string | undefined>(user.avatarId);
     const {city, ...userWithoutCity} = user;
 
     let avatarUrl = `${process.env.REACT_APP_BASE_URL}/Images/${avatarId || "user"}.jpg`;
 
+    const handleEditSave = async (updatedUser: UserUpdateDto) => {
+        await updateUser(jwtTokens!.accessToken, updatedUser);
+        setIsEditing(false);
+        // how to refresh user and header?
+    };
+
     return (
         <Container>
+            {isEditing && (
+                <Modal width="500px" height="auto" onClose={() => setIsEditing(false)}>
+                    <EditUserForm user={user} onSave={handleEditSave}/>
+                </Modal>
+            )}
 
             <UserInfoContainer>
                 <AvatarContainer>
@@ -64,7 +78,7 @@ const UserDetail = ({user}: UserDetailProps) => {
                 <UserCredentialsContainer>
                     <RowFlexContainer>
                         <UserNameLabel>{user.name}</UserNameLabel>
-                        <Button onClick={logoutUser}>
+                        <Button onClick={() => setIsEditing(true)}>
                             <CustomIcon src={"edit.png"} width="30px"/>
                         </Button>
                         <Button onClick={logoutUser}>

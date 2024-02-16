@@ -13,6 +13,8 @@ export interface PosterPreviewDto {
     publishedAt: Date;
     numberViewed: number;
     category: Category;
+
+    isLiked: boolean;
 }
 
 export interface PosterDto {

@@ -10,3 +10,13 @@ export interface User {
     cityId: string;
     city: City;
 }
+
+export interface UserUpdateDto {
+    id: string;
+    name: string;
+    avatarId?: string;
+    email: string;
+    phone: string;
+    telegram: string;
+    cityId: string;
+}

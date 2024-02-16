@@ -8,7 +8,7 @@ const CustomIcon = (props: StyledIconProps) => {
             src={imgUrl}
             width={props.width}
             height={props.height}
-
+            onClick={props.onClick}
             aspectratio={props.aspectratio}
         />
     );

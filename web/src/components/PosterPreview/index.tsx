@@ -18,13 +18,12 @@ import {
 
 interface PosterPreviewProps {
     poster: PosterPreviewDto;
-    isLiked: boolean;
 }
 
-const PosterPreview = ({poster, isLiked}: PosterPreviewProps) => {
+const PosterPreview = ({poster}: PosterPreviewProps) => {
     const navigate = useNavigate();
     const {jwtTokens} = useAuthContext();
-    const [liked, setLiked] = useState(isLiked);
+    const [liked, setLiked] = useState<boolean>(poster.isLiked);
 
     const imgUrl = `${process.env.REACT_APP_BASE_URL}/Images/${(poster.imageId || "basket")}.jpg`;
 

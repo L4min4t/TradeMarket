@@ -14,26 +14,15 @@ const UserPage = () => {
     useEffect(() => {
         async function getResponse() {
             if (user) {
-                const result = await getUser(jwtTokens!.accessToken, user?.id);
-                if (result) {
-                    setUserInfo(result as User);
-                }
+                const result = await getUser(jwtTokens!.accessToken, user!.id);
+                if (result) setUserInfo(result as User);
             } else setUserInfo(null);
         }
 
-        if (jwtTokens) {
-            getResponse();
-        } else {
-            navigate("/login");
-        }
+        getResponse();
     }, [user, jwtTokens]);
 
-    if (userInfo !== null) {
-        return (
-            <UserDetail key={user!.id} user={userInfo}/>
-        );
-    } else return (<></>);
-
+    return userInfo ? <UserDetail key={user!.id} user={userInfo}/> : <></>;
 }
 
 export default UserPage;

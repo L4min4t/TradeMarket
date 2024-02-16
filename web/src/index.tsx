@@ -8,7 +8,7 @@ import App from "./App";
 import RegisterPage from "./pages/Auth/Register";
 import LoginPage from "./pages/Auth/Login";
 import NotFound from "./pages/NotFound";
-import PostersPreviewListPage from "./pages/PostersPreviewList";
+import MainPage from "./pages/Main";
 import PosterPage from "./pages/Poster";
 import UserPostersPage from "./pages/UserPosters";
 import UserPage from "./pages/User";
@@ -23,7 +23,7 @@ root.render(
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<App/>}>
-                <Route index element={<PostersPreviewListPage/>}/>
+                <Route index element={<MainPage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/register" element={<RegisterPage/>}/>
                 <Route path="/user" element={<UserPage/>}/>

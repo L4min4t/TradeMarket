@@ -4,7 +4,6 @@ import React, {useEffect, useState} from "react";
 import {getLikedPosters, getPosters, PosterPreviewDto} from "../../api/posters";
 import {shuffleArray} from "../../utils/shufler";
 import useAuthContext from "../../context/hooks";
-import {useNavigate} from "react-router-dom";
 import PosterPreview from "../PosterPreview";
 
 interface SuggestedPostersProps {
@@ -15,21 +14,22 @@ interface SuggestedPostersProps {
 
 const SuggestedPosters = ({number, category, excludePosterId}: SuggestedPostersProps) => {
     const {user, jwtTokens} = useAuthContext();
-    const navigate = useNavigate();
     const [posters, setPosters] = useState<PosterPreviewDto[]>([]);
-    const [likedPosterIds, setLikedPosterIds] = useState<string[]>([]);
 
     useEffect(() => {
         async function getResponse() {
-            if (!jwtTokens || !user) navigate("/login");
-
-            const result = await getPosters(jwtTokens!.accessToken);
             const likeResult = (await getLikedPosters(jwtTokens!.accessToken, user!.id))?.map((poster) => poster.id);
-            if (likeResult) setLikedPosterIds(likeResult);
-            if (result && category && number && excludePosterId) {
+            const result = await getPosters(jwtTokens!.accessToken);
+            if (result) {
+                const updatedPosters = result.map((poster) => {
+                    if (likeResult && likeResult.includes(poster.id)) {
+                        return {...poster, isLiked: true};
+                    }
+                    return {...poster, isLiked: false};
+                });
                 setPosters(
                     shuffleArray(
-                        result.filter(poster => poster.category === category && poster.id !== excludePosterId)
+                        updatedPosters.filter(poster => poster.category === category && poster.id !== excludePosterId)
                     ).slice(0, number)
                 );
             }
@@ -38,19 +38,13 @@ const SuggestedPosters = ({number, category, excludePosterId}: SuggestedPostersP
         getResponse();
     }, [category, number, excludePosterId, user, jwtTokens]);
 
-    if (posters)
-        return (
-            <Container>
-                {posters.map((poster) => (
-                    <PosterPreview
-                        key={poster.id}
-                        poster={poster}
-                        isLiked={likedPosterIds.includes(poster.id)}
-                    />
-                ))}
-            </Container>
-        );
-    else return (<></>);
-}
+    return posters
+        ? <Container>
+            {posters.map((poster) => (
+                <PosterPreview key={poster.id} poster={poster}/>
+            ))}
+        </Container>
+        : <></>;
+};
 
 export default SuggestedPosters;

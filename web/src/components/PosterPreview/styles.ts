@@ -11,6 +11,7 @@ export const PreviewContainer = styled.div`
     border-radius: ${cssValues.borderRadius};
     overflow: hidden;
     box-shadow: ${cssValues.boxShadow};
+
     &:hover {
         box-shadow: ${cssValues.hoverBoxShadow};
     }
@@ -47,7 +48,7 @@ export const PreviewPosterTitle = styled.h2`
 `;
 
 export const PosterPreviewHead = styled.div`
-        display: flex;
+    display: flex;
     flex-direction: row;
     align-items: center;
     column-gap: 5px;

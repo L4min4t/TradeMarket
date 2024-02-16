@@ -1,7 +1,7 @@
 ﻿import useAuthContext from "../../context/hooks";
 import {useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
-import {getLikedPosters, getPosters, PosterPreviewDto} from "../../api/posters";
+import {getLikedPosters, PosterPreviewDto} from "../../api/posters";
 import PosterPreview from "../PosterPreview";
 import {Container} from "./styles";
 
@@ -9,36 +9,28 @@ const LikedPosters = () => {
     const {user, jwtTokens} = useAuthContext();
     const navigate = useNavigate();
     const [posters, setPosters] = useState<PosterPreviewDto[]>([]);
-    const [likedPosterIds, setLikedPosterIds] = useState<string[]>([]);
 
     useEffect(() => {
         async function getResponse() {
-            if (!jwtTokens || !user) navigate("/login");
-
-            const result = await getPosters(jwtTokens!.accessToken);
-            const likeResult = (await getLikedPosters(jwtTokens!.accessToken, user!.id))?.map((poster) => poster.id);
-            if (likeResult) setLikedPosterIds(likeResult);
-            if (result && likedPosterIds.length) setPosters(result.filter(poster => likedPosterIds.includes(poster.id)));
+            const result = await getLikedPosters(jwtTokens!.accessToken, user!.id);
+            if (result) {
+                const updatedPosters = result.map((poster) => ({...poster, isLiked: true}));
+                setPosters(updatedPosters);
+            }
         }
 
         getResponse();
-    }, [jwtTokens, navigate, user, likedPosterIds]);
+    }, [jwtTokens, navigate, user]);
 
-    if (posters) {
-        console.log(likedPosterIds);
-        console.log(posters);
+    if (posters)
         return (
             <Container>
                 {posters.map((poster) => (
-                    <PosterPreview
-                        key={poster.id}
-                        poster={poster}
-                        isLiked={likedPosterIds.includes(poster.id)}
-                    />
+                    <PosterPreview key={poster.id} poster={poster}/>
                 ))}
             </Container>
         );
-    } else return (<></>);
+    else return (<></>);
 };
 
 export default LikedPosters;

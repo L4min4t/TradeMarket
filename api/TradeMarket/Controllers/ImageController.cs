@@ -34,7 +34,7 @@ public class ImageController : ControllerBase
     
     [HttpDelete("{id}")]
     [CustomCheckAccess("manage-image")]
-    public async Task<IActionResult> GetDelete(Guid id)
+    public async Task<IActionResult> Delete(Guid id)
     {
         var result = await _service.DeleteImageAsync(id);
         return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);

@@ -5,6 +5,7 @@ export interface StyledIconProps {
     height?: string;
     aspectratio?: string;
     src: string;
+    onClick?: () => void;
 }
 
 export const StyledIcon = styled.img<StyledIconProps>`

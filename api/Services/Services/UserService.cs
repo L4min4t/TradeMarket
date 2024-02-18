@@ -17,6 +17,29 @@ public class UserService : BaseService<User, UserBaseDto>, IUserService
         _userManager = userManager;
     }
     
+    public new async Task<Result<User>> UpdateAsync(UserUpdateDto dto)
+    {
+        try
+        {
+            var user = await Repository.FindByIdAsync(dto.Id);
+            var authUser = await _userManager.FindByIdAsync(user.IdentityId);
+            
+            Mapper.Map(dto, user);
+            authUser.UserName = user.Name;
+            
+            await Repository.UpdateAsync(user);
+            await _userManager.UpdateAsync(authUser);
+            
+            return Result.Ok(await Repository.FindByIdAsync(user.Id));
+        }
+        catch (Exception ex)
+        {
+            return Result.Fail<User>(
+                $"UserService.UpdateAsync (User:{dto.Id.ToString()})\n" +
+                $"An exception occurred: {ex.Message}");
+        }
+    }
+    
     public override async Task<Result> DeleteAsync(Guid applicationUserId)
     {
         try

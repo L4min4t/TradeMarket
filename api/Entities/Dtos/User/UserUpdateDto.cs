@@ -13,9 +13,6 @@ public class UserUpdateDto : UserBaseDto
     
     public string? AvatarId { get; set; }
     
-    [Required]
-    [StringLength(255, MinimumLength = 2)]
-    public string Email { get; set; }
     public string? Phone { get; set; }
     public string? Telegram { get; set; }
     

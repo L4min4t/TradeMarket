@@ -1,5 +1,9 @@
-﻿import React, {useState} from 'react';
+﻿import React, {useEffect, useState} from 'react';
 import {User} from "../../api/user";
+import CustomDropDown, {DropDownOptionProps} from "../CityDropDown";
+import {getCities} from "../../api/city";
+import useAuthContext from "../../context/hooks";
+import {CustomForm, CustomInput, DropDownContainer, Label, RowContainer, SubmitButton} from "./styles";
 
 export interface EditUserFormProps {
     user: User;
@@ -7,33 +11,72 @@ export interface EditUserFormProps {
 }
 
 const EditUserForm = ({user, onSave}: EditUserFormProps) => {
+    const {jwtTokens} = useAuthContext();
     const [name, setName] = useState(user.name);
-    const [avatarId, setAvatarId] = useState(user.avatarId);
-    const [email, setEmail] = useState(user.email);
-    const [phone, setphone] = useState(user.phone);
+    const [phone, setPhone] = useState(user.phone);
     const [telegram, setTelegram] = useState(user.telegram);
+    const [options, setOptions] = useState<DropDownOptionProps[] | undefined>();
     const [cityId, setCityId] = useState(user.cityId);
 
+    useEffect(() => {
+        async function getResponse() {
+            const result = await getCities(jwtTokens!.accessToken);
+
+            if (result) {
+                const avaliableOptions = result.map(
+                    (city) => ({value: city.id, label: `${city.name}, ${city.region}`} as DropDownOptionProps)
+                );
+                setOptions(avaliableOptions);
+            }
+        }
+
+        getResponse();
+    }, [jwtTokens]);
 
 
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        onSave({...user, name, avatarId});
+        await onSave({...user, name, cityId: cityId, phone, telegram});
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label>Name:</label>
-                <input type="text" value={name} onChange={(e) => setName(e.target.value)}/>
-            </div>
-            {/*<div>*/}
-            {/*    <label>Email:</label>*/}
-            {/*    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />*/}
-            {/*</div>*/}
-            <button type="submit">Save Changes</button>
-        </form>
+        <CustomForm onSubmit={handleSubmit}>
+            <RowContainer>
+                <Label>Name:</Label>
+                <CustomInput type="text" value={name} onChange={(e) => setName(e.target.value)}/>
+            </RowContainer>
+            <RowContainer>
+                <Label>Phone:</Label>
+                <CustomInput placeholder="380000000000" type="phone" value={phone}
+                             onChange={(e) => setPhone(e.target.value)}/>
+            </RowContainer>
+            <RowContainer>
+                <Label>Telegram:</Label>
+                <CustomInput placeholder="nickname without @" type="text" value={telegram}
+                             onChange={(e) => setTelegram(e.target.value)}/>
+            </RowContainer>
+            <RowContainer>
+                <Label>City:</Label>
+                <DropDownContainer>
+                    {
+                        user.cityId && options?.length
+                            ?
+                            <CustomDropDown
+                                defaultValue={{value: user.cityId, label: `${user.city.name}, ${user.city.region}`}}
+                                options={options}
+                                onChange={(selectedOption) => setCityId(selectedOption.value)}
+                            />
+                            :
+                            <CustomDropDown
+                                options={options}
+                                onChange={(selectedOption) => setCityId(selectedOption.value)}
+                            />
+                    }
+                </DropDownContainer>
+
+            </RowContainer>
+            <SubmitButton type="submit">save changes</SubmitButton>
+        </CustomForm>
     );
 };
 

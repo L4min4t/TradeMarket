@@ -1,4 +1,5 @@
 ﻿import styled from "styled-components";
+import {cssValues} from "../GlobalStyles";
 
 export const ModalOverlay = styled.div`
     position: fixed;
@@ -15,7 +16,7 @@ export const ModalOverlay = styled.div`
 
 export const ModalContainer = styled.div`
     background-color: white;
-    padding: 20px;
+    padding: ${cssValues.blocksGap};
     border-radius: 5px;
     position: relative;
     z-index: 1001;
@@ -23,7 +24,7 @@ export const ModalContainer = styled.div`
 
 export const CloseButton = styled.button`
     position: absolute;
-    top: 10px;
+    top: 3px;
     right: 10px;
     border: none;
     background: none;

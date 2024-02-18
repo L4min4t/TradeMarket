@@ -30,7 +30,7 @@ interface UserDetailProps {
 
 const UserDetail = ({user}: UserDetailProps) => {
     const [isEditing, setIsEditing] = useState(false);
-    const {jwtTokens, logoutUser} = useAuthContext();
+    const {jwtTokens, logoutUser ,refreshToken} = useAuthContext();
     const [avatarId, setAvatarId] = useState<string | undefined>(user.avatarId);
     const {city, ...userWithoutCity} = user;
 
@@ -39,6 +39,7 @@ const UserDetail = ({user}: UserDetailProps) => {
     const handleEditSave = async (updatedUser: UserUpdateDto) => {
         await updateUser(jwtTokens!.accessToken, updatedUser);
         setIsEditing(false);
+        refreshToken(jwtTokens!);
         // how to refresh user and header?
     };
 

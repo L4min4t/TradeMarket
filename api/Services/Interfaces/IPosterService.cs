@@ -12,4 +12,5 @@ public interface IPosterService : IBaseService<Poster, PosterBaseDto>
     Task<Result<Poster>> LikeAsync(Guid id);
     Task<Result> ViewAsync(Guid id);
     Task<Result<List<Poster>>> GetLikedAsync();
+    Task<Result<List<Poster>>> GetUserPosters();
 }

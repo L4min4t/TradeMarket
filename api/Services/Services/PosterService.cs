@@ -22,6 +22,23 @@ public class PosterService : BaseService<Poster, PosterBaseDto>, IPosterService
         _likedPosterRepository = posterRepository;
         _context = context;
     }
+    
+    public async Task<Result<List<Poster>>> GetUserPosters()
+    {
+        try
+        {
+            var userId = _context.HttpContext.User.FindFirst("uid")?.Value;
+            var posters = await Repository.FindByConditionAsync(p => p.CreatorId.ToString() == userId);
+
+            return Result.Ok(posters);
+        }
+        catch (Exception ex)
+        {
+            return Result.Fail<List<Poster>>(
+                $"PosterService.GetUserPosters\n" +
+                $"An exception occurred: {ex.Message}");
+        }
+    }
 
     public async Task<Result<Poster>> ModerateAsync(ModeratePosterModel model)
     {

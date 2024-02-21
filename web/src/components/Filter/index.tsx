@@ -2,7 +2,7 @@
 import PostersPreviewList from "../PostersPreviewList";
 import useAuthContext from "../../context/hooks";
 import {useEffect, useState} from "react";
-import {getLikedPosters, getPosters, PosterPreviewDto} from "../../api/posters";
+import {getLikedPosters, getPublishedPosters, PosterPreviewDto} from "../../api/posters";
 
 const Filter = () => {
     const {user, jwtTokens} = useAuthContext();
@@ -11,7 +11,7 @@ const Filter = () => {
     useEffect(() => {
             async function getResponse() {
                 const likeResult = (await getLikedPosters(jwtTokens!.accessToken, user!.id))?.map((poster) => poster.id);
-                const result = await getPosters(jwtTokens!.accessToken);
+                const result = await getPublishedPosters(jwtTokens!.accessToken);
                 if (result) {
                     const updatedPosters = result.map((poster) => {
                         if (likeResult && likeResult.includes(poster.id)) {

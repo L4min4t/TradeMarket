@@ -33,6 +33,13 @@ public class PosterController : ControllerBase
         var result = await _service.FindByIdAsync(id);
         return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);
     }
+    
+    [HttpGet("user")]
+    public async Task<IActionResult> GetUserPosters()
+    {
+        var result = await _service.GetUserPosters();
+        return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);
+    }
 
     [HttpDelete("{id}")]
     [CustomCheckAccess("manage-poster")]

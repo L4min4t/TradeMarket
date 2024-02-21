@@ -1,6 +1,6 @@
 ﻿import React, {useEffect, useState} from 'react';
 import {User} from "../../api/user";
-import CustomDropDown, {DropDownOptionProps} from "../CityDropDown";
+import CustomDropDown, {DropDownOptionProps} from "../CustomDropDown";
 import {getCities} from "../../api/city";
 import useAuthContext from "../../context/hooks";
 import {CustomForm, CustomInput, DropDownContainer, Label, RowContainer, SubmitButton} from "./styles";

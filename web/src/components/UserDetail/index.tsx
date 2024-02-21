@@ -18,10 +18,10 @@ import useAuthContext from "../../context/hooks";
 import LikedPosters from "../LikedPosters";
 import AvatarUploadForm from "../AvatarUploadForm";
 import React, {useState} from "react";
-import {deleteImage} from "../../api/image";
-import UserPosters from "../UserPosters";
+
 import Modal from "../Modal";
 import EditUserForm from "../EditUserForm";
+import OwnedPostersPreviewList from "../OwnedPostersList";
 
 
 interface UserDetailProps {
@@ -30,7 +30,7 @@ interface UserDetailProps {
 
 const UserDetail = ({user}: UserDetailProps) => {
     const [isEditing, setIsEditing] = useState(false);
-    const {jwtTokens, logoutUser ,refreshToken} = useAuthContext();
+    const {jwtTokens, logoutUser, refreshToken} = useAuthContext();
     const [avatarId, setAvatarId] = useState<string | undefined>(user.avatarId);
     const {city, ...userWithoutCity} = user;
 
@@ -66,7 +66,6 @@ const UserDetail = ({user}: UserDetailProps) => {
                         <CustomIcon
                             src="trash.png"
                             onClick={async () => {
-                                if (avatarId !== "user") await deleteImage(jwtTokens!.accessToken, user.avatarId);
                                 await updateUser(jwtTokens!.accessToken, {...userWithoutCity, avatarId: undefined});
                                 await setAvatarId(undefined);
                             }}
@@ -113,8 +112,8 @@ const UserDetail = ({user}: UserDetailProps) => {
             <PostersContaienr>
                 <Title>Liked</Title>
                 <LikedPosters/>
-                <Title>My posters</Title>
-                <UserPosters id={user.id}/>
+                <Title id="#myPosters">My posters</Title>
+                <OwnedPostersPreviewList/>
             </PostersContaienr>
 
 

@@ -26,6 +26,9 @@ import {useNavigate} from "react-router-dom";
 import {Category} from "../../api/constants/enums";
 import useAuthContext from "../../context/hooks";
 import SuggestedPosters from "../SuggestedPosters";
+import Modal from "../Modal";
+import {updateUser, UserUpdateDto} from "../../api/user";
+import GoogleMap from "../GoogleMap";
 
 interface PosterDetailProps {
     poster: PosterDto;
@@ -35,6 +38,7 @@ const PosterDetail = ({poster}: PosterDetailProps) => {
     const {user, jwtTokens} = useAuthContext();
     const navigate = useNavigate();
     const [liked, setLiked] = useState(false);
+    const [isLocationRequested, setLocationRequest] = useState(false);
 
     useEffect(() => {
             async function getResponse() {
@@ -48,11 +52,21 @@ const PosterDetail = ({poster}: PosterDetailProps) => {
         }, [jwtTokens, user, poster]
     );
 
+    const handleEditSave = async (updatedUser: UserUpdateDto) => {
+        await updateUser(jwtTokens!.accessToken, updatedUser);
+        setLocationRequest(false);
+    };
+
 
     const imageUrl = process.env.REACT_APP_BASE_URL + "/Images/" + (poster.imageId || "basket") + ".jpg";
 
     return (
         <Container>
+            {isLocationRequested && (
+                <Modal width="800px" height="700px" onClose={() => setLocationRequest(false)}>
+                    <GoogleMap location={`${poster.creator.city.name},${poster.creator.city.region}`}/>
+                </Modal>
+            )}
             <PosterContainer>
                 <TitleContainer>
                     <Like onClick={() => {
@@ -80,7 +94,7 @@ const PosterDetail = ({poster}: PosterDetailProps) => {
                         {
                             poster.creator.city &&
                             <Link
-                                href={`https://www.google.com/maps/search/?api=1&query=${poster.creator.city.name}${poster.creator.city.region}`}>
+                                onClick={() => setLocationRequest(true)}>
                                 <CustomIcon src="spot.png" width="18px"
                                 /> {poster.creator.city.name}, {poster.creator.city.region}
                             </Link>

@@ -29,5 +29,5 @@ public class Poster : IEntity
     
     public Category Category { get; set; }
     
-    public List<UserLikedPoster>? Users { get; set; }
+    public ICollection<UserLikedPoster> LikedByUsers { get; set; } = new List<UserLikedPoster>();
 }

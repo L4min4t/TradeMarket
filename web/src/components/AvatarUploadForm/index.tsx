@@ -5,27 +5,31 @@ import CustomIcon from "../CustomIcon";
 import {CustomForm, HiddenFileInput} from "./styles";
 import {updateUser, UserUpdateDto} from "../../api/user";
 import {generateGuid} from "../../utils/guidGenerator";
+import {toast} from "react-toastify";
 
-interface ImageUploadFormProps {
+interface AvatarUploadFormProps {
     imageUrl: string;
     imageWidth: string;
     user: UserUpdateDto;
     onAvatarChange: (newAvatarId: string) => void;
 }
 
-const AvatarUploadForm = ({imageUrl, imageWidth, user, onAvatarChange}: ImageUploadFormProps) => {
+const AvatarUploadForm = ({imageUrl, imageWidth, user, onAvatarChange}: AvatarUploadFormProps) => {
     const {jwtTokens} = useAuthContext();
 
     const handleFileChange = async (event: ChangeEvent<HTMLInputElement>) => {
         event.preventDefault();
         const fileList = event.target.files;
         if (!fileList) return;
-        const selectedFile = fileList[0];
         const newId = generateGuid();
         const userToUpdate = {...user, avatarId: newId};
-        await uploadImage(jwtTokens!.accessToken, newId, selectedFile);
-        await updateUser(jwtTokens!.accessToken, userToUpdate);
-        onAvatarChange(newId);
+        const result = await uploadImage(jwtTokens!.accessToken, newId, fileList[0]);
+        if (result) {
+
+            toast.success("Image uploaded");
+            await updateUser(jwtTokens!.accessToken, userToUpdate);
+            onAvatarChange(newId);
+        }
     };
 
     const hiddenFileInputRef = React.createRef<HTMLInputElement>();

@@ -114,14 +114,14 @@ export const Like = styled.a`
     width: fit-content;
     height: 40px;
     cursor: pointer;
-    
+
     * {
         cursor: pointer;
     }
 `;
 
 export const TitleContainer = styled.div`
-display: flex;
+    display: flex;
     flex-direction: row;
     column-gap: 4px;
     align-items: center;

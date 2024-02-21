@@ -15,12 +15,12 @@ export interface CustomDropDownProps {
 const CustomDropDown = ({defaultValue, options, onChange}: CustomDropDownProps) => (
     options ?
         defaultValue
-            ? <Select 
-                defaultValue={defaultValue} 
+            ? <Select
+                defaultValue={defaultValue}
                 options={options}
                 onChange={(selectedOption) => onChange && selectedOption && onChange(selectedOption)}
             />
-            : <Select 
+            : <Select
                 options={options}
                 onChange={(selectedOption) => onChange && selectedOption && onChange(selectedOption)}
             />

@@ -6,7 +6,6 @@ import UserPosters from "../../components/UserPosters";
 
 const UserPostersPage = () => {
     const {id} = useParams();
-    console.log(id);
 
     return (
         <UserPostersPageContainer>

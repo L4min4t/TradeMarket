@@ -35,3 +35,14 @@ export interface PosterDto {
     numberLiked: number;
     category: Category;
 }
+
+export interface PosterCreateDto {
+    title: string;
+    description: string;
+    price: number;
+    isSharing: boolean;
+    isNew: boolean;
+    imageId: string;
+    creatorId: string;
+    category: Category;
+}

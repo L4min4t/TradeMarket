@@ -98,18 +98,17 @@ public class ApplicationContext : DbContext
         
         modelBuilder.Entity<UserLikedPoster>(entity =>
         {
-            entity.HasKey(e => new { e.UserId, e.PosterId });
+            entity.HasKey(ulp => new { ulp.UserId, ulp.PosterId });
 
-            // Many-to-Many: Poster-User
-            entity.HasOne(e => e.User)
+            entity.HasOne(ulp => ulp.User)
                 .WithMany(u => u.LikedPosters)
-                .HasForeignKey(e => e.UserId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(ulp => ulp.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
 
-            entity.HasOne(e => e.Poster)
-                .WithMany(p => p.Users)
-                .HasForeignKey(e => e.PosterId)
-                .OnDelete(DeleteBehavior.Restrict);
+            entity.HasOne(ulp => ulp.Poster)
+                .WithMany(p => p.LikedByUsers)
+                .HasForeignKey(ulp => ulp.PosterId)
+                .OnDelete(DeleteBehavior.NoAction);
         });
 
     }

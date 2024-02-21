@@ -47,25 +47,32 @@ export const PreviewPosterTitle = styled.h2`
     color: ${cssValues.mainColor};
 `;
 
-export const PosterPreviewHead = styled.div`
+export const RowContainer = styled.div`
     display: flex;
     flex-direction: row;
+    justify-content: flex-start;
     align-items: center;
-    column-gap: 5px;
+
+    column-gap: 8px;
+
+    * {
+        cursor: pointer;
+        font-weight: 300;
+    }
 `;
 
-export const PreviewPosterInfo = styled.p`
+export const PreviewPosterInfo = styled.div`
     cursor: pointer;
 
     * {
         cursor: pointer;
+        font-weight: 300;
     }
 
     width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: clip;
-    font-weight: 300;
 `;
 
 export const Price = styled.p`
@@ -80,15 +87,4 @@ export const Price = styled.p`
     overflow: hidden;
     text-overflow: clip;
     font-weight: 600;
-`;
-
-export const Like = styled.a`
-    cursor: pointer;
-    width: fit-content;
-    height: 30px;
-    cursor: pointer;
-
-    * {
-        cursor: pointer;
-    }
 `;

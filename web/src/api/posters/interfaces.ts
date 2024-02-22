@@ -5,7 +5,7 @@ export interface PosterPreviewDto {
     id: string;
     title: string;
     description: string;
-    price: bigint;
+    price: number;
     isNew: boolean;
     imageId: string;
     creatorId: string;
@@ -24,7 +24,7 @@ export interface PosterDto {
     price: number;
     isSharing: boolean;
     isNew: boolean;
-    imageId?: string;
+    imageId: string;
     isActive: boolean;
     isModerated: boolean;
     creatorId: string;

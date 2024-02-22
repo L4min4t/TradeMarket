@@ -1,6 +1,6 @@
 ﻿import React from "react";
 import {MainPageContainer} from "./styles";
-import Filter from "../../components/Filter";
+import Filter from "../../components/Poster/Filter";
 
 
 const MainPage = () => {

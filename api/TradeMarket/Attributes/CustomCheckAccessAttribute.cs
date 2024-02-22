@@ -45,7 +45,6 @@ public class CustomCheckAccessAttribute : ActionFilterAttribute
         var currentUserId = context.HttpContext.User.FindFirst("uid")?.Value;
         return permission switch
         {
-            "manage-password" => await CheckPasswordAccess(context),
             "manage-image" => await CheckImageAccess(context, currentUserId),
             "manage-poster" => await CheckPosterAccess(context, currentUserId),
             "manage-user" => await CheckUserAccess(context, currentUserId),
@@ -75,18 +74,6 @@ public class CustomCheckAccessAttribute : ActionFilterAttribute
                 ? Result.Ok()
                 : Result.Fail("User does not have permission to manage this poster.");
         return Result.Fail("Poster does not exist.");
-    }
-    
-    private async Task<Result> CheckPasswordAccess(ActionExecutingContext context)
-    {
-        var currentEmail = context.HttpContext.User.FindFirstValue(ClaimTypes.Email);
-        if (context.ActionArguments.TryGetValue("param", out var value) && value is ChangePasswordModel model)
-                    
-            return currentEmail.Equals(model.Email)
-                ? Result.Ok()
-                : Result.Fail("User can change only own password.");
-                
-        return Result.Fail("CustomCheckAccessAttribute: ChangePasswordModel object isn't valid."); 
     }
     
     private async Task<Result> CheckUserAccess(ActionExecutingContext context, string? currentUserId)

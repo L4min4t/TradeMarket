@@ -1,5 +1,5 @@
-﻿import axios, {AxiosRequestConfig} from "axios";
-import {ApiResponse, ProblemDetails} from "./interfaces";
+﻿import axios, {AxiosError, AxiosRequestConfig} from "axios";
+import {ApiResponse} from "./interfaces";
 
 export const defaultFetch = async <T>(
     url: string,
@@ -14,29 +14,15 @@ export const defaultFetch = async <T>(
 
     try {
         const response = await axios(url, defaultConfig);
-        return {data: response.data, status: response.status};
-    } catch (error: any) {
-        let problemDetails: ProblemDetails = {status: 0};
-
-        if (axios.isAxiosError(error) && error.response) {
-            problemDetails = {
-                ...error.response.data,
-                status: error.response.status
-            };
-        } else {
-            problemDetails = {
-                title: "Unknown Error",
-                status: problemDetails.status,
-                errors: [
-                    {
-                        code: "UnknownError",
-                        description: "An unknown error occurred",
-                    },
-                ],
-            };
+        return { data: response.data, status: response.status };
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            const err = error as AxiosError;
+            if (err.response?.data) {
+                return { status: err.response.status, error: err.response.data || "An error occurred" };
+            }
         }
-
-        return {problemDetails, status: problemDetails.status};
+        return { status: 500, error: "Server is faulty." };
     }
 };
 

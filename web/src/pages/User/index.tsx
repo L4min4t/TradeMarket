@@ -1,7 +1,7 @@
 ﻿import useAuthContext from "../../context/hooks";
 import {useEffect, useState} from "react";
 import {getUser, User} from "../../api/user";
-import UserDetail from "../../components/UserDetail";
+import UserDetail from "../../components/User/UserDetail";
 
 const UserPage = () => {
     const {user} = useAuthContext();
@@ -19,7 +19,7 @@ const UserPage = () => {
         getResponse();
     }, [user, jwtTokens]);
 
-    return userInfo ? <UserDetail key={user!.id} user={userInfo}/> : <></>;
+    return userInfo ? <UserDetail key={user!.id} userObj={userInfo}/> : <></>;
 }
 
 export default UserPage;

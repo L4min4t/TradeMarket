@@ -1,4 +1,4 @@
-﻿import {LOGIN_URL, REFRESH_URL, REGISTER_URL} from "./urls";
+﻿import {CHANGE_PASSWORD_URL, LOGIN_URL, REFRESH_URL, REGISTER_URL} from "./urls";
 
 import {Jwts} from "./interfaces";
 
@@ -47,3 +47,27 @@ export const refreshToken = async (
 
     return processResponse(response);
 };
+
+export const changePassword = async (
+    token: string,
+    email: string, 
+    oldPassword: string, 
+    newPassword: string
+): Promise<Jwts | null> => {
+    const result = await protectedFetch<Jwts>(
+        CHANGE_PASSWORD_URL,
+        token,
+        {
+            method: "post",
+            data: {
+                email,
+                oldPassword,
+                newPassword
+            }
+        }
+    );
+
+    return processResponse(result);
+}
+
+

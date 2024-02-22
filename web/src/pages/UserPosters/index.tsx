@@ -1,7 +1,7 @@
 ﻿import React from "react";
 import {UserPostersPageContainer} from "./styles";
 import {useParams} from "react-router-dom";
-import UserPosters from "../../components/UserPosters";
+import UserPosters from "../../components/User/UserPosters";
 
 
 const UserPostersPage = () => {

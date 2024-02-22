@@ -8,6 +8,8 @@ export interface IAuthContext {
     loginUser: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
     logoutUser: () => void;
     refreshToken: (data: Jwts) => Promise<void>;
+    changePassword: (oldPassword: string, newPassword: string) => Promise<boolean>;
+    
 }
 
 const AuthContext = createContext<IAuthContext | null>(null);

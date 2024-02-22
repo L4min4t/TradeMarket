@@ -22,14 +22,14 @@ public class ImageController : ControllerBase
     public async Task<IActionResult> UploadImage([FromForm] UploadImageModel param)
     {
         var result = await _service.UploadAsync(param);
-        return result.IsSuccess ? Ok(result.Message) : BadRequest(result.Message);
+        return result.IsSuccess ? Ok() : BadRequest( result.Message);
     }
     
     [HttpGet("{id}")]
     public async Task<IActionResult> GetImage(string id)
     {
         var result = await _service.GetImageAsync(id);
-        return result.IsSuccess ? result.Value : NotFound(result.Message);
+        return result.IsSuccess ? result.Value : NotFound( result.Message);
     }
     
     [HttpDelete("{id}")]
@@ -37,6 +37,6 @@ public class ImageController : ControllerBase
     public async Task<IActionResult> Delete(Guid id)
     {
         var result = await _service.DeleteImageAsync(id);
-        return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
+        return result.IsSuccess ? Ok() : NotFound( result.Message);
     }
 }

@@ -1,4 +1,4 @@
-﻿import CreatePoster from "../../components/CreatePoster";
+﻿import CreatePoster from "../../components/Poster/CreatePoster";
 
 const CreatePosterPage = () => {
     return <CreatePoster/>;

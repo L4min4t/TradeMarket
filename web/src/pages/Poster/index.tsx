@@ -1,7 +1,7 @@
 ﻿import useAuthContext from "../../context/hooks";
 import {useEffect, useState} from "react";
 import {getLikedPosters, getPoster, PosterDto, viewPoster} from "../../api/posters";
-import PosterDetail from "../../components/PosterDetail";
+import PosterDetail from "../../components/Poster/PosterDetail";
 import {useParams} from "react-router-dom";
 
 const PosterPage = () => {

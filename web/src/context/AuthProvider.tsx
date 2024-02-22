@@ -3,7 +3,14 @@ import {jwtDecode} from "jwt-decode";
 import {useNavigate} from "react-router-dom";
 
 import AuthContext, {IAuthContext} from "./AuthContex";
-import {Jwts, login, refreshToken as refreshTokenAsync, register, User,} from "../api/auth/";
+import {
+    changePassword as changePasswordAsync,
+    Jwts,
+    login,
+    refreshToken as refreshTokenAsync,
+    register,
+    User
+} from "../api/auth/";
 
 interface Props {
     children: ReactNode;
@@ -23,6 +30,7 @@ export const AuthProvider = ({children}: Props) => {
             id: decodedToken.uid,
             name: decodedToken.sub,
             email: decodedToken.email,
+            role: decodedToken.role
         });
     }, []);
 
@@ -105,6 +113,29 @@ export const AuthProvider = ({children}: Props) => {
         }
     };
 
+    const changePassword = async (oldPassword: string, newPassword: string) => {
+        if (jwtTokens && user) {
+            const data = await changePasswordAsync(
+                jwtTokens.accessToken,
+                user.email,
+                oldPassword,
+                newPassword);
+
+            if (data !== null) {
+                updateAuthStates(data as Jwts);
+                return true;
+            } else {
+                logoutUser();
+                return false;
+            }
+        }
+
+        if (loading) {
+            setLoading(false);
+        }
+        return false;
+    }
+
     const contextData: IAuthContext = {
         user,
         jwtTokens,
@@ -112,6 +143,7 @@ export const AuthProvider = ({children}: Props) => {
         loginUser,
         logoutUser,
         refreshToken,
+        changePassword
     };
 
     useEffect(() => {

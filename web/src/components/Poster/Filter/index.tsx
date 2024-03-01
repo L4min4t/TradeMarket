@@ -26,7 +26,7 @@ const Filter = ({price = 0, time = 0, city = "-"}: FilterProps) => {
             async function getResponse() {
                 const likeResult = (await getLikedPosters(jwtTokens!.accessToken, user!.id))?.map((poster) => poster.id);
                 const result = await getPublishedPosters(jwtTokens!.accessToken);
-                if (result ) {
+                if (result) {
                     const updatedPosters = result.map((poster) => {
                         if (likeResult && likeResult.includes(poster.id)) {
                             return {...poster, isLiked: true};

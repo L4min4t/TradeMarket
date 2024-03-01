@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import {Category} from "../../../api/constants/enums";
 import CustomDropDown, {DropDownOptionProps} from "../../CustomDropDown";
 import {toast} from "react-toastify";
-import {createPoster, PosterCreateDto, PosterDto} from "../../../api/posters";
+import {PosterCreateDto, PosterDto, updatePoster} from "../../../api/posters";
 import {
     Button,
     CategoryContainer,
@@ -66,6 +66,7 @@ const EditPoster = ({poster}: EditPosterProps) => {
         }
 
         const newPoster = {
+            id: poster.id,
             title: title,
             description: description,
             price: price,
@@ -76,7 +77,7 @@ const EditPoster = ({poster}: EditPosterProps) => {
             category: category
         } as PosterCreateDto;
 
-        const result = await createPoster(jwtTokens!.accessToken, newPoster);
+        const result = await updatePoster(jwtTokens!.accessToken, newPoster);
         if (result !== null) {
             toast.success("Poster created");
             navigate("/user#myPosters")
@@ -171,7 +172,7 @@ const EditPoster = ({poster}: EditPosterProps) => {
                 </RowContainer>
             </ColumnContainer>
 
-            <SubmitButton type="submit">create</SubmitButton>
+            <SubmitButton type="submit">update</SubmitButton>
         </Container>
     );
 }

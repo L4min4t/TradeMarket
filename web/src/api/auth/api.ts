@@ -7,7 +7,7 @@ import {defaultFetch, processResponse, protectedFetch} from "../common";
 export const login = async (
     email: string,
     password: string
-): Promise<Jwts | null | boolean> => {
+): Promise<Jwts | null> => {
     const response = await defaultFetch<Jwts>(LOGIN_URL, {
         method: "post",
         data: {email, password},
@@ -20,7 +20,7 @@ export const register = async (
     email: string,
     name: string,
     password: string
-): Promise<void | null | boolean> => {
+): Promise<void | null> => {
     const response = await defaultFetch<void>(REGISTER_URL, {
         method: "post",
         data: {email, name, password},
@@ -32,7 +32,7 @@ export const register = async (
 export const refreshToken = async (
     email: string,
     tokens: Jwts
-): Promise<Jwts | null | boolean> => {
+): Promise<Jwts | null> => {
     const response = await protectedFetch<Jwts>(
         REFRESH_URL,
         tokens.accessToken,
@@ -53,7 +53,7 @@ export const changePassword = async (
     email: string,
     oldPassword: string,
     newPassword: string
-): Promise<Jwts | boolean | null> => {
+): Promise<Jwts | null> => {
     const result = await protectedFetch<Jwts>(
         CHANGE_PASSWORD_URL,
         token,

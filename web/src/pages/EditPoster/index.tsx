@@ -24,7 +24,7 @@ const EditPosterPage = () => {
 
         getResponse();
     }, [id, jwtTokens, user]);
-    return id && poster ?  <EditPoster poster={poster} /> : <></>;
+    return id && poster ? <EditPoster poster={poster}/> : <></>;
 }
 
 export default EditPosterPage;

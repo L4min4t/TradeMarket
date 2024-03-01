@@ -2,7 +2,7 @@
 import {User, UserUpdateDto} from "./interfaces";
 import {UPDATE_USER_URL, USER_URL} from "./urls";
 
-export const getUser = async (token: string, id: string): Promise<User | boolean | null> => {
+export const getUser = async (token: string, id: string): Promise<User | null> => {
     const response = await protectedFetch<User>(`${USER_URL(id)}`, token, {
         method: "get"
     });

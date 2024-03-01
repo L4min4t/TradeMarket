@@ -12,6 +12,7 @@ const POSTER_BY_ID_URL = (id: string): string => `${BASE_URL}/Poster/${id}`;
 const LIKED_POSTERS_URL = (id: string): string => `${BASE_URL}/Poster/liked/${id}`;
 
 const CREATE_POSTER_URL = `${BASE_URL}/Poster`;
+const UPDATE_POSTER_URL = `${BASE_URL}/Poster`;
 
 export {
     PUBLISHED_POSTERS_URL,
@@ -24,5 +25,6 @@ export {
     DELETE_POSTER_URL,
     POSTER_BY_ID_URL,
     LIKED_POSTERS_URL,
-    CREATE_POSTER_URL
+    CREATE_POSTER_URL,
+    UPDATE_POSTER_URL
 };

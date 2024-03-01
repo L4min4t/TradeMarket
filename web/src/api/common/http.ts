@@ -19,10 +19,10 @@ export const defaultFetch = async <T>(
         if (axios.isAxiosError(error)) {
             const err = error as AxiosError;
             if (err.response?.data) {
-                return {status: err.response.status, error: err.response.data || "An error occurred"};
+                return {status: err.response.status, error: err.response.data || "An error occurred!"};
             }
         }
-        return {status: 500, error: "Server is faulty."};
+        return {status: 500, error: "Server is faulty!"};
     }
 };
 

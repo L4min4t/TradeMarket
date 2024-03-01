@@ -7,5 +7,5 @@ namespace Services.Interfaces;
 public interface IUserService : IBaseService<User, UserBaseDto>
 {
     Task<Result> DeleteAsync(Guid applicationUserId);
-    Task<Result<User>> UpdateAsync(UserUpdateDto dto);
+    Task<Result> UpdateAsync(UserUpdateDto dto);
 }

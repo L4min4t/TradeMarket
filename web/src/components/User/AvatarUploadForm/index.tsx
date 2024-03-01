@@ -4,7 +4,6 @@ import useAuthContext from "../../../context/hooks";
 import CustomIcon from "../../CustomIcon";
 import {CustomForm, HiddenFileInput} from "./styles";
 import {updateUser, UserUpdateDto} from "../../../api/user";
-import {generateGuid} from "../../../utils/guidGenerator";
 import {toast} from "react-toastify";
 
 interface AvatarUploadFormProps {
@@ -21,7 +20,7 @@ const AvatarUploadForm = ({imageUrl, imageWidth, user, onAvatarChange}: AvatarUp
         event.preventDefault();
         const fileList = event.target.files;
         if (!fileList) return;
-        const newId = generateGuid();
+        const newId = crypto.randomUUID();
         const userToUpdate = {...user, avatarId: newId};
         const result = await uploadImage(jwtTokens!.accessToken, newId, fileList[0]);
         if (result) {

@@ -50,10 +50,10 @@ export const refreshToken = async (
 
 export const changePassword = async (
     token: string,
-    email: string, 
-    oldPassword: string, 
+    email: string,
+    oldPassword: string,
     newPassword: string
-): Promise<Jwts | null> => {
+): Promise<Jwts | boolean | null> => {
     const result = await protectedFetch<Jwts>(
         CHANGE_PASSWORD_URL,
         token,

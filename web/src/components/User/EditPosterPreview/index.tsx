@@ -38,7 +38,7 @@ const EditPosterPreview = ({poster, removePoster}: EditPosterPreviewProps) => {
     const handleDeleteClick = async () => {
         const isConfirmed = window.confirm('Are you sure you want to delete this poster?');
         if (isConfirmed) {
-            
+
             const result = await deletePoster(jwtTokens!.accessToken, poster.id);
             if (result !== null) {
                 toast.success("Poster deleted");
@@ -78,14 +78,14 @@ const EditPosterPreview = ({poster, removePoster}: EditPosterPreviewProps) => {
                     }
                 </PreviewPosterInfo>
                 <RowContainer>
-                    <HighlightedContainer onClick={() => navigate(`edit-poster/${poster.id}`)}>
+                    <HighlightedContainer onClick={() => navigate(`/edit/${poster.id}`)}>
                         <CustomIcon src="pencil.png" height="22px"/><p>Edit</p>
                     </HighlightedContainer>
                     <HighlightedContainer onClick={() => handleDeleteClick()}>
                         <CustomIcon src="trash.png" height="22px"/><p>Delete</p>
                     </HighlightedContainer>
                 </RowContainer>
-                
+
 
                 <PreviewPosterInfo onClick={() => navigate(`/posters/${poster.id}`)}>
                     {getFormattedDate(poster.publishedAt)}

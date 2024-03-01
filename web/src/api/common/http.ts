@@ -14,15 +14,15 @@ export const defaultFetch = async <T>(
 
     try {
         const response = await axios(url, defaultConfig);
-        return { data: response.data, status: response.status };
+        return {data: response.data, status: response.status};
     } catch (error) {
         if (axios.isAxiosError(error)) {
             const err = error as AxiosError;
             if (err.response?.data) {
-                return { status: err.response.status, error: err.response.data || "An error occurred" };
+                return {status: err.response.status, error: err.response.data || "An error occurred"};
             }
         }
-        return { status: 500, error: "Server is faulty." };
+        return {status: 500, error: "Server is faulty."};
     }
 };
 

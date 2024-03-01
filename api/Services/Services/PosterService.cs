@@ -34,13 +34,11 @@ public class PosterService : BaseService<Poster, PosterBaseDto>, IPosterService
         }
         catch (Exception ex)
         {
-            return Result.Fail<List<Poster>>(
-                $"PosterService.GetUserPosters\n" +
-                $"An exception occurred: {ex.Message}");
+            return Result.Fail<List<Poster>>("PosterService Server Fail!");
         }
     }
 
-    public async Task<Result<Poster>> ModerateAsync(ModeratePosterModel model)
+    public async Task<Result> ModerateAsync(ModeratePosterModel model)
     {
         try
         {
@@ -52,18 +50,15 @@ public class PosterService : BaseService<Poster, PosterBaseDto>, IPosterService
 
             await Repository.UpdateAsync(entity);
 
-            return Result.Ok<Poster>(await Repository.FindByIdAsync(entity.Id),
-                $"Entity (Poster:{model.PosterId.ToString()}) updated successfully.");
+            return Result.Ok();
         }
         catch (Exception ex)
         {
-            return Result.Fail<Poster>(
-                $"PosterService.ModerateAsync (Poster:{model.PosterId.ToString()})\n" +
-                $"An exception occurred: {ex.Message}");
+            return Result.Fail("PosterService Server Fail!");
         }
     }
 
-    public async Task<Result<Poster>> ChangeStatusAsync(ActivateDeactivatePosterModel model)
+    public async Task<Result> ChangeStatusAsync(ActivateDeactivatePosterModel model)
     {
         try
         {
@@ -74,18 +69,15 @@ public class PosterService : BaseService<Poster, PosterBaseDto>, IPosterService
 
             await Repository.UpdateAsync(entity);
 
-            return Result.Ok<Poster>(await Repository.FindByIdAsync(entity.Id),
-                $"Entity (Poster:{model.PosterId.ToString()}) updated successfully.");
+            return Result.Ok();
         }
         catch (Exception ex)
         {
-            return Result.Fail<Poster>(
-                $"PosterService.ChangeStatusAsync (Poster:{model.PosterId.ToString()})\n" +
-                $"An exception occurred: {ex.Message}");
+            return Result.Fail("PosterService Server Fail!");
         }
     }
 
-    public async Task<Result<Poster>> LikeAsync(Guid id)
+    public async Task<Result> LikeAsync(Guid id)
     {
         try
         {
@@ -101,21 +93,19 @@ public class PosterService : BaseService<Poster, PosterBaseDto>, IPosterService
                 await _likedPosterRepository.CreateAsync(
                     new UserLikedPoster() { UserId = new Guid(userId), PosterId = id }
                 );
-                return Result.Ok<Poster>(await Repository.FindByIdAsync(id));
+                return Result.Ok();
             }
             else
             {
                 poster.NumberLiked -= 1;
                 await Repository.UpdateAsync(poster);
                 await _likedPosterRepository.DeleteAsync(entity.First());
-                return Result.Ok<Poster>(await Repository.FindByIdAsync(id));
+                return Result.Ok();
             }
         }
         catch (Exception ex)
         {
-            return Result.Fail<Poster>(
-                $"PosterService.LikeAsync (Poster:{id})\n" +
-                $"An exception occurred: {ex.Message}");
+            return Result.Fail("PosterService Server Fail!");
         }
     }
 
@@ -134,13 +124,12 @@ public class PosterService : BaseService<Poster, PosterBaseDto>, IPosterService
             }
             else
             {
-                return Result.Fail($"(Poster:{id} not found");
+                return Result.Fail($"Poster not found!");
             }
         }
         catch (Exception ex)
         {
-            return Result.Fail<Poster>(
-                $"PosterService.ViewAsync (Poster:{id})\nAn exception occurred: {ex.Message}");
+            return Result.Fail("PosterService Server Fail!");
         }
     }
 
@@ -150,7 +139,7 @@ public class PosterService : BaseService<Poster, PosterBaseDto>, IPosterService
         {
             var userId = _context.HttpContext.User.FindFirst("uid")?.Value;
             if (userId == null)
-                return Result.Fail<List<Poster>>($"PosterService.GetLikedAsync (User:{userId}) doesnt exist.");
+                return Result.Fail<List<Poster>>($"User doesnt exist!");
             var likedPosters = await _likedPosterRepository.FindByConditionAsync(e => e.UserId.ToString() == userId);
             var likedIds = likedPosters.Select(item => item.PosterId);
             var posters = await Repository.FindByConditionAsync(e => likedIds.Contains(e.Id));
@@ -158,8 +147,7 @@ public class PosterService : BaseService<Poster, PosterBaseDto>, IPosterService
         }
         catch (Exception ex)
         {
-            return Result.Fail<List<Poster>>(
-                $"PosterService.GetLikedAsync\nAn exception occurred: {ex.Message}");
+            return Result.Fail<List<Poster>>("PosterService Server Fail!");
         }
     }
 }

@@ -5,8 +5,6 @@ import {Container} from "./styles";
 import ModeratePosterPreview from "../ModeratePosterPreview";
 
 
-
-
 const PostersToModerateList = () => {
     const [posters, setPosters] = useState<PosterDto[] | null>(null);
     const {jwtTokens} = useAuthContext();
@@ -19,7 +17,7 @@ const PostersToModerateList = () => {
 
         getResponse();
     }, [jwtTokens]);
-    
+
 
     return posters !== null
         ? <Container>

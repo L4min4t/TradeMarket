@@ -8,34 +8,36 @@ import {
     CREATE_POSTER_URL,
     DELETE_POSTER_URL,
     LIKE_POSTER_URL,
-    LIKED_POSTERS_URL, MODERATE_POSTER_URL,
-    POSTER_BY_ID_URL, POSTERS_TO_MODERATE_URL,
+    LIKED_POSTERS_URL,
+    MODERATE_POSTER_URL,
+    POSTER_BY_ID_URL,
+    POSTERS_TO_MODERATE_URL,
     PUBLISHED_POSTERS_URL,
     USER_POSTERS_URL,
     VIEW_POSTER_URL
 } from "./urls";
 
-export const getPublishedPosters = async (token: string): Promise<PosterPreviewDto[] | null> => {
+export const getPublishedPosters = async (token: string): Promise<PosterPreviewDto[] | boolean | null> => {
     const response = await protectedFetch<PosterPreviewDto[]>(PUBLISHED_POSTERS_URL, token, {
         method: "get"
     });
     return processResponse(response);
 };
 
-export const getUserPosters = async (token: string): Promise<PosterDto[] | null> => {
+export const getUserPosters = async (token: string): Promise<PosterDto[] | boolean | null> => {
     const response = await protectedFetch<PosterDto[]>(USER_POSTERS_URL, token, {
         method: "get"
     });
     return processResponse(response);
 };
-export const getPostersToModerate = async (token: string): Promise<PosterDto[] | null> => {
+export const getPostersToModerate = async (token: string): Promise<PosterDto[] | boolean | null> => {
     const response = await protectedFetch<PosterDto[]>(POSTERS_TO_MODERATE_URL, token, {
         method: "get"
     });
     return processResponse(response);
 };
 
-export const moderatePoster = async (token: string, id: string,  result: boolean, isActive: boolean): Promise<PosterDto[] | null> => {
+export const moderatePoster = async (token: string, id: string, result: boolean, isActive: boolean): Promise<PosterDto[] | boolean | null> => {
     const response = await protectedFetch<PosterDto[]>(MODERATE_POSTER_URL, token, {
         method: "put",
         data: {
@@ -54,14 +56,14 @@ export const changePosterStatus = async (token: string, id: string, status: bool
     });
 }
 
-export const getPoster = async (token: string, id: string): Promise<PosterDto | null> => {
+export const getPoster = async (token: string, id: string): Promise<PosterDto | boolean | null> => {
     const response = await protectedFetch<PosterDto>(`${POSTER_BY_ID_URL(id)}`, token, {
         method: "get"
     });
     return processResponse(response);
 }
 
-export const getLikedPosters = async (token: string, id: string): Promise<PosterPreviewDto[] | null> => {
+export const getLikedPosters = async (token: string, id: string): Promise<PosterPreviewDto[] | boolean | null> => {
     const response = await protectedFetch<PosterPreviewDto[]>(`${LIKED_POSTERS_URL(id)}`, token, {
         method: "get"
     });
@@ -83,15 +85,15 @@ export const viewPoster = async (token: string, id: string): Promise<void> => {
     });
 }
 
-export const deletePoster = async (token: string, id: string): Promise<string | null> => {
+export const deletePoster = async (token: string, id: string): Promise<string | boolean | null> => {
     const result = await protectedFetch<string | null>(`${DELETE_POSTER_URL(id)}`, token, {
         method: "delete"
     });
     return processResponse(result);
 }
 
-export const createPoster = async (token: string, poster: PosterCreateDto): Promise<PosterDto | string | null> => {
-    const response = await protectedFetch<PosterDto | string | null>(CREATE_POSTER_URL, token, {
+export const createPoster = async (token: string, poster: PosterCreateDto): Promise<PosterDto | boolean | null> => {
+    const response = await protectedFetch<PosterDto | null>(CREATE_POSTER_URL, token, {
         data: poster,
         method: "post"
     });

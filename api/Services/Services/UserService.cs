@@ -17,7 +17,7 @@ public class UserService : BaseService<User, UserBaseDto>, IUserService
         _userManager = userManager;
     }
     
-    public new async Task<Result<User>> UpdateAsync(UserUpdateDto dto)
+    public new async Task<Result> UpdateAsync(UserUpdateDto dto)
     {
         try
         {
@@ -30,13 +30,11 @@ public class UserService : BaseService<User, UserBaseDto>, IUserService
             await Repository.UpdateAsync(user);
             await _userManager.UpdateAsync(authUser);
             
-            return Result.Ok(await Repository.FindByIdAsync(user.Id));
+            return Result.Ok();
         }
         catch (Exception ex)
         {
-            return Result.Fail<User>(
-                $"UserService.UpdateAsync (User:{dto.Id.ToString()})\n" +
-                $"An exception occurred: {ex.Message}");
+            return Result.Fail("UserService Server Fail!");
         }
     }
     
@@ -48,28 +46,19 @@ public class UserService : BaseService<User, UserBaseDto>, IUserService
             var userName = applicationUser.Name;
             var identityUser = await _userManager.FindByIdAsync(applicationUser.IdentityId);
             
-            if (applicationUser is null) return Result.Fail(
-                $"UserService.DeleteAsync ({typeof(User).Name}:{applicationUserId})\n" +
-                $"User in application doesn't exist."
-            );
+            if (applicationUser is null) return Result.Fail("User in application doesn't exist.");
             
-            if (identityUser is null) return Result.Fail(
-                $"UserService.DeleteAsync ({typeof(User).Name}:{applicationUserId})\n" +
-                $"User in identity doesn't exist."
-            );
+            if (identityUser is null) return Result.Fail("User in identity doesn't exist.");
 
             await Repository.DeleteAsync(applicationUser);
             await _userManager.DeleteAsync(identityUser);
 
-            return Result.Ok($"User {userName} deleted");
+            return Result.Ok();
 
         }
         catch (Exception ex)
         {
-            return Result.Fail(
-                $"UserService.DeleteAsync ({typeof(User).Name}:{applicationUserId})\n" +
-                $"An exception occurred: {ex.Message}"
-            );
+            return Result.Fail("UserService Server Fail!");
         }
     }
 }

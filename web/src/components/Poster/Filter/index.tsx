@@ -20,20 +20,20 @@ const Filter = ({price = 0, time = 0, city = "-"}: FilterProps) => {
     const [timeFilter, setTimeFilter] = useState<number>(time);
     const [cityOptions, setCityOptions] = useState<DropDownOptionProps[] | undefined>();
     const [cityFilter, setCityFilter] = useState<string>(city);
-    const [categoryFilter, setCategoryFilter] = useState()
+    const [categoryFilter, setCategoryFilter] = useState<number>(-1);
 
     useEffect(() => {
             async function getResponse() {
                 const likeResult = (await getLikedPosters(jwtTokens!.accessToken, user!.id))?.map((poster) => poster.id);
                 const result = await getPublishedPosters(jwtTokens!.accessToken);
-                if (result) {
+                if (result ) {
                     const updatedPosters = result.map((poster) => {
                         if (likeResult && likeResult.includes(poster.id)) {
                             return {...poster, isLiked: true};
                         }
                         return {...poster, isLiked: false};
                     });
-                    
+
                     setPosters(updatedPosters);
                 }
 
@@ -43,7 +43,7 @@ const Filter = ({price = 0, time = 0, city = "-"}: FilterProps) => {
                     const avaliableOptions = cityResult.map(
                         (city) => ({value: city.id, label: `${city.name}, ${city.region}`} as DropDownOptionProps)
                     );
-                    avaliableOptions.unshift({value: city, label:"city filter"} as DropDownOptionProps)
+                    avaliableOptions.unshift({value: city, label: "city filter"} as DropDownOptionProps)
                     setCityOptions(avaliableOptions);
                 }
             }
@@ -54,7 +54,7 @@ const Filter = ({price = 0, time = 0, city = "-"}: FilterProps) => {
 
     useEffect(() => {
         const filteredPosters = [...posters];
-        
+
         if (priceFilter === 1) {
             filteredPosters.sort((a, b) => a.price - b.price);
         } else if (priceFilter === 2) {
@@ -66,14 +66,14 @@ const Filter = ({price = 0, time = 0, city = "-"}: FilterProps) => {
         } else if (timeFilter === 2) {
             filteredPosters.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
         }
-        
+
         if (cityFilter !== "-") {
             filteredPosters.filter((posters) => posters?.creator?.city?.id === cityFilter)
         }
-        
+
         setPosters(filteredPosters);
     }, [priceFilter, timeFilter, cityFilter]);
-    
+
     const priceOptions = [
         {value: "0", label: "price filter"} as DropDownOptionProps,
         {value: "1", label: "price decrease"} as DropDownOptionProps,
@@ -104,7 +104,7 @@ const Filter = ({price = 0, time = 0, city = "-"}: FilterProps) => {
                     onChange={(selectedOption) => {
                         const valueAsNumber = Number(selectedOption.value);
                         if (!isNaN(valueAsNumber)) {
-                            setCategory(valueAsNumber);
+                            setCategoryFilter(valueAsNumber);
                         }
                     }}
                 />
@@ -119,7 +119,7 @@ const Filter = ({price = 0, time = 0, city = "-"}: FilterProps) => {
                     onChange={(selectedOption) => setTimeFilter(Number(selectedOption.value))}
                 />
                 <CustomDropDown
-                    defaultValue={{value: city, label:"city filter"}}
+                    defaultValue={{value: city, label: "city filter"}}
                     options={cityOptions}
                     onChange={(selectedOption) => setCityFilter(selectedOption.value)}
                 />

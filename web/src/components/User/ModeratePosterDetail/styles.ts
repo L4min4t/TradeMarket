@@ -1,6 +1,5 @@
 ﻿import styled from "styled-components";
 import {cssValues} from "../../GlobalStyles";
-import {defaultProps} from "react-select/base";
 
 export const Container = styled.div`
     display: flex;
@@ -133,7 +132,7 @@ export const ManageButtonContainer = styled.div`
     display: flex;
     flex-direction: row;
     column-gap: ${cssValues.itemsGap};
-    
+
     align-items: center;
     justify-content: flex-start;
 `;
@@ -143,7 +142,7 @@ interface ManageButtonProps {
 }
 
 export const ManageButton = styled.button<ManageButtonProps>`
-    
+
     width: 180px;
     height: fit-content;
 

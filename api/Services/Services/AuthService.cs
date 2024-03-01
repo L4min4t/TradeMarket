@@ -33,7 +33,7 @@ public class AuthService  : IAuthService
             var user = await _userManager.FindByEmailAsync(model.Email);
             
             if (user is not null) return Result.Fail<(IdentityResult, User)>(
-                $"User with {model.Email} already exists.");
+                $"User with {model.Email} already exists!");
                 
             user = new AuthUser { UserName = model.Name, Email = model.Email };
             userId = user.Id;
@@ -53,15 +53,13 @@ public class AuthService  : IAuthService
             else
             {
                 return Result.Fail<(IdentityResult, User)>(
-                    $"AuthService.RegisterUserAsync ({typeof(AuthUser).Name}:{user.Id.ToString()})\n" +
-                    $"An exception occurred: {identityResult.Errors.FirstOrDefault().Description}");
+                    $"Register failed: {identityResult.Errors.FirstOrDefault().Description}");
             }
         } 
         catch (Exception ex)
         {
             return Result.Fail<(IdentityResult, User)>(
-                $"AuthService.RegisterUserAsync ({typeof(AuthUser).Name}:{userId})\n" +
-                $"An exception occurred: {ex.Message}"
+                $"Register failed!"
             );
         }
         
@@ -73,7 +71,7 @@ public class AuthService  : IAuthService
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
     
-            if (user is null) return Result.Fail<TokenModel>($"The user with {model.Email} doesn't exist");
+            if (user is null) return Result.Fail<TokenModel>($"The user with {model.Email} doesn't exist!");
     
             var signInResult = await _signInManager.PasswordSignInAsync(
                 user: user,
@@ -83,14 +81,11 @@ public class AuthService  : IAuthService
     
             return signInResult.Succeeded 
                 ? await _jwtService.GenerateTokenPairAsync(user)
-                : Result.Fail<TokenModel>($"Invalid password.");
+                : Result.Fail<TokenModel>($"Invalid password!");
         }
         catch (Exception ex)
         {
-            return Result.Fail<TokenModel>(
-                $"AuthService.LoginUserAsync ({typeof(AuthUser).Name}:{model.Email})\n" +
-                $"An exception occurred: {ex.Message}"
-            );
+            return Result.Fail<TokenModel>($"Login failed!");
         }
         
     }
@@ -101,26 +96,25 @@ public class AuthService  : IAuthService
         {
             var user = await _userManager.FindByEmailAsync(model.Email);
 
-            if (user is null) return Result.Fail<TokenModel>($"The user with {model.Email} doesn't exist");
+            if (user is null) return Result.Fail<TokenModel>($"The user with {model.Email} doesn't exist!");
         
             var passwordCheck =
                 _userManager.PasswordHasher.VerifyHashedPassword(user!, user.PasswordHash!, model.OldPassword);
         
             if (passwordCheck is PasswordVerificationResult.Failed) 
-                return Result.Fail<TokenModel>($"The old password is incorrect.");
+                return Result.Fail<TokenModel>($"The old password is not correct!");
         
             user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, model.NewPassword);
         
             var updateResult = await _userManager.UpdateAsync(user);
         
             if (updateResult.Succeeded) return await _jwtService.GenerateTokenPairAsync(user);
-            else return Result.Fail<TokenModel>("Invalid change password attempt.");
+            else return Result.Fail<TokenModel>("Invalid change password attempt!");
         }
         catch (Exception ex)
         {
             return Result.Fail<TokenModel>(
-                $"AuthService.ChangePasswordAsync ({typeof(AuthUser).Name}:{model.Email})\n" +
-                $"An exception occurred: {ex.Message}"
+                $"Change password failed!"
             );
         }
     }
@@ -145,16 +139,12 @@ public class AuthService  : IAuthService
             }
             else
             {
-                return Result.Fail<User>($"AuthService.CreateApplicationUser\n" +
-                                         $"({{ApplicationUser:{entity.Id}|{entity.Email}) already exists.");
+                return Result.Fail<User>($"User with email{entity.Email} already exists!");
             }
         }
         catch (Exception ex)
         {
-            return Result.Fail<User>(
-                $"AuthService.CreateApplicationUser ({typeof(AuthUser).Name}:{user.Email})\n" +
-                $"An exception occurred: {ex.Message}"
-            );
+            return Result.Fail<User>($"AuthService Server Fail!");
         }   
     }
 }

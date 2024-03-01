@@ -71,7 +71,7 @@ public class JwtService : IJwtService
 
         if (principal?.FindFirstValue(ClaimTypes.Email) is null)
         {
-            return Result.Fail<TokenModel>("JwtService.GenerateTokenPairAsync\nThe provided token is not valid.");
+            return Result.Fail<TokenModel>("The provided token is not valid!");
         }
 
         var user = await _userManager.FindByEmailAsync(principal.FindFirstValue(ClaimTypes.Email)!);
@@ -79,17 +79,14 @@ public class JwtService : IJwtService
         if (user is null)
         {
             return Result.Fail<TokenModel>(
-                "JwtService.NotFound\n" + 
-                $"The user with Email = {principal.FindFirstValue(ClaimTypes.Email)!} was not found");
+                $"The user with email {principal.FindFirstValue(ClaimTypes.Email)!} was not found!");
         }
 
         if (user.RefreshToken != tokenModel.RefreshToken)
-            return Result.Fail<TokenModel>("JwtService.GenerateTokenPairAsync\n" +
-                                         "The provided refresh token is not valid.");
+            return Result.Fail<TokenModel>("The provided refresh token is not valid.");
 
         if(user.RefreshTokenExpiryTime <= DateTime.Now)
-            return Result.Fail<TokenModel>("JwtService.GenerateTokenPairAsync\n" +
-                                         "The provided refresh token is expired.");
+            return Result.Fail<TokenModel>("The provided refresh token is expired.");
         
         return await GenerateTokenPairAsync(user);
     }

@@ -85,7 +85,7 @@ export const ChangePasswordContainer = styled.div`
     display: flex;
     flex-direction: column;
     row-gap: ${cssValues.itemsGap};
-    
+
 `;
 
 export const PasswordChangeTitle = styled.div`

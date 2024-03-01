@@ -27,7 +27,6 @@ import {Category} from "../../../api/constants/enums";
 import useAuthContext from "../../../context/hooks";
 import SuggestedPosters from "../../User/SuggestedPosters";
 import Modal from "../../Modal";
-import {updateUser, UserUpdateDto} from "../../../api/user";
 import GoogleMap from "../../GoogleMap";
 
 interface PosterDetailProps {

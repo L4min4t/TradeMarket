@@ -21,7 +21,7 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Register([FromBody] RegisterModel param)
     {
         var result = await _service.RegisterUserAsync(param);
-        return result.IsSuccess ? Ok() : BadRequest(result.Message);
+        return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
     }
 
     [HttpPost("[action]")]

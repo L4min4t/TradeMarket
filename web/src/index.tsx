@@ -13,8 +13,8 @@ import PosterPage from "./pages/Poster";
 import UserPostersPage from "./pages/UserPosters";
 import UserPage from "./pages/User";
 import CreatePosterPage from "./pages/CreatePoster";
-import {ModeratePosterPageContainer} from "./pages/ModeratePoster/styles";
 import ModeratePosterPage from "./pages/ModeratePoster";
+import EditPosterPage from "./pages/EditPoster";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
@@ -33,6 +33,7 @@ root.render(
                 <Route path="/posters/:id" element={<PosterPage/>}/>
                 <Route path="/moderate-poster/:id" element={<ModeratePosterPage/>}/>
                 <Route path="/create" element={<CreatePosterPage/>}/>
+                <Route path="/edit/:id" element={<EditPosterPage/>}/>
                 <Route path="/user-posters/:id" element={<UserPostersPage/>}/>
                 <Route path="*" element={<NotFound/>}/>
             </Route>

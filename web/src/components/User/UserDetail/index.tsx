@@ -3,12 +3,17 @@ import CustomIcon from "../../CustomIcon";
 import {
     Avatar,
     AvatarContainer,
-    Button, ChangePasswordContainer,
+    Button,
+    ChangePasswordContainer,
     Container,
-    EditAvatarContainer, Input,
-    Label, PasswordChangeForm, PasswordChangeTitle,
+    EditAvatarContainer,
+    Input,
+    Label,
+    PasswordChangeForm,
+    PasswordChangeTitle,
     PostersContaienr,
-    RowFlexContainer, SubmitButton,
+    RowFlexContainer,
+    SubmitButton,
     Title,
     UserCredentialsContainer,
     UserInfoContainer,
@@ -26,7 +31,6 @@ import {toast} from "react-toastify";
 import PostersToModerateList from "../PostersToModerateList";
 
 
-
 interface UserDetailProps {
     userObj: User;
 }
@@ -39,26 +43,26 @@ const UserDetail = ({userObj}: UserDetailProps) => {
     const [oldPassword, setOldPassword] = useState<string | undefined>();
     const [newPassword, setNewPassword] = useState<string | undefined>();
     let avatarUrl = `${process.env.REACT_APP_BASE_URL}/Images/${avatarId || "user"}.jpg`;
-    
+
     const handleEditSave = async (updatedUser: UserUpdateDto) => {
         await updateUser(jwtTokens!.accessToken, updatedUser);
         setIsEditing(false);
         refreshToken(jwtTokens!);
     };
-    
+
     const handlePasswordChangeSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        
+
         if (oldPassword === undefined) {
             toast.error("Fill old password field!");
             return;
         }
-        
+
         if (newPassword === undefined) {
             toast.error("Fill new password field!");
             return;
         }
-        
+
         if (await changePassword(oldPassword, newPassword)) toast.success("Password updated!");
     }
 
@@ -125,7 +129,7 @@ const UserDetail = ({userObj}: UserDetailProps) => {
                         }
                     </RowFlexContainer>
                 </UserCredentialsContainer>
-                
+
                 <ChangePasswordContainer>
                     <PasswordChangeTitle>Change password</PasswordChangeTitle>
                     <PasswordChangeForm onSubmit={handlePasswordChangeSubmit}>
@@ -134,17 +138,17 @@ const UserDetail = ({userObj}: UserDetailProps) => {
                             placeholder="old pasword"
                             value={oldPassword}
                             onChange={(e) => setOldPassword(e.target.value)}
-                            />
+                        />
                         <Input
                             type="password"
                             placeholder="new pasword"
                             value={newPassword}
                             onChange={(e) => setNewPassword(e.target.value)}
                         />
-                        
+
                         <SubmitButton type="submit">change</SubmitButton>
                     </PasswordChangeForm>
-                    
+
                 </ChangePasswordContainer>
 
             </UserInfoContainer>
@@ -155,12 +159,12 @@ const UserDetail = ({userObj}: UserDetailProps) => {
                 <Title id="#myPosters">My posters</Title>
                 <OwnedPostersPreviewList/>
                 {
-                    user!.role.includes("Admin") 
-                        ?<>
+                    user!.role.includes("Admin")
+                        ? <>
                             <Title id="#moderatePosters">To moderate</Title>
-                            <PostersToModerateList />
+                            <PostersToModerateList/>
                         </>
-                        :<></>
+                        : <></>
                 }
             </PostersContaienr>
 

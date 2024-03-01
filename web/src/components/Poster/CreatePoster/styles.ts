@@ -21,12 +21,12 @@ export const RowContainer = styled.div`
     width: 100%;
     justify-content: flex-start;
     align-items: center;
-    
+
 `;
 
 export const CategoryContainer = styled.div`
     display: inline;
-    width:100%;
+    width: 100%;
     max-width: 320px;
 `;
 
@@ -103,7 +103,7 @@ export const Button = styled.button`
     border-radius: ${cssValues.borderRadius};
     background: ${cssValues.mainColor};
     transition: transform ease-out 0.2s;
-    
+
 
     &:hover {
         cursor: pointer;

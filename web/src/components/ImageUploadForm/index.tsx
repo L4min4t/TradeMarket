@@ -1,6 +1,5 @@
 ﻿import useAuthContext from "../../context/hooks";
 import React, {ChangeEvent} from "react";
-import {generateGuid} from "../../utils/guidGenerator";
 import {uploadImage} from "../../api/image";
 import {CustomForm, HiddenInput, SubmitButton} from "./styled";
 import {toast} from "react-toastify";
@@ -22,7 +21,7 @@ const ImageUploadForm = ({
         event.preventDefault();
         const fileList = event.target.files;
         if (!fileList) return;
-        const newId = generateGuid();
+        const newId = crypto.randomUUID();
         const result = await uploadImage(jwtTokens!.accessToken, newId, fileList[0]);
         if (result) {
             toast.success("Image uploaded");

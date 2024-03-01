@@ -46,7 +46,7 @@ public class PosterController : ControllerBase
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         var result = await _service.DeleteAsync(id);
-        return result.IsSuccess ? Ok() : NotFound(result.Message);
+        return result.IsSuccess ? Ok("Success!") : NotFound(result.Message);
     }
     
     [HttpPut]
@@ -54,7 +54,7 @@ public class PosterController : ControllerBase
     public async Task<IActionResult> Update([FromBody] PosterUpdateDto param)
     {
         var result = await _service.UpdateAsync(param);
-        return result.IsSuccess ? Ok() : BadRequest(result.Message);
+        return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
     }
     
     [HttpPut("change-status")]
@@ -62,14 +62,14 @@ public class PosterController : ControllerBase
     public async Task<IActionResult> ChangeStatus([FromBody] ActivateDeactivatePosterModel param)
     {
         var result = await _service.ChangeStatusAsync(param);
-        return result.IsSuccess ? Ok() : BadRequest(result.Message);
+        return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] PosterCreateDto param)
     {
         var result = await _service.CreateAsync(param);
-        return result.IsSuccess ? Ok() : BadRequest(result.Message);
+        return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
     }
 
     [HttpGet("published")]
@@ -92,21 +92,21 @@ public class PosterController : ControllerBase
     public async Task<IActionResult> Moderate([FromBody] ModeratePosterModel param)
     {
         var result = await _service.ModerateAsync(param);
-        return result.IsSuccess ? Ok() : BadRequest(result.Message);
+        return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
     }
 
     [HttpPut("like/{id}")]
     public async Task<IActionResult> Like([FromRoute] Guid id)
     {
         var result = await _service.LikeAsync(id);
-        return result.IsSuccess ? Ok() : BadRequest(result.Message);
+        return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
     }
     
     [HttpPut("view/{id}")]
     public async Task<IActionResult> View([FromRoute] Guid id)
     {
         var result = await _service.ViewAsync(id);
-        return result.IsSuccess ? Ok() : BadRequest(result.Message);
+        return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
     }
     
     [HttpGet("liked/{id}")]

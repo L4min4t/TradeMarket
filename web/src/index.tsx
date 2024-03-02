@@ -26,15 +26,21 @@ root.render(
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<App/>}>
-                <Route index element={<MainPage/>}/>
                 <Route path="/login" element={<LoginPage/>}/>
                 <Route path="/register" element={<RegisterPage/>}/>
-                <Route path="/user" element={<UserPage/>}/>
+
+                <Route index element={<MainPage/>}/>
+
                 <Route path="/posters/:id" element={<PosterPage/>}/>
-                <Route path="/moderate-poster/:id" element={<ModeratePosterPage/>}/>
                 <Route path="/create" element={<CreatePosterPage/>}/>
                 <Route path="/edit/:id" element={<EditPosterPage/>}/>
+
                 <Route path="/user-posters/:id" element={<UserPostersPage/>}/>
+
+                <Route path="/user" element={<UserPage/>}/>
+
+                <Route path="/moderate-poster/:id" element={<ModeratePosterPage/>}/>
+
                 <Route path="*" element={<NotFound/>}/>
             </Route>
         </Routes>

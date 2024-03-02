@@ -3,12 +3,10 @@ import {MainPageContainer} from "./styles";
 import Filter from "../../components/Poster/Filter";
 
 
-const MainPage = () => {
-    return (
+const MainPage = () => (
         <MainPageContainer>
             <Filter/>
         </MainPageContainer>
     );
-};
 
 export default MainPage;

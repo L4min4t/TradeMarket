@@ -2,7 +2,7 @@
 import PostersPreviewList from "../PostersPreviewList";
 import useAuthContext from "../../../context/hooks";
 import React, {useEffect, useState} from "react";
-import {getLikedPosters, getPublishedPosters, PosterPreviewDto} from "../../../api/posters";
+import {getLikedPosters, getPublishedPosters, PosterDto} from "../../../api/posters";
 import CustomDropDown, {DropDownOptionProps} from "../../CustomDropDown";
 import {getCities} from "../../../api/city";
 import {Category} from "../../../api/constants/enums";
@@ -15,8 +15,8 @@ interface FilterProps {
 
 const Filter = ({price = 0, time = 0, city = "0"}: FilterProps) => {
     const {user, jwtTokens} = useAuthContext();
-    const [posters, setPosters] = useState<PosterPreviewDto[]>([]);
-    const [postersToDisplay, setPostersToDisplay] = useState<PosterPreviewDto[]>([]);
+    const [posters, setPosters] = useState<PosterDto[]>([]);
+    const [postersToDisplay, setPostersToDisplay] = useState<PosterDto[]>([]);
     const [sortFilter, setSortFilter] = useState<number>(price);
     const [timeFilter, setTimeFilter] = useState<number>(time);
     const [cityOptions, setCityOptions] = useState<DropDownOptionProps[] | undefined>();

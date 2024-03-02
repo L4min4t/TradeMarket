@@ -5,12 +5,22 @@ interface GoogleMapProps {
 }
 
 
+// const GoogleMap = ({location}: GoogleMapProps) => (
+//     <CustomMap
+//         loading="lazy"
+//         src={
+//             `https://www.google.com/maps/embed/v1/place?key=${process.env.GOOGLE_API_KEY}&q=${location.replace(" ", "+")}`
+//         }/>
+// );
+
 const GoogleMap = ({location}: GoogleMapProps) => {
-    const apiKey = process.env.GOOGLE_API_KEY || "AIzaSyCCd1ZemJx8YAYpgbxnYfoz6X3fAdf4Rcc";
-    const url = `https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${location.replace(" ", "+")}`;
+    console.log("asdasdasd", process.env.GOOGLE_API_KEY, "|" );
     return <CustomMap
         loading="lazy"
-        src={url}/>;
+        src={
+            `https://www.google.com/maps/embed/v1/place?key=${process.env.GOOGLE_API_KEY}&q=${location.replace(" ", "+")}`
+        }/>
 }
+
 
 export default GoogleMap;

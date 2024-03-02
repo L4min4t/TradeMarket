@@ -1,7 +1,7 @@
 ﻿import useAuthContext from "../../../context/hooks";
 import React, {useEffect, useState} from "react";
 
-import {likePoster, PosterPreviewDto} from "../../../api/posters";
+import {likePoster, PosterDto} from "../../../api/posters";
 import CustomIcon from "../../CustomIcon";
 import {getFormattedDate} from "../../../utils/date";
 import {useNavigate} from "react-router-dom";
@@ -20,13 +20,13 @@ import {
 } from "./styles";
 
 interface PosterPreviewProps {
-    poster: PosterPreviewDto;
+    poster: PosterDto;
 }
 
 const PosterPreview = ({poster}: PosterPreviewProps) => {
     const navigate = useNavigate();
     const {jwtTokens} = useAuthContext();
-    const [liked, setLiked] = useState<boolean>(poster.isLiked);
+    const [liked, setLiked] = useState<boolean>(poster.isLiked || false);
     useEffect(() => {
         if (!liked) poster.numberLiked += 1;
         if (liked) poster.numberLiked -= 1;

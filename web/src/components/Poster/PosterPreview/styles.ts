@@ -100,8 +100,9 @@ export const Text = styled.p`
     * {
         cursor: pointer;
     }
+
     width: fit-content;
-    
+
     font-weight: 300;
 `;
 

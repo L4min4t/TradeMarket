@@ -1,6 +1,6 @@
 ﻿import React from "react";
 
-import {PosterPreviewDto} from "../../../api/posters";
+import {PosterDto} from "../../../api/posters";
 import CustomIcon from "../../CustomIcon";
 import {getFormattedDate} from "../../../utils/date";
 import {useNavigate} from "react-router-dom";
@@ -15,7 +15,7 @@ import {
 } from "./styles";
 
 interface PosterPreviewProps {
-    poster: PosterPreviewDto;
+    poster: PosterDto;
 }
 
 const ModeratePosterPreview = ({poster}: PosterPreviewProps) => {

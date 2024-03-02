@@ -1,14 +1,14 @@
 ﻿import useAuthContext from "../../../context/hooks";
 import {useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
-import {getLikedPosters, PosterPreviewDto} from "../../../api/posters";
+import {getLikedPosters, PosterDto} from "../../../api/posters";
 import PosterPreview from "../../Poster/PosterPreview";
 import {Container} from "./styles";
 
 const LikedPosters = () => {
     const {user, jwtTokens} = useAuthContext();
     const navigate = useNavigate();
-    const [posters, setPosters] = useState<PosterPreviewDto[]>([]);
+    const [posters, setPosters] = useState<PosterDto[]>([]);
 
     useEffect(() => {
         async function getResponse() {

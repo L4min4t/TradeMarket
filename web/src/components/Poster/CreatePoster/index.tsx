@@ -30,7 +30,7 @@ const CreatePoster = () => {
     const [isSharing, setSharing] = useState<boolean>(false);
     const [isNew, setNew] = useState<boolean>(true);
     const [imageId, setImageId] = useState<string | null>(null);
-    const [category, setCategory] = useState<Category>(Category.None);
+    const [category, setCategory] = useState<Category>(Category.WithoutCategory);
 
     const options: DropDownOptionProps[] = Object.keys(Category)
         .filter((key) => isNaN(Number(key)))
@@ -115,7 +115,7 @@ const CreatePoster = () => {
                 <Label>Category</Label>
                 <CategoryContainer>
                     <CustomDropDown
-                        defaultValue={{value: Category.None.toString(), label: `Without category`}}
+                        defaultValue={{value: Category.WithoutCategory.toString(), label: `Without category`}}
                         options={options}
                         onChange={(selectedOption) => {
                             const valueAsNumber = Number(selectedOption.value);

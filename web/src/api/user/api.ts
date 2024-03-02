@@ -6,7 +6,7 @@ export const getUser = async (token: string, id: string): Promise<User | null> =
     const response = await protectedFetch<User>(`${GET_USERBY_ID_URL(id)}`, token, {
         method: "get"
     });
-    
+
     return processResponse(response);
 }
 

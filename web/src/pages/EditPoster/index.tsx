@@ -11,14 +11,15 @@ const EditPosterPage = () => {
     const navigate = useNavigate();
     const {user, jwtTokens} = useAuthContext();
     const [poster, setPoster] = useState<PosterDto>();
+    
     useEffect(() => {
         async function getResponse() {
             if (typeof id === 'string') {
                 const result = await getPoster(jwtTokens!.accessToken, id);
                 if (result) setPoster(result as PosterDto);
             } else {
-                toast.error("Invalid poster id!");
-                navigate("/user");
+                toast.error("Failed loading poster information!");
+                navigate("/user#myPosters");
             }
         }
 

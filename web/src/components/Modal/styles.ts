@@ -24,7 +24,7 @@ export const ModalContainer = styled.div`
 
 export const CloseButton = styled.button`
     position: absolute;
-    top: 3px;
+    top: 0;
     right: 10px;
     border: none;
     background: none;

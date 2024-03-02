@@ -1,14 +1,16 @@
 ﻿import React, {useEffect, useState} from "react";
 import {getPoster, PosterDto, viewPoster} from "../../api/posters";
 import useAuthContext from "../../context/hooks";
-import {useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import ModeratePosterDetail from "../../components/User/ModeratePosterDetail";
+import {toast} from "react-toastify";
 
 
 const ModeratePosterPage = () => {
     const {user, jwtTokens} = useAuthContext();
     const [poster, setPoster] = useState<PosterDto | null>(null);
     const {id} = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function getResponse() {
@@ -16,9 +18,12 @@ const ModeratePosterPage = () => {
                 await viewPoster(jwtTokens!.accessToken, id!);
                 const result = await getPoster(jwtTokens!.accessToken, id);
                 if (result) setPoster(result as PosterDto);
-            } else setPoster(null);
+            } else {
+                toast.error("Failed loading poster information!");
+                navigate("/user#moderatePosters");
+            }
+            
         }
-
         getResponse();
     }, [id, jwtTokens, user]);
 

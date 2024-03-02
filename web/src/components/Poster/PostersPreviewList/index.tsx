@@ -1,12 +1,12 @@
 ﻿import React from "react";
 
-import {PosterPreviewDto} from "../../../api/posters";
+import {PosterDto} from "../../../api/posters";
 
 import {Container} from "./styles";
 import PosterPreview from "../PosterPreview";
 
 interface PostersPreviewListProps {
-    posters: PosterPreviewDto[];
+    posters: PosterDto[];
 }
 
 const PostersPreviewList = ({posters}: PostersPreviewListProps) => {

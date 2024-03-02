@@ -1,7 +1,7 @@
 ﻿import {Container} from "./styles";
 import {Category} from "../../../api/constants/enums";
 import React, {useEffect, useState} from "react";
-import {getLikedPosters, getPublishedPosters, PosterPreviewDto} from "../../../api/posters";
+import {getLikedPosters, getPublishedPosters, PosterDto} from "../../../api/posters";
 import {shuffleArray} from "../../../utils/shufler";
 import useAuthContext from "../../../context/hooks";
 import PosterPreview from "../../Poster/PosterPreview";
@@ -14,7 +14,7 @@ interface SuggestedPostersProps {
 
 const SuggestedPosters = ({number, category, excludePosterId}: SuggestedPostersProps) => {
     const {user, jwtTokens} = useAuthContext();
-    const [posters, setPosters] = useState<PosterPreviewDto[]>([]);
+    const [posters, setPosters] = useState<PosterDto[]>([]);
 
     useEffect(() => {
         async function getResponse() {

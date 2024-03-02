@@ -6,5 +6,5 @@ export const Container = styled.div`
 `;
 
 export const Text = styled.h1`
-    font-size: ${cssValues.titleFontSize};
+    font-size: calc(${cssValues.titleFontSize} * 2);
 `;

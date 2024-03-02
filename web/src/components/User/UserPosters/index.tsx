@@ -1,7 +1,7 @@
 ﻿import React, {useEffect, useState} from "react";
 import PostersPreviewList from "../../Poster/PostersPreviewList";
 import useAuthContext from "../../../context/hooks";
-import {getLikedPosters, getPublishedPosters, PosterPreviewDto} from "../../../api/posters";
+import {getLikedPosters, getPublishedPosters, PosterDto} from "../../../api/posters";
 import {UserPostersContainer} from "./styles";
 
 interface UserPostersProps {
@@ -10,7 +10,7 @@ interface UserPostersProps {
 
 const UserPosters = ({id}: UserPostersProps) => {
     const {user, jwtTokens} = useAuthContext();
-    const [posters, setPosters] = useState<PosterPreviewDto[]>([]);
+    const [posters, setPosters] = useState<PosterDto[]>([]);
     const [likedPosterIds, setLikedPosterIds] = useState<string[]>([]);
 
     useEffect(() => {

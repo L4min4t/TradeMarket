@@ -121,7 +121,7 @@ const EditPoster = ({poster}: EditPosterProps) => {
                 <Label>Category</Label>
                 <CategoryContainer>
                     <CustomDropDown
-                        defaultValue={{value: Category.None.toString(), label: `Without category`}}
+                        defaultValue={{value: Category.WithoutCategory.toString(), label: `Without category`}}
                         options={options}
                         onChange={(selectedOption) => {
                             const valueAsNumber = Number(selectedOption.value);

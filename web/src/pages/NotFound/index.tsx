@@ -3,7 +3,7 @@
 const NotFound = () => {
     return (
         <Container>
-            <Text>Page Not Found</Text>
+            <Text>Page Not Found!</Text>
         </Container>
     );
 };

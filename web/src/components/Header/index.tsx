@@ -2,13 +2,17 @@
 import {Greeting, HeaderContainer, Logo, UserName} from "./styles";
 import {useNavigate} from "react-router-dom";
 import {useEffect} from "react";
+import {toast} from "react-toastify";
 
 const Header = () => {
     const {user, jwtTokens} = useAuthContext();
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (!user || !jwtTokens) navigate("/login");
+        if (!user || !jwtTokens) {
+            toast.error("Auth problems!")
+            navigate("/login");
+        }
     }, [user, jwtTokens]);
 
     return (

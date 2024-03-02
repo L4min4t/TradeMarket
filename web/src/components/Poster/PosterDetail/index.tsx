@@ -63,6 +63,8 @@ const PosterDetail = ({poster}: PosterDetailProps) => {
             <PosterContainer>
                 <TitleContainer>
                     <Like onClick={() => {
+                        if (liked) poster.numberLiked -= 1;
+                        else poster.numberLiked += 1;
                         setLiked(!liked);
                         likePoster(poster.id, jwtTokens!.accessToken);
                     }}>

@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import {Category} from "../../../api/constants/enums";
 import CustomDropDown, {DropDownOptionProps} from "../../CustomDropDown";
 import {toast} from "react-toastify";
-import {PosterCreateDto, PosterDto, updatePoster} from "../../../api/posters";
+import {PosterCreateUpdateDto, PosterDto, updatePoster} from "../../../api/posters";
 import {
     Button,
     CategoryContainer,
@@ -75,7 +75,7 @@ const EditPoster = ({poster}: EditPosterProps) => {
             imageId: imageId,
             creatorId: user!.id,
             category: category
-        } as PosterCreateDto;
+        } as PosterCreateUpdateDto;
 
         const result = await updatePoster(jwtTokens!.accessToken, newPoster);
         if (result !== null) {

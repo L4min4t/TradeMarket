@@ -5,7 +5,7 @@ export const PreviewContainer = styled.div`
     display: flex;
     flex-direction: column;
     row-gap: 8px;
-    
+
     min-width: 300px;
     width: calc((100% - 2% * 4) / 5);
     background-color: #f8f8f8;
@@ -95,7 +95,7 @@ export const HighlightedContainer = styled.div`
     border-radius: ${cssValues.borderRadius};
     background: ${cssValues.mainColor};
     padding: 1px 6px;
-    
+
     display: flex;
     flex-direction: row;
     justify-content: flex-start;

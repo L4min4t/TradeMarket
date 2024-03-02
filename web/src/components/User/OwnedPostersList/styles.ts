@@ -6,7 +6,7 @@ export const Container = styled.div`
     flex-direction: row;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 2%;
+    gap: calc(${cssValues.blocksGap} / 2);
 
     width: 100%;
 `;

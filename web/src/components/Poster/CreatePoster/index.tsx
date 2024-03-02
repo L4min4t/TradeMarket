@@ -15,7 +15,7 @@ import {
     SubmitButton,
     TextArea
 } from "./styles";
-import {createPoster, PosterCreateDto} from "../../../api/posters";
+import {createPoster, PosterCreateUpdateDto} from "../../../api/posters";
 import CustomDropDown, {DropDownOptionProps} from "../../CustomDropDown";
 import ImageUploadForm from "../../ImageUploadForm";
 import {useNavigate} from "react-router-dom";
@@ -69,7 +69,7 @@ const CreatePoster = () => {
             imageId: imageId,
             creatorId: user!.id,
             category: category
-        } as PosterCreateDto;
+        } as PosterCreateUpdateDto;
 
         const result = await createPoster(jwtTokens!.accessToken, newPoster);
         if (result !== null) {

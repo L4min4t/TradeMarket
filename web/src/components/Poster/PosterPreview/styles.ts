@@ -6,6 +6,7 @@ export const PreviewContainer = styled.div`
     flex-direction: column;
     row-gap: 8px;
 
+    min-width: 300px;
     width: calc((100% - 2% * 4) / 5);
     background-color: #f8f8f8;
     border-radius: ${cssValues.borderRadius};
@@ -65,6 +66,42 @@ export const PreviewPosterInfo = styled.p`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: clip;
+    font-weight: 300;
+`;
+
+export const RowContainer = styled.div`
+    cursor: pointer;
+
+    * {
+        cursor: pointer;
+    }
+
+    width: 100%;
+    wrap-option: wrap;
+    display: flex;
+    flex-direction: row;
+    column-gap: ${cssValues.itemsGap};
+    align-items: center;
+
+`;
+
+export const RowElement = styled.div`
+    wrap-option: wrap;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 6px;
+`;
+
+export const Text = styled.p`
+    cursor: pointer;
+
+    * {
+        cursor: pointer;
+    }
+    width: fit-content;
+    
     font-weight: 300;
 `;
 

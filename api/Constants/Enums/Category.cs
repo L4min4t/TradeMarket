@@ -2,7 +2,7 @@
 
 public enum Category
 {
-    None,
+    WithoutCategory,
     Antiques,
     Apparel,
     ArtCollectibles,

@@ -1,22 +1,6 @@
 ﻿import {Category} from "../constants/enums";
 import {User} from "../user/interfaces";
 
-export interface PosterPreviewDto {
-    id: string;
-    title: string;
-    description: string;
-    price: number;
-    isNew: boolean;
-    imageId: string;
-    creatorId: string;
-    creator: User;
-    publishedAt: Date;
-    numberViewed: number;
-    category: Category;
-
-    isLiked: boolean;
-}
-
 export interface PosterDto {
     id: string;
     title: string;
@@ -34,9 +18,12 @@ export interface PosterDto {
     numberViewed: number;
     numberLiked: number;
     category: Category;
+
+    isLiked?: boolean;
 }
 
-export interface PosterCreateDto {
+
+export interface PosterCreateUpdateDto {
     title: string;
     description: string;
     price: number;

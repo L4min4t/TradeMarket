@@ -4,9 +4,9 @@ import Filter from "../../components/Poster/Filter";
 
 
 const MainPage = () => (
-        <MainPageContainer>
-            <Filter/>
-        </MainPageContainer>
-    );
+    <MainPageContainer>
+        <Filter/>
+    </MainPageContainer>
+);
 
 export default MainPage;

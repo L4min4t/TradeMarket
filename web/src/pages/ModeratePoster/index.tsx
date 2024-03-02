@@ -22,8 +22,9 @@ const ModeratePosterPage = () => {
                 toast.error("Failed loading poster information!");
                 navigate("/user#moderatePosters");
             }
-            
+
         }
+
         getResponse();
     }, [id, jwtTokens, user]);
 

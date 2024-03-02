@@ -11,7 +11,7 @@ const EditPosterPage = () => {
     const navigate = useNavigate();
     const {user, jwtTokens} = useAuthContext();
     const [poster, setPoster] = useState<PosterDto>();
-    
+
     useEffect(() => {
         async function getResponse() {
             if (typeof id === 'string') {

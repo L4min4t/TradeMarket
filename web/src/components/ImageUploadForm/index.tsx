@@ -22,7 +22,7 @@ const ImageUploadForm = ({
         event.preventDefault();
         const fileList = event.target.files;
         if (!fileList) return;
-        
+
         const newId = crypto.randomUUID();
         const result = await uploadImage(jwtTokens?.accessToken ?? '', newId, fileList[0]);
         if (result) {

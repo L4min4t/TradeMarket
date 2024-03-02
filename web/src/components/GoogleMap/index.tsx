@@ -14,7 +14,7 @@ interface GoogleMapProps {
 // );
 
 const GoogleMap = ({location}: GoogleMapProps) => {
-    console.log("asdasdasd", process.env.GOOGLE_API_KEY, "|" );
+    console.log("asdasdasd", process.env.GOOGLE_API_KEY, "|");
     return <CustomMap
         loading="lazy"
         src={

@@ -1,5 +1,5 @@
 ﻿import useAuthContext from "../../../context/hooks";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 
 import {likePoster, PosterDto} from "../../../api/posters";
 import CustomIcon from "../../CustomIcon";
@@ -27,10 +27,6 @@ const PosterPreview = ({poster}: PosterPreviewProps) => {
     const navigate = useNavigate();
     const {jwtTokens} = useAuthContext();
     const [liked, setLiked] = useState<boolean>(poster.isLiked || false);
-    useEffect(() => {
-        if (!liked) poster.numberLiked += 1;
-        if (liked) poster.numberLiked -= 1;
-    }, [liked]);
 
     const imgUrl = `${process.env.REACT_APP_BASE_URL}/Images/${(poster.imageId || "basket")}.jpg`;
 
@@ -41,6 +37,8 @@ const PosterPreview = ({poster}: PosterPreviewProps) => {
 
                 <PosterPreviewHead>
                     <Like onClick={() => {
+                        if (liked) poster.numberLiked -= 1;
+                        else poster.numberLiked += 1;
                         setLiked(!liked);
                         likePoster(poster.id, jwtTokens!.accessToken);
                     }}>

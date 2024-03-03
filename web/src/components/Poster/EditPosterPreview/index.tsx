@@ -32,6 +32,8 @@ const EditPosterPreview = ({poster, removePoster}: EditPosterPreviewProps) => {
 
     const handleChangeActivity = async () => {
         await changePosterStatus(jwtTokens!.accessToken, poster.id, !isActive);
+        if (!isActive) toast.warn("Poster activated!");
+        else toast.warn("Poster deactivated!")
         setActivity(!isActive);
     }
 
@@ -41,9 +43,9 @@ const EditPosterPreview = ({poster, removePoster}: EditPosterPreviewProps) => {
 
             const result = await deletePoster(jwtTokens!.accessToken, poster.id);
             if (result !== null) {
-                toast.success("Poster deleted");
+                toast.success("Poster deleted!");
                 removePoster(poster.id);
-            }
+            } else toast.success("Poster deletion failed!");
         }
     };
 

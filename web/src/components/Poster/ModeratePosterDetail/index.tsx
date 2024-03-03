@@ -97,7 +97,7 @@ const ModeratePosterDetail = ({poster}: PosterDetailProps) => {
                 <PosterTagsContainer>
                     <Tag>
                         <CustomIcon src="category.png" width="26px"/>
-                        <TagLink onClick={() => navigate('/')}>{Category[poster.category]}</TagLink>
+                        <TagLink onClick={() => navigate(`/?category=${poster.category}`)}>{Category[poster.category]}</TagLink>
                     </Tag>
                     <Tag>
                         <CustomIcon src="secondHand.png" width="26px"/> {poster.isNew ? "New" : "Used"}
@@ -125,7 +125,7 @@ const ModeratePosterDetail = ({poster}: PosterDetailProps) => {
                         if (result !== null) {
                             toast.warn(`Poster ${poster.title} allowed!`);
                             navigate("/user#myPosters");
-                        }
+                        } else toast.error("Poster moderation failed!");
                     }}>
                         ALLOW
                     </ManageButton>
@@ -134,7 +134,7 @@ const ModeratePosterDetail = ({poster}: PosterDetailProps) => {
                         if (result !== null) {
                             toast.warn(`Poster ${poster.title} blocked!`);
                             navigate("/user#myPosters");
-                        }
+                        } else toast.error("Poster moderation failed!");
                     }}>
                         BLOCK
                     </ManageButton>

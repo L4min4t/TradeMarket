@@ -1,8 +1,9 @@
 ﻿import React, {useEffect, useState} from "react";
 import useAuthContext from "../../../context/hooks";
 import {getPostersToModerate, PosterDto} from "../../../api/posters";
-import {Container} from "./styles";
+import {Container, Titile} from "./styles";
 import ModeratePosterPreview from "../ModeratePosterPreview";
+
 
 
 const PostersToModerateList = () => {
@@ -19,13 +20,13 @@ const PostersToModerateList = () => {
     }, [jwtTokens]);
 
 
-    return posters !== null
+    return posters?.length
         ? <Container>
             {posters.map((poster) => (
                 <ModeratePosterPreview poster={{...poster, isLiked: false}}/>
             ))}
         </Container>
-        : <></>;
+        : <Titile>There are no posters to moderate yet!</Titile>;
 };
 
 export default PostersToModerateList;

@@ -30,9 +30,10 @@ export const UserInfoContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    column-gap: ${cssValues.blocksGap};
+    gap: ${cssValues.blocksGap};
     margin-top: ${cssValues.blocksGap};
     margin-bottom: ${cssValues.blocksGap};
+    flex-wrap: wrap;
 `;
 
 export const UserCredentialsContainer = styled.div`

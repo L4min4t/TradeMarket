@@ -20,6 +20,7 @@ export const PosterDetailImage = styled.img`
     width: 60%;
     max-height: 500px;
     min-height: 400px;
+    min-width: 400px;
     object-fit: cover;
 
     border: 1px solid ${cssValues.mainColor};
@@ -37,6 +38,8 @@ export const MainInfoContainer = styled.div`
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    row-gap: ${cssValues.blocksGap};
+    flex-wrap: wrap;
 `;
 
 export const PosterMainInfo = styled.div`
@@ -82,6 +85,7 @@ export const PosterTagsContainer = styled.div`
     display: flex;
     flex-direction: row;
     column-gap: ${cssValues.blocksGap};
+    flex-wrap: wrap;
 `;
 
 export const Tag = styled.div`

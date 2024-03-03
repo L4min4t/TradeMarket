@@ -20,15 +20,15 @@ import {
     UserNameLabel
 } from "./styles";
 import useAuthContext from "../../../context/hooks";
-import LikedPosters from "../LikedPosters";
+import LikedPosters from "../../Poster/LikedPosters";
 import AvatarUploadForm from "../AvatarUploadForm";
 import React, {useState} from "react";
 
 import Modal from "../../Modal";
 import EditUserForm from "../EditUserForm";
-import OwnedPostersPreviewList from "../OwnedPostersList";
+import OwnedPostersPreviewList from "../../Poster/OwnedPostersList";
 import {toast} from "react-toastify";
-import PostersToModerateList from "../PostersToModerateList";
+import PostersToModerateList from "../../Poster/PostersToModerateList";
 
 
 interface UserDetailProps {
@@ -64,6 +64,7 @@ const UserDetail = ({userObj}: UserDetailProps) => {
         }
 
         if (await changePassword(oldPassword, newPassword)) toast.success("Password updated!");
+        else toast.error("Password updating failed!");
     }
 
     return (
@@ -83,14 +84,17 @@ const UserDetail = ({userObj}: UserDetailProps) => {
                             imageUrl="camera.png"
                             user={userWithoutCity}
                             onAvatarChange={(newAvatarId: string) => {
-                                setAvatarId(newAvatarId); // This will trigger a re-render of UserDetail
+                                setAvatarId(newAvatarId);
                             }}
                         />
                         <CustomIcon
                             src="trash.png"
                             onClick={async () => {
-                                await updateUser(jwtTokens!.accessToken, {...userWithoutCity, avatarId: undefined});
-                                await setAvatarId(undefined);
+                                const result  = await updateUser(jwtTokens!.accessToken, {...userWithoutCity, avatarId: undefined});
+                                if (result) {
+                                    await setAvatarId(undefined);
+                                    toast.success("Avatar deleted!");
+                                } else toast.error("Avatar deletion failed!");
                             }}
                             height="22px"/>
                     </EditAvatarContainer>

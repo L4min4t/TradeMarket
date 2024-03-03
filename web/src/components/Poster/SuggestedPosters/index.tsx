@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import {getLikedPosters, getPublishedPosters, PosterDto} from "../../../api/posters";
 import {shuffleArray} from "../../../utils/shufler";
 import useAuthContext from "../../../context/hooks";
-import PosterPreview from "../../Poster/PosterPreview";
+import PosterPreview from "../PosterPreview";
 
 interface SuggestedPostersProps {
     number: number;

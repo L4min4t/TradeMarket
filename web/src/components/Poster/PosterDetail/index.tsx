@@ -25,7 +25,7 @@ import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {Category} from "../../../api/constants/enums";
 import useAuthContext from "../../../context/hooks";
-import SuggestedPosters from "../../User/SuggestedPosters";
+import SuggestedPosters from "../SuggestedPosters";
 import Modal from "../../Modal";
 import GoogleMap from "../../GoogleMap";
 
@@ -118,7 +118,7 @@ const PosterDetail = ({poster}: PosterDetailProps) => {
                 <PosterTagsContainer>
                     <Tag>
                         <CustomIcon src="category.png" width="26px"/>
-                        <TagLink onClick={() => navigate('/')}>{Category[poster.category]}</TagLink>
+                        <TagLink onClick={() => navigate(`/?category=${poster.category}`)}>{Category[poster.category]}</TagLink>
                     </Tag>
                     <Tag>
                         <CustomIcon src="secondHand.png" width="26px"/> {poster.isNew ? "New" : "Used"}

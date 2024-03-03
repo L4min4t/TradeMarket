@@ -2,8 +2,8 @@
 import {useNavigate} from "react-router-dom";
 import React, {useEffect, useState} from "react";
 import {getLikedPosters, PosterDto} from "../../../api/posters";
-import PosterPreview from "../../Poster/PosterPreview";
-import {Container} from "./styles";
+import PosterPreview from "../PosterPreview";
+import {Container, Titile} from "./styles";
 
 const LikedPosters = () => {
     const {user, jwtTokens} = useAuthContext();
@@ -22,15 +22,13 @@ const LikedPosters = () => {
         getResponse();
     }, [jwtTokens, navigate, user]);
 
-    if (posters)
-        return (
-            <Container>
-                {posters.map((poster) => (
-                    <PosterPreview key={poster.id} poster={poster}/>
-                ))}
-            </Container>
-        );
-    else return (<></>);
+    return posters.length ?
+        <Container>
+            {posters.map((poster) => (
+                <PosterPreview key={poster.id} poster={poster}/>
+            ))}
+        </Container>
+        : <Titile>There are no liked posters yet!</Titile>;
 };
 
 export default LikedPosters;

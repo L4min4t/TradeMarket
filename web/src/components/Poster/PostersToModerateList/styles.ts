@@ -32,4 +32,9 @@ export const CreatePoster = styled.div`
         box-shadow: ${cssValues.hoverBoxShadow};
     }
 `;
+export const Titile = styled.p`
+    font-weight: 300;
+    font-size: ${cssValues.subTitleFontSize};
+    align-self: center;
+`;
 

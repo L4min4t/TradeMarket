@@ -25,9 +25,11 @@ const AvatarUploadForm = ({imageUrl, imageWidth, user, onAvatarChange}: AvatarUp
         const result = await uploadImage(jwtTokens!.accessToken, newId, fileList[0]);
         if (result) {
 
-            toast.success("Image uploaded");
+            toast.success("Avatar uploaded!");
             await updateUser(jwtTokens!.accessToken, userToUpdate);
             onAvatarChange(newId);
+        } else {
+            toast.error("Avatar uploading failed!");
         }
     };
 

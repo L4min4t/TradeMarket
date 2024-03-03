@@ -59,7 +59,7 @@ const EditUserForm = ({user, onSave}: EditUserFormProps) => {
                 <Label>City:</Label>
                 <DropDownContainer>
                     {
-                        user.cityId && options?.length
+                        user.cityId
                             ?
                             <CustomDropDown
                                 defaultValue={{value: user.cityId, label: `${user.city.name}, ${user.city.region}`}}

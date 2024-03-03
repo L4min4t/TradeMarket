@@ -8,20 +8,20 @@ import {getCities} from "../../../api/city";
 import {Category} from "../../../api/constants/enums";
 
 interface FilterProps {
-    price?: number;
-    time?: number;
+    category?: number;
     city?: string;
 }
 
-const Filter = ({price = 0, time = 0, city = "0"}: FilterProps) => {
+const Filter = ({category = -1, city = "0"}: FilterProps) => {
     const {user, jwtTokens} = useAuthContext();
     const [posters, setPosters] = useState<PosterDto[]>([]);
     const [postersToDisplay, setPostersToDisplay] = useState<PosterDto[]>([]);
-    const [sortFilter, setSortFilter] = useState<number>(price);
-    const [timeFilter, setTimeFilter] = useState<number>(time);
+    const [sortFilter, setSortFilter] = useState<number>(0);
+    const [timeFilter, setTimeFilter] = useState<number>(0);
     const [cityOptions, setCityOptions] = useState<DropDownOptionProps[] | undefined>();
     const [cityFilter, setCityFilter] = useState<string>(city);
-    const [categoryFilter, setCategoryFilter] = useState<number>(-1);
+    const [categoryFilter, setCategoryFilter] = useState<number>(category);
+
 
     useEffect(() => {
             async function getResponse() {
@@ -98,7 +98,7 @@ const Filter = ({price = 0, time = 0, city = "0"}: FilterProps) => {
 
 
         setPostersToDisplay(filteredPosters);
-    }, [sortFilter, timeFilter, cityFilter, categoryFilter]);
+    }, [sortFilter, timeFilter, cityFilter, categoryFilter, posters]);
 
     const sortOptions = [
         {value: "0", label: "default"} as DropDownOptionProps,
@@ -133,6 +133,7 @@ const Filter = ({price = 0, time = 0, city = "0"}: FilterProps) => {
                     <FilterLabel>Category:</FilterLabel>
                     <CustomDropDown
                         minWidth="420px"
+                        defaultValue={{value: String(category), label: category === -1 ? "All" : Category[category]}}
                         options={categryOptions}
                         onChange={(selectedOption) => {
                             const valueAsNumber = Number(selectedOption.value);

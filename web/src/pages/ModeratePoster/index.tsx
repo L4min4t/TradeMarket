@@ -2,7 +2,7 @@
 import {getPoster, PosterDto, viewPoster} from "../../api/posters";
 import useAuthContext from "../../context/hooks";
 import {useNavigate, useParams} from "react-router-dom";
-import ModeratePosterDetail from "../../components/User/ModeratePosterDetail";
+import ModeratePosterDetail from "../../components/Poster/ModeratePosterDetail";
 import {toast} from "react-toastify";
 
 

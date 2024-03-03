@@ -79,10 +79,10 @@ const EditPoster = ({poster}: EditPosterProps) => {
 
         const result = await updatePoster(jwtTokens!.accessToken, newPoster);
         if (result !== null) {
-            toast.success("Poster created");
+            toast.success("Poster edited!");
             navigate("/user#myPosters")
         } else {
-            toast.error("Error occurred.");
+            toast.error("Poster editing failed!");
         }
     }
 

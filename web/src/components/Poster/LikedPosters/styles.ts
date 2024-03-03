@@ -6,6 +6,13 @@ export const Container = styled.div`
     flex-direction: row;
     justify-content: center;
     gap: calc(${cssValues.blocksGap} / 2);
+    flex-wrap: wrap;
 
     width: 100%;
+`;
+
+export const Titile = styled.p`
+    font-weight: 300;
+    font-size: ${cssValues.subTitleFontSize};
+    align-self: center;
 `;

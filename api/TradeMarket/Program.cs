@@ -114,12 +114,12 @@ using (var scope = app.Services.CreateScope())
     {
         applicationContext.Database.Migrate();
     }
-    
+
     if ((await identityContext.Database.GetPendingMigrationsAsync()).Any())
     {
         await identityContext.Database.MigrateAsync();
     }
-    
+
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = services.GetRequiredService<UserManager<AuthUser>>();
 
@@ -135,7 +135,7 @@ app.UseSwaggerUI();
 app.UseHttpsRedirection();
 
 
-app.UseAuthentication(); 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

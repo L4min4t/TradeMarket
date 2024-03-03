@@ -7,5 +7,7 @@ namespace Context.Context;
 
 public class IdentityContext : IdentityDbContext<AuthUser>
 {
-    public IdentityContext(DbContextOptions<IdentityContext> options) : base(options) {}
+    public IdentityContext(DbContextOptions<IdentityContext> options) : base(options)
+    {
+    }
 }

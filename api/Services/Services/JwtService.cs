@@ -53,11 +53,11 @@ public class JwtService : IJwtService
         var accessToken = tokenHandler.WriteToken(securityToken);
 
         var refreshToken = GenerateRefreshToken();
-        
+
         user.RefreshTokenExpiryTime = DateTime.Now.AddMinutes(Constants.Constants.RefreshTokenLifetimeInMinutes);
         user.RefreshToken = refreshToken;
         await _userManager.UpdateAsync(user);
-        
+
         return Result.Ok(new TokenModel()
         {
             AccessToken = accessToken,
@@ -85,9 +85,9 @@ public class JwtService : IJwtService
         if (user.RefreshToken != tokenModel.RefreshToken)
             return Result.Fail<TokenModel>("The provided refresh token is not valid.");
 
-        if(user.RefreshTokenExpiryTime <= DateTime.Now)
+        if (user.RefreshTokenExpiryTime <= DateTime.Now)
             return Result.Fail<TokenModel>("The provided refresh token is expired.");
-        
+
         return await GenerateTokenPairAsync(user);
     }
 

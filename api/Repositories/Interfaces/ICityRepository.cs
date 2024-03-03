@@ -4,5 +4,4 @@ namespace Repositories.Interfaces;
 
 public interface ICityRepository : IBaseRepository<City>
 {
-    
 }

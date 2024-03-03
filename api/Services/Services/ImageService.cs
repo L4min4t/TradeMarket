@@ -20,28 +20,29 @@ public class ImageService : IImageService
                 {
                     return Result.Fail("Invalid image file!");
                 }
-            
+
                 using (var inputStream = model.ImageFile.OpenReadStream())
                 using (var originalImage = Image.FromStream(inputStream))
                 {
                     var jpegFileName = model.Id + ".jpg";
                     var jpegFilePath = Path.Combine("wwwroot/images", jpegFileName);
-                    
+
                     using (var bitmapWithWhiteBg = new Bitmap(originalImage.Width, originalImage.Height))
                     {
                         using (var graphics = Graphics.FromImage(bitmapWithWhiteBg))
                         {
                             graphics.Clear(Color.SlateGray);
-                            graphics.DrawImage(originalImage, 
+                            graphics.DrawImage(originalImage,
                                 new Rectangle(0, 0, originalImage.Width, originalImage.Height));
                         }
 
                         bitmapWithWhiteBg.Save(jpegFilePath, ImageFormat.Jpeg);
                     }
+
                     return Result.Ok();
                 }
-
             }
+
             return Result.Fail("Invalid image file!");
         }
         catch (Exception ex)
@@ -49,8 +50,8 @@ public class ImageService : IImageService
             return Result.Fail("ImageService Server Fail!");
         }
     }
-    
-    
+
+
     public async Task<Result<FileStreamResult>> GetImageAsync(string id)
     {
         try
@@ -66,6 +67,7 @@ public class ImageService : IImageService
                 {
                     await stream.CopyToAsync(memory);
                 }
+
                 memory.Position = 0;
 
                 var fileStreamResult = new FileStreamResult(memory, "image/jpeg")
@@ -75,6 +77,7 @@ public class ImageService : IImageService
 
                 return Result.Ok(fileStreamResult);
             }
+
             return Result.Fail<FileStreamResult>($"Image not found");
         }
         catch (Exception ex)
@@ -82,7 +85,7 @@ public class ImageService : IImageService
             return Result.Fail<FileStreamResult>("ImageService Server Fail!");
         }
     }
-    
+
     public async Task<Result> DeleteImageAsync(Guid id)
     {
         try

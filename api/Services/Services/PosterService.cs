@@ -13,16 +13,16 @@ namespace Services.Services;
 public class PosterService : BaseService<Poster, PosterBaseDto>, IPosterService
 {
     private readonly ILikedPosterRepository _likedPosterRepository;
-    private readonly IHttpContextAccessor  _context;
+    private readonly IHttpContextAccessor _context;
 
     public PosterService(IPosterRepository repository, IMapper mapper, ILikedPosterRepository posterRepository,
-        IHttpContextAccessor  context) :
+        IHttpContextAccessor context) :
         base(repository, mapper)
     {
         _likedPosterRepository = posterRepository;
         _context = context;
     }
-    
+
     public async Task<Result<List<Poster>>> GetUserPosters()
     {
         try

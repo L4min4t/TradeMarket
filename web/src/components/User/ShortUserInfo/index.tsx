@@ -30,7 +30,7 @@ const ShortUserInfo = ({id}: ShortUserInfoProps) => {
                 }/>
 
                 <ColumnContainer>
-                    
+
                 </ColumnContainer>
 
                 <ColumnContainer>

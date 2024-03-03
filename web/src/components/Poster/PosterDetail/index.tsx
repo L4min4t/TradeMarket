@@ -118,7 +118,8 @@ const PosterDetail = ({poster}: PosterDetailProps) => {
                 <PosterTagsContainer>
                     <Tag>
                         <CustomIcon src="category.png" width="26px"/>
-                        <TagLink onClick={() => navigate(`/?category=${poster.category}`)}>{Category[poster.category]}</TagLink>
+                        <TagLink
+                            onClick={() => navigate(`/?category=${poster.category}`)}>{Category[poster.category]}</TagLink>
                     </Tag>
                     <Tag>
                         <CustomIcon src="secondHand.png" width="26px"/> {poster.isNew ? "New" : "Used"}

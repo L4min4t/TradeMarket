@@ -90,7 +90,10 @@ const UserDetail = ({userObj}: UserDetailProps) => {
                         <CustomIcon
                             src="trash.png"
                             onClick={async () => {
-                                const result  = await updateUser(jwtTokens!.accessToken, {...userWithoutCity, avatarId: undefined});
+                                const result = await updateUser(jwtTokens!.accessToken, {
+                                    ...userWithoutCity,
+                                    avatarId: undefined
+                                });
                                 if (result) {
                                     await setAvatarId(undefined);
                                     toast.success("Avatar deleted!");

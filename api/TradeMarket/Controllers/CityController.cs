@@ -47,7 +47,7 @@ public class CityController : ControllerBase
         var result = await _service.CreateAsync(param);
         return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
     }
-    
+
     [HttpPut]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update([FromBody] CityUpdateDto param)

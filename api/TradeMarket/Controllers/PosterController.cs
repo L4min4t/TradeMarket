@@ -33,7 +33,7 @@ public class PosterController : ControllerBase
         var result = await _service.FindByIdAsync(id);
         return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);
     }
-    
+
     [HttpGet("user")]
     public async Task<IActionResult> GetUserPosters()
     {
@@ -48,7 +48,7 @@ public class PosterController : ControllerBase
         var result = await _service.DeleteAsync(id);
         return result.IsSuccess ? Ok("Success!") : NotFound(result.Message);
     }
-    
+
     [HttpPut]
     [CustomCheckAccess("manage-poster")]
     public async Task<IActionResult> Update([FromBody] PosterUpdateDto param)
@@ -56,7 +56,7 @@ public class PosterController : ControllerBase
         var result = await _service.UpdateAsync(param);
         return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
     }
-    
+
     [HttpPut("change-status")]
     [CustomCheckAccess("manage-poster")]
     public async Task<IActionResult> ChangeStatus([FromBody] ActivateDeactivatePosterModel param)
@@ -101,14 +101,14 @@ public class PosterController : ControllerBase
         var result = await _service.LikeAsync(id);
         return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
     }
-    
+
     [HttpPut("view/{id}")]
     public async Task<IActionResult> View([FromRoute] Guid id)
     {
         var result = await _service.ViewAsync(id);
         return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
     }
-    
+
     [HttpGet("liked/{id}")]
     public async Task<IActionResult> GetLiked([FromRoute] Guid id)
     {

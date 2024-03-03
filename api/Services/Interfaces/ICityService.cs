@@ -5,5 +5,4 @@ namespace Services.Interfaces;
 
 public interface ICityService : IBaseService<City, CityBaseDto>
 {
-    
 }

@@ -24,14 +24,14 @@ public class ImageController : ControllerBase
         var result = await _service.UploadAsync(param);
         return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
     }
-    
+
     [HttpGet("{id}")]
     public async Task<IActionResult> GetImage(string id)
     {
         var result = await _service.GetImageAsync(id);
         return result.IsSuccess ? result.Value : NotFound(result.Message);
     }
-    
+
     [HttpDelete("{id}")]
     [CustomCheckAccess("manage-image")]
     public async Task<IActionResult> Delete(Guid id)

@@ -14,7 +14,7 @@ public class JwtBearerOptionsSetup : IConfigureNamedOptions<JwtBearerOptions>
     {
         _jwtOptions = jwtOptions.Value;
     }
-    
+
     public void Configure(string? name, JwtBearerOptions options)
     {
         options.TokenValidationParameters = new()

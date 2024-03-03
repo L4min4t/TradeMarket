@@ -20,7 +20,7 @@ public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
         Repository = repository;
         Mapper = mapper;
     }
-    
+
     public virtual async Task<Result<List<TEntity>?>> FindAllAsync()
     {
         try
@@ -35,9 +35,7 @@ public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
         }
         catch (Exception ex)
         {
-            return Result.Fail<List<TEntity>?>(
-                $"Service.FindAllAsync ({typeof(TEntity).Name}\n An exception occurred: {ex.Message}"
-            );
+            return Result.Fail<List<TEntity>?>("BaseService Server Fail!");
         }
     }
 
@@ -48,15 +46,14 @@ public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
             var entity = await Repository.FindByIdAsync(id);
             if (entity == null)
             {
-                return Result.Fail<TEntity?>($"{typeof(TEntity).Name} with id {id} not found.");
+                return Result.Fail<TEntity?>($"{typeof(TEntity).Name} not found.");
             }
+
             return Result.Ok<TEntity?>(entity);
         }
         catch (Exception ex)
         {
-            return Result.Fail<TEntity?>(
-                $"Service.FindById ({typeof(TEntity).Name}:{id})\n An exception occurred: {ex.Message}"
-            );
+            return Result.Fail<TEntity?>("BaseService Server Fail!");
         }
     }
 
@@ -74,51 +71,43 @@ public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
         }
         catch (Exception ex)
         {
-            return Result.Fail<List<TEntity>?>(
-                $"Service.FindByConditionAsync ({typeof(TEntity).Name})\nAn exception occurred: {ex.Message}"
-            );
+            return Result.Fail<List<TEntity>?>("BaseService Server Fail!");
         }
-
     }
 
-    public virtual async Task<Result<TEntity>> CreateAsync(TDto dto)
+    public virtual async Task<Result> CreateAsync(TDto dto)
     {
         try
         {
             var entity = new TEntity();
             Mapper.Map(dto, entity);
             dto.Id = entity.Id;
-            
+
             await Repository.CreateAsync(entity);
-            
-            return Result.Ok<TEntity>(await Repository.FindByIdAsync(entity.Id));
+
+            return Result.Ok();
         }
         catch (Exception ex)
         {
-            return Result.Fail<TEntity>(
-                $"Service.CreateAsync ({typeof(TEntity).Name}:{dto.Id.ToString()})\n" +
-                $"An exception occurred: {ex.Message}"
-            );
+            return Result.Fail("BaseService Server Fail!");
         }
     }
 
-    public virtual async Task<Result<TEntity>> UpdateAsync(TDto dto)
+    public virtual async Task<Result> UpdateAsync(TDto dto)
     {
         try
         {
             var entity = await Repository.FindByIdAsync(dto.Id);
-            
+
             Mapper.Map(dto, entity);
-            
+
             await Repository.UpdateAsync(entity);
-            
-            return Result.Ok<TEntity>(await Repository.FindByIdAsync(entity.Id));
+
+            return Result.Ok();
         }
         catch (Exception ex)
         {
-            return Result.Fail<TEntity>(
-                $"Service.UpdateAsync ({typeof(TEntity).Name}:{dto.Id.ToString()})\n" +
-                $"An exception occurred: {ex.Message}");
+            return Result.Fail<TEntity>("BaseService Server Fail!");
         }
     }
 
@@ -130,19 +119,16 @@ public class BaseService<TEntity, TDto> : IBaseService<TEntity, TDto>
             if (entity != null)
             {
                 await Repository.DeleteAsync(entity);
-                return Result.Ok($"({typeof(TEntity).Name}:{entity.Id.ToString()}) deleted successfully.");  
-            } else
-            {
-                return Result.Fail($"Service.DeleteAsync ({typeof(TEntity).Name}:{id.ToString()}) not found.");
+                return Result.Ok();
             }
-            
+            else
+            {
+                return Result.Fail($"{typeof(TEntity).Name} not found!");
+            }
         }
         catch (Exception ex)
         {
-            return Result.Fail(
-                $"Service.DeleteAsync ({typeof(TEntity).Name}:{id.ToString()})\n" +
-                $"An exception occurred: {ex.Message}"
-            );
+            return Result.Fail("BaseService Server Fail!");
         }
     }
 }

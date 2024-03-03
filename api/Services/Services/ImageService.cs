@@ -10,7 +10,7 @@ namespace Services.Services;
 
 public class ImageService : IImageService
 {
-    public async Task<Result<bool>> UploadAsync(UploadImageModel model)
+    public async Task<Result> UploadAsync(UploadImageModel model)
     {
         try
         {
@@ -18,48 +18,40 @@ public class ImageService : IImageService
             {
                 if (!model.ImageFile.ContentType.StartsWith("image/"))
                 {
-                    return Result.Fail<bool>(
-                        $"ImageService.UploadAsync ({model.GetType().Name}:{model.Id.ToString()})\n" +
-                        $"Invalid image file"
-                    );
+                    return Result.Fail("Invalid image file!");
                 }
-            
+
                 using (var inputStream = model.ImageFile.OpenReadStream())
                 using (var originalImage = Image.FromStream(inputStream))
                 {
                     var jpegFileName = model.Id + ".jpg";
                     var jpegFilePath = Path.Combine("wwwroot/images", jpegFileName);
-                    
+
                     using (var bitmapWithWhiteBg = new Bitmap(originalImage.Width, originalImage.Height))
                     {
                         using (var graphics = Graphics.FromImage(bitmapWithWhiteBg))
                         {
                             graphics.Clear(Color.SlateGray);
-                            graphics.DrawImage(originalImage, 
+                            graphics.DrawImage(originalImage,
                                 new Rectangle(0, 0, originalImage.Width, originalImage.Height));
                         }
 
                         bitmapWithWhiteBg.Save(jpegFilePath, ImageFormat.Jpeg);
                     }
-                    return Result.Ok(true, $"/images/{jpegFileName}");
-                }
 
+                    return Result.Ok();
+                }
             }
-            return Result.Fail<bool>(
-                $"ImageService.UploadAsync ({model.GetType().Name}:{model.Id.ToString()})\n" +
-                $"Invalid image file"
-            );
+
+            return Result.Fail("Invalid image file!");
         }
         catch (Exception ex)
         {
-            return Result.Fail<bool>(
-                $"ImageService.UploadAsync ({model.GetType().Name}:{model.Id.ToString()})\n" +
-                $"An exception occurred: {ex.Message}"
-            );
+            return Result.Fail("ImageService Server Fail!");
         }
     }
-    
-    
+
+
     public async Task<Result<FileStreamResult>> GetImageAsync(string id)
     {
         try
@@ -75,6 +67,7 @@ public class ImageService : IImageService
                 {
                     await stream.CopyToAsync(memory);
                 }
+
                 memory.Position = 0;
 
                 var fileStreamResult = new FileStreamResult(memory, "image/jpeg")
@@ -82,20 +75,18 @@ public class ImageService : IImageService
                     FileDownloadName = fileName
                 };
 
-                return Result.Ok(fileStreamResult, $"{filePath} image received.");
+                return Result.Ok(fileStreamResult);
             }
-            return Result.Fail<FileStreamResult>($"ImageService.GetImageAsync {fileName} not found.");
+
+            return Result.Fail<FileStreamResult>($"Image not found");
         }
         catch (Exception ex)
         {
-            return Result.Fail<FileStreamResult>(
-                $"ImageService.GetImageAsync ({id})\n" +
-                $"An exception occurred: {ex.Message}"
-            );
+            return Result.Fail<FileStreamResult>("ImageService Server Fail!");
         }
     }
-    
-    public async Task<Result<bool>> DeleteImageAsync(Guid id)
+
+    public async Task<Result> DeleteImageAsync(Guid id)
     {
         try
         {
@@ -105,19 +96,16 @@ public class ImageService : IImageService
             if (System.IO.File.Exists(filePath))
             {
                 System.IO.File.Delete(filePath);
-                return Result.Ok(true, $"{filePath} image deleted successfully.");
+                return Result.Ok();
             }
             else
             {
-                return Result.Fail<bool>($"ImageService.DeleteImageAsync {fileName} not found.");
+                return Result.Fail($"Image not found.");
             }
         }
         catch (Exception ex)
         {
-            return Result.Fail<bool>(
-                $"ImageService.DeleteImageAsync ({id})\n" +
-                $"An exception occurred: {ex.Message}"
-            );
+            return Result.Fail("ImageService Server Fail!");
         }
     }
 }

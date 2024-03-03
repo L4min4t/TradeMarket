@@ -9,20 +9,19 @@ public abstract class BaseRepository<T> : IBaseRepository<T> where T : class
 {
     protected readonly DbContext Context;
     protected readonly DbSet<T> DbSet;
-    
-    public BaseRepository(ApplicationContext context) 
+
+    public BaseRepository(ApplicationContext context)
     {
         Context = context;
         DbSet = context.Set<T>();
     }
-    
+
     public virtual async Task<List<T>?> FindAllAsync() => await DbSet.ToListAsync();
 
     public virtual async Task<T?> FindByIdAsync(Guid id) => await DbSet.FindAsync(id);
-   
 
 
-    public virtual async Task<List<T>?> FindByConditionAsync(Expression<Func<T, bool>> expression) => 
+    public virtual async Task<List<T>?> FindByConditionAsync(Expression<Func<T, bool>> expression) =>
         await DbSet.AsNoTracking().Where(expression).ToListAsync();
 
     public virtual async Task CreateAsync(T entity)

@@ -37,7 +37,7 @@ public class CityController : ControllerBase
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         var result = await _service.DeleteAsync(id);
-        return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
+        return result.IsSuccess ? Ok("Success!") : NotFound(result.Message);
     }
 
     [HttpPost]
@@ -45,14 +45,14 @@ public class CityController : ControllerBase
     public async Task<IActionResult> Create([FromBody] CityCreateDto param)
     {
         var result = await _service.CreateAsync(param);
-        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
+        return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
     }
-    
+
     [HttpPut]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update([FromBody] CityUpdateDto param)
     {
         var result = await _service.UpdateAsync(param);
-        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
+        return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
     }
 }

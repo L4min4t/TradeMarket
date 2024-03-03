@@ -25,16 +25,17 @@ public class CustomCheckAccessAttribute : ActionFilterAttribute
 
     public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        if (!context.HttpContext.User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).Contains("Admin"))
+        if (!context.HttpContext.User.Claims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value)
+                .Contains("Admin"))
         {
             _posterRepository = context.HttpContext.RequestServices.GetService<IPosterRepository>();
             _userRepository = context.HttpContext.RequestServices.GetService<IUserRepository>();
-            
+
             var result = await CheckUserPermission(context, RequiredPermission);
 
-            if (result.IsFailure) 
+            if (result.IsFailure)
                 context.Result = new ObjectResult(result.Message) { StatusCode = StatusCodes.Status403Forbidden };
-            else  await next();
+            else await next();
         }
         else await next();
     }
@@ -45,7 +46,6 @@ public class CustomCheckAccessAttribute : ActionFilterAttribute
         var currentUserId = context.HttpContext.User.FindFirst("uid")?.Value;
         return permission switch
         {
-            "manage-password" => await CheckPasswordAccess(context),
             "manage-image" => await CheckImageAccess(context, currentUserId),
             "manage-poster" => await CheckPosterAccess(context, currentUserId),
             "manage-user" => await CheckUserAccess(context, currentUserId),
@@ -55,8 +55,8 @@ public class CustomCheckAccessAttribute : ActionFilterAttribute
 
     private async Task<Result> CheckPosterAccess(ActionExecutingContext context, string? currentUserId)
     {
-        if (context.RouteData.Values.TryGetValue("id", out var idValue) && Guid.TryParse(idValue.ToString(), out 
-            Guid id))
+        if (context.RouteData.Values.TryGetValue("id", out var idValue) && Guid.TryParse(idValue.ToString(), out
+                Guid id))
             return await CheckPosterAccessHelper(context, id, currentUserId);
         else if (context.ActionArguments.TryGetValue("param", out var model) &&
                  model is PosterUpdateDto posterUpdateDto)
@@ -76,28 +76,16 @@ public class CustomCheckAccessAttribute : ActionFilterAttribute
                 : Result.Fail("User does not have permission to manage this poster.");
         return Result.Fail("Poster does not exist.");
     }
-    
-    private async Task<Result> CheckPasswordAccess(ActionExecutingContext context)
-    {
-        var currentEmail = context.HttpContext.User.FindFirstValue(ClaimTypes.Email);
-        if (context.ActionArguments.TryGetValue("param", out var value) && value is ChangePasswordModel model)
-                    
-            return currentEmail.Equals(model.Email)
-                ? Result.Ok()
-                : Result.Fail("User can change only own password.");
-                
-        return Result.Fail("CustomCheckAccessAttribute: ChangePasswordModel object isn't valid."); 
-    }
-    
+
     private async Task<Result> CheckUserAccess(ActionExecutingContext context, string? currentUserId)
     {
-        if (context.RouteData.Values.TryGetValue("id", out var idValue) && Guid.TryParse(idValue.ToString(), out 
+        if (context.RouteData.Values.TryGetValue("id", out var idValue) && Guid.TryParse(idValue.ToString(), out
                 Guid id))
             return await CheckUserAccessHelper(context, id, currentUserId);
         else if (context.ActionArguments.TryGetValue("param", out var model) &&
-                 model is UserUpdateDto userUpdateDto) 
+                 model is UserUpdateDto userUpdateDto)
             return await CheckUserAccessHelper(context, userUpdateDto.Id, currentUserId);
-        
+
         return Result.Fail("CustomCheckAccessAttribute: Unable to parse user ID from the request.");
     }
 
@@ -107,26 +95,28 @@ public class CustomCheckAccessAttribute : ActionFilterAttribute
             ? Result.Ok()
             : Result.Fail("User does not have permission to manage this user.");
     }
-    
+
     private async Task<Result> CheckImageAccess(ActionExecutingContext context, string? currentUserId)
     {
-        if (context.RouteData.Values.TryGetValue("id", out var idValue) && Guid.TryParse(idValue.ToString(), out Guid id))
+        if (context.RouteData.Values.TryGetValue("id", out var idValue) &&
+            Guid.TryParse(idValue.ToString(), out Guid id))
         {
             var posters = await _posterRepository.FindByConditionAsync(p => p.ImageId == id.ToString());
             var users = await _userRepository.FindByConditionAsync(u => u.AvatarId == id.ToString());
-                    
+
             if (posters.Any())
                 return posters.FirstOrDefault().CreatorId.ToString() == currentUserId
                     ? Result.Ok()
                     : Result.Fail("User does not have permission to delete this image.");
-                    
+
             else if (users.Any())
                 return users.FirstOrDefault().Id.ToString() == currentUserId
                     ? Result.Ok()
                     : Result.Fail("User does not have permission to delete this image.");
-                    
+
             else return Result.Fail("Image does not exist.");
         }
+
         return Result.Fail("CustomCheckAccessAttribute: Unable to parse image ID from the request.");
     }
 }

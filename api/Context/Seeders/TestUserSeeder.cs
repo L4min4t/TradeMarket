@@ -26,7 +26,7 @@ public class TestUserSeeder
                 {
                     await userManager.AddToRoleAsync(user, roleName);
                 }
-            
+
                 if (user is not null)
                 {
                     if (applicationContext.Users.FirstOrDefault(u => user.Id == u.IdentityId) is null)

@@ -4,6 +4,7 @@ using Entities.Models.Application;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.OpenApi.Models;
 using Repositories.Interfaces;
 using Repositories.Repositories;
@@ -13,6 +14,16 @@ using Services.Services;
 using TradeMarket.OptionsSetup;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", builder =>
+    {
+        builder.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
 
 builder.Services.AddDbContext<IdentityContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection")));
@@ -90,6 +101,8 @@ builder.Services.AddSwaggerGen(opt =>
 
 var app = builder.Build();
 
+app.UseCors("AllowAll");
+
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
@@ -101,12 +114,12 @@ using (var scope = app.Services.CreateScope())
     {
         applicationContext.Database.Migrate();
     }
-    
+
     if ((await identityContext.Database.GetPendingMigrationsAsync()).Any())
     {
         await identityContext.Database.MigrateAsync();
     }
-    
+
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
     var userManager = services.GetRequiredService<UserManager<AuthUser>>();
 
@@ -115,16 +128,21 @@ using (var scope = app.Services.CreateScope())
     await TestUserSeeder.SeedTestUserAsync(applicationContext, userManager);
 }
 
+
 app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
 
-app.UseAuthentication(); 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-app.UseStaticFiles();
+app.UseStaticFiles(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images")),
+    RequestPath = "/Images"
+});
 
 app.Run();

@@ -12,7 +12,7 @@ public class Poster : IEntity
     public decimal Price { get; set; } = -1;
     public bool IsSharing { get; set; } = false;
     public bool IsNew { get; set; } = true;
-    
+
     public string? ImageId { get; set; }
 
     public bool IsActive { get; set; } = true;
@@ -20,14 +20,14 @@ public class Poster : IEntity
 
     public Guid CreatorId { get; set; }
     public User Creator { get; set; } = null!;
-    
+
     public DateTime CreatedAt { get; set; } = DateTime.Now;
     public DateTime? PublishedAt { get; set; }
 
     public uint NumberViewed { get; set; } = 0;
     public uint NumberLiked { get; set; } = 0;
-    
+
     public Category Category { get; set; }
-    
-    public List<UserLikedPoster>? Users { get; set; }
+
+    public ICollection<UserLikedPoster> LikedByUsers { get; set; } = new List<UserLikedPoster>();
 }

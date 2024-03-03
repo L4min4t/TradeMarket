@@ -6,3 +6,8 @@ FileContentIndex/
 DesignTimeBuild/
 ProjectEvaluation/
 api/.vs/api/config/applicationhost.config
+.vscode/settings.json
+.vscode/extensions.json
+web/.env
+web/.env
+*.7z

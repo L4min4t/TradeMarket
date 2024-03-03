@@ -39,7 +39,7 @@ public class UserController : ControllerBase
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         var result = await _service.DeleteAsync(id);
-        return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
+        return result.IsSuccess ? Ok("Success!") : NotFound(result.Message);
     }
 
     [HttpPut]
@@ -47,6 +47,6 @@ public class UserController : ControllerBase
     public async Task<IActionResult> Update([FromBody] UserUpdateDto param)
     {
         var result = await _service.UpdateAsync(param);
-        return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);
+        return result.IsSuccess ? Ok("Success!") : NotFound(result.Message);
     }
 }

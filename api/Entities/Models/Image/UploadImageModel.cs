@@ -2,6 +2,7 @@
 using Entities.Models.Application;
 
 namespace Entities.Dtos.Image;
+
 using Microsoft.AspNetCore.Http;
 
 public class UploadImageModel : IEntity

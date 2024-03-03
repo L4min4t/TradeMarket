@@ -34,39 +34,46 @@ public class PosterController : ControllerBase
         return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);
     }
 
+    [HttpGet("user")]
+    public async Task<IActionResult> GetUserPosters()
+    {
+        var result = await _service.GetUserPosters();
+        return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);
+    }
+
     [HttpDelete("{id}")]
     [CustomCheckAccess("manage-poster")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         var result = await _service.DeleteAsync(id);
-        return result.IsSuccess ? Ok(result.Message) : NotFound(result.Message);
+        return result.IsSuccess ? Ok("Success!") : NotFound(result.Message);
     }
-    
+
     [HttpPut]
     [CustomCheckAccess("manage-poster")]
     public async Task<IActionResult> Update([FromBody] PosterUpdateDto param)
     {
         var result = await _service.UpdateAsync(param);
-        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
+        return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
     }
-    
+
     [HttpPut("change-status")]
     [CustomCheckAccess("manage-poster")]
     public async Task<IActionResult> ChangeStatus([FromBody] ActivateDeactivatePosterModel param)
     {
         var result = await _service.ChangeStatusAsync(param);
-        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
+        return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
     }
 
     [HttpPost]
     public async Task<IActionResult> Create([FromBody] PosterCreateDto param)
     {
         var result = await _service.CreateAsync(param);
-        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
+        return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
     }
 
     [HttpGet("published")]
-    public async Task<IActionResult> GetPubliched()
+    public async Task<IActionResult> GetPublished()
     {
         var result = await _service.FindByConditionAsync(p => p.IsActive == true && p.IsModerated == true);
         return result.IsSuccess ? Ok(result.Value) : NotFound(result.Message);
@@ -83,16 +90,29 @@ public class PosterController : ControllerBase
     [HttpPut("moderate")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Moderate([FromBody] ModeratePosterModel param)
-
     {
         var result = await _service.ModerateAsync(param);
-        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
+        return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
     }
 
-    [HttpPut("like")]
-    public async Task<IActionResult> Like([FromBody] LikePosterModel param)
+    [HttpPut("like/{id}")]
+    public async Task<IActionResult> Like([FromRoute] Guid id)
     {
-        var result = await _service.LikeAsync(param);
-        return result.IsSuccess ? Ok(result.Message) : BadRequest(result.Message);
+        var result = await _service.LikeAsync(id);
+        return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
+    }
+
+    [HttpPut("view/{id}")]
+    public async Task<IActionResult> View([FromRoute] Guid id)
+    {
+        var result = await _service.ViewAsync(id);
+        return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
+    }
+
+    [HttpGet("liked/{id}")]
+    public async Task<IActionResult> GetLiked([FromRoute] Guid id)
+    {
+        var result = await _service.GetLikedAsync();
+        return result.IsSuccess ? Ok(result.Value) : BadRequest(result.Message);
     }
 }

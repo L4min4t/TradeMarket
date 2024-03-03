@@ -21,7 +21,7 @@ public class AuthController : ControllerBase
     public async Task<IActionResult> Register([FromBody] RegisterModel param)
     {
         var result = await _service.RegisterUserAsync(param);
-        return result.IsSuccess ? Ok(new {param.Email, param.Password}) : BadRequest(result.Message);
+        return result.IsSuccess ? Ok("Success!") : BadRequest(result.Message);
     }
 
     [HttpPost("[action]")]
@@ -33,7 +33,6 @@ public class AuthController : ControllerBase
 
     [HttpPost("change-password")]
     [Authorize]
-    [CustomCheckAccess("manage-password")]
     public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordModel param)
     {
         var result = await _service.ChangePasswordAsync(param);

@@ -24,7 +24,7 @@ public class CitySeeder
                 cities.Add(city);
             }
         }
-        
+
         if (cities.Any())
         {
             foreach (var city in cities)

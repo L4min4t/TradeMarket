@@ -45,7 +45,7 @@ namespace Context.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Cities", (string)null);
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("Entities.Models.Application.Poster", b =>
@@ -104,7 +104,7 @@ namespace Context.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("Posters", (string)null);
+                    b.ToTable("Posters");
                 });
 
             modelBuilder.Entity("Entities.Models.Application.User", b =>
@@ -146,7 +146,7 @@ namespace Context.Migrations
 
                     b.HasIndex("CityId");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Entities.Models.Application.UserLikedPoster", b =>
@@ -161,7 +161,7 @@ namespace Context.Migrations
 
                     b.HasIndex("PosterId");
 
-                    b.ToTable("LikedPosters", (string)null);
+                    b.ToTable("LikedPosters");
                 });
 
             modelBuilder.Entity("Entities.Models.Application.Poster", b =>
@@ -188,15 +188,15 @@ namespace Context.Migrations
             modelBuilder.Entity("Entities.Models.Application.UserLikedPoster", b =>
                 {
                     b.HasOne("Entities.Models.Application.Poster", "Poster")
-                        .WithMany("Users")
+                        .WithMany("LikedByUsers")
                         .HasForeignKey("PosterId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Entities.Models.Application.User", "User")
                         .WithMany("LikedPosters")
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Poster");
@@ -211,7 +211,7 @@ namespace Context.Migrations
 
             modelBuilder.Entity("Entities.Models.Application.Poster", b =>
                 {
-                    b.Navigation("Users");
+                    b.Navigation("LikedByUsers");
                 });
 
             modelBuilder.Entity("Entities.Models.Application.User", b =>

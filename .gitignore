@@ -11,3 +11,4 @@ api/.vs/api/config/applicationhost.config
 web/.env
 web/.env
 *.7z
+/.vs

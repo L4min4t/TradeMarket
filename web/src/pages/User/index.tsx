@@ -16,7 +16,10 @@ const UserPage = () => {
             if (user) {
                 const result = await getUser(jwtTokens!.accessToken, user!.id);
                 if (result) setUserInfo(result as User);
-                else toast.error("Failed loading user information!");
+                else {
+                    toast.error("Failed loading user information!");
+                    navigate("/login");
+                }
             } else {
                 toast.error("Invalid logged-in user!");
                 navigate("/login");

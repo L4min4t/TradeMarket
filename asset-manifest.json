@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/L4min4t.github.io/TradeMarket/static/css/main.f029a054.css",
-    "main.js": "/L4min4t.github.io/TradeMarket/static/js/main.0a0b5b38.js",
+    "main.js": "/L4min4t.github.io/TradeMarket/static/js/main.99557dd2.js",
     "index.html": "/L4min4t.github.io/TradeMarket/index.html",
     "main.f029a054.css.map": "/L4min4t.github.io/TradeMarket/static/css/main.f029a054.css.map",
-    "main.0a0b5b38.js.map": "/L4min4t.github.io/TradeMarket/static/js/main.0a0b5b38.js.map"
+    "main.99557dd2.js.map": "/L4min4t.github.io/TradeMarket/static/js/main.99557dd2.js.map"
   },
   "entrypoints": [
     "static/css/main.f029a054.css",
-    "static/js/main.0a0b5b38.js"
+    "static/js/main.99557dd2.js"
   ]
 }

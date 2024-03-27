@@ -35,9 +35,13 @@ const ShortUserInfo = ({id}: ShortUserInfoProps) => {
 
                 <ColumnContainer>
                     <Name>{user.name}</Name>
-                    <City>
-                        <CustomIcon src={"spot.png"} width="18px"/> {user.city.name}, {user.city.region}
-                    </City>
+                    {
+                        user.city &&
+                        <City>
+                            <CustomIcon src={"spot.png"} width="18px"/> {user.city.name}, {user.city.region}
+                        </City>
+                    }
+                    
                     {user.phone && <ContactContainer>
                         <CustomIcon src={"phone.png"} height="22px"/>
                         <Contact href={`tel:${user.phone}`}>{user.phone}</Contact>

@@ -1,9 +1,13 @@
-﻿using System.Drawing;
-using Entities.Dtos.Image;
+﻿using Entities.Dtos.Image;
 using Services.Interfaces;
 using System.Drawing.Imaging;
 using TradeMarket.Models.ResultPattern;
 using Microsoft.AspNetCore.Mvc;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using System.IO;
+using System.Threading.Tasks;
 
 
 namespace Services.Services;
@@ -22,21 +26,22 @@ public class ImageService : IImageService
                 }
 
                 using (var inputStream = model.ImageFile.OpenReadStream())
-                using (var originalImage = Image.FromStream(inputStream))
                 {
                     var jpegFileName = model.Id + ".jpg";
                     var jpegFilePath = Path.Combine("wwwroot/images", jpegFileName);
 
-                    using (var bitmapWithWhiteBg = new Bitmap(originalImage.Width, originalImage.Height))
+                    // Load and process the image with ImageSharp
+                    using (var image = Image.Load(inputStream))
                     {
-                        using (var graphics = Graphics.FromImage(bitmapWithWhiteBg))
-                        {
-                            graphics.Clear(Color.SlateGray);
-                            graphics.DrawImage(originalImage,
-                                new Rectangle(0, 0, originalImage.Width, originalImage.Height));
-                        }
+                        // Resize the image as needed or apply other transformations
+                        // For example, if you need to ensure a specific width and height, you could do:
+                        // image.Mutate(x => x.Resize(newWidth, newHeight));
 
-                        bitmapWithWhiteBg.Save(jpegFilePath, ImageFormat.Jpeg);
+                        // If you just want to save the image without modifications but ensuring it has a white background:
+                        // Note: This step might not be necessary if you don't need to transform the image.
+                        // image.Mutate(x => x.BackgroundColor(Color.SlateGray));
+
+                        await image.SaveAsJpegAsync(jpegFilePath);
                     }
 
                     return Result.Ok();

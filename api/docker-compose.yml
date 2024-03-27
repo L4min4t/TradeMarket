@@ -8,3 +8,8 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8188:80"
+    volumes:
+      - trade-market-images:/app/wwwroot/images
+
+volumes:
+  trade-market-images:

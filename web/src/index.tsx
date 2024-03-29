@@ -23,7 +23,7 @@ const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
-    <BrowserRouter>
+    <HashRouter>
         <Routes>
             <Route path="/" element={<App/>}>
                 <Route path="/login" element={<LoginPage/>}/>
@@ -44,5 +44,5 @@ root.render(
                 <Route path="*" element={<NotFound/>}/>
             </Route>
         </Routes>
-    </BrowserRouter>
+    </HashRouter>
 );

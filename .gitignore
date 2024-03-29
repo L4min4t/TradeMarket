@@ -12,3 +12,4 @@ web/.env
 web/.env
 *.7z
 /.vs
+api/TradeMarket/logs20240329.txt

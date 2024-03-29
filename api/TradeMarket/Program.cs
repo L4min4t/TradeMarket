@@ -1,4 +1,5 @@
 using Context.Context;
+using Serilog;
 using Context.Seeders;
 using Entities.Models.Application;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -13,7 +14,15 @@ using Services.MappingProfiles;
 using Services.Services;
 using TradeMarket.OptionsSetup;
 
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.Console()
+    .WriteTo.File("logs.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog();
 
 builder.Services.AddCors(options =>
 {
@@ -103,30 +112,30 @@ var app = builder.Build();
 
 app.UseCors("AllowAll");
 
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-
-    var applicationContext = services.GetRequiredService<ApplicationContext>();
-    var identityContext = services.GetRequiredService<IdentityContext>();
-
-    if ((await applicationContext.Database.GetPendingMigrationsAsync()).Any())
-    {
-        applicationContext.Database.Migrate();
-    }
-
-    if ((await identityContext.Database.GetPendingMigrationsAsync()).Any())
-    {
-        await identityContext.Database.MigrateAsync();
-    }
-
-    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-    var userManager = services.GetRequiredService<UserManager<AuthUser>>();
-
-    await CitySeeder.Seed(applicationContext);
-    await RolesSeeder.SeedRolesAsync(roleManager);
-    await TestUserSeeder.SeedTestUserAsync(applicationContext, userManager);
-}
+// using (var scope = app.Services.CreateScope())
+// {
+//     var services = scope.ServiceProvider;
+//
+//     var applicationContext = services.GetRequiredService<ApplicationContext>();
+//     var identityContext = services.GetRequiredService<IdentityContext>();
+//
+//     if ((await applicationContext.Database.GetPendingMigrationsAsync()).Any())
+//     {
+//         applicationContext.Database.Migrate();
+//     }
+//
+//     if ((await identityContext.Database.GetPendingMigrationsAsync()).Any())
+//     {
+//         await identityContext.Database.MigrateAsync();
+//     }
+//
+//     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+//     var userManager = services.GetRequiredService<UserManager<AuthUser>>();
+//
+//     await CitySeeder.Seed(applicationContext);
+//     await RolesSeeder.SeedRolesAsync(roleManager);
+//     await TestUserSeeder.SeedTestUserAsync(applicationContext, userManager);
+// }
 
 
 app.UseSwagger();
@@ -146,3 +155,18 @@ app.UseStaticFiles(new StaticFileOptions
 });
 
 app.Run();
+
+
+try
+{
+    Log.Information("Starting web host");
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Host terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
